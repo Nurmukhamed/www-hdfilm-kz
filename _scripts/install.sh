@@ -16,5 +16,5 @@ openssl aes-256-cbc -K $encrypted_26b4962af0e7_key -iv $encrypted_26b4962af0e7_i
 chmod 600 _config.yml
 rm _config.yml.enc
 
-
+gem install bundler
 
