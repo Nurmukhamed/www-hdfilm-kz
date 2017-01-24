@@ -101,7 +101,7 @@ deploy_default = "lftp"
 desc "Deploy website via LFTP"
 task :lftp do
   puts "## Deploying website via LFTP"
-  ok_failed system("lftp -e 'mirror -R --ignore-time --delete -v #{public_dir} #{ftp_target}; bye' -u #{ftp_user},#{ftp_password} #{ftp_server}")
+  ok_failed system("lftp -e 'set ssl:verify-certificate false; mirror -R --ignore-time --delete -v #{public_dir} #{ftp_target}; bye' -u #{ftp_user},#{ftp_password} #{ftp_server}")
 end
 {% endhighlight %}
 
