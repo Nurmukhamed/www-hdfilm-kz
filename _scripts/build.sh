@@ -3,6 +3,6 @@
 set -x
 
 # build Octopress 
-bundle exec rake build
+bundle exec rake generate
 
 
