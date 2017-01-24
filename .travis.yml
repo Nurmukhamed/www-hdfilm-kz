@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - lftp
+      - tree
 before_install:
 - bash _scripts/install.sh
 script:
