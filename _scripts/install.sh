@@ -1,8 +1,4 @@
 #!/bin/bash
-set -x
-
-# Let's see what files inside travis home
-tree
 
 # Encrypt archive and extract archive
 openssl aes-256-cbc -K $encrypted_26b4962af0e7_key -iv $encrypted_26b4962af0e7_iv -in encryptedfiles.tar.enc -out encryptedfiles.tar -d
