@@ -18,5 +18,3 @@ chmod 600 _config.yml
 
 
 gem install bundler
-
-cat Rakefile | grep ftp
