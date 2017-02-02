@@ -8,6 +8,7 @@ categories:
   - cgroups
   - firefox
 published: true
+title: Как ограничить потребление памяти браузером Mozilla Firefox в Fedora 25
 ---
 
 ## Ограничить потребление памяти для Mozilla Firefox в Fedora 25
