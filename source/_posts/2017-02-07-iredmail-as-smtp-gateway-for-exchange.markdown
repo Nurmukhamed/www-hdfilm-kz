@@ -13,7 +13,6 @@ categories:
 - spf
 ---
 
-# Установка Iredmail-почтового сервера как шлюз перед Exchange
 
 Опишу здесь свой опыт настройки  Iredmail для работы с Exchange <!--more-->
 
