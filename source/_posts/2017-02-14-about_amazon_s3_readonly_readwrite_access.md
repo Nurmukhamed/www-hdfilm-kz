@@ -76,3 +76,57 @@ categories:
 }
 
 {% endhighlight %}
+
+### Inline-политика на чтение
+
+{% highlight bash %}
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GetAccessToBucket",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::backup.test"
+        },
+        {
+            "Sid": "ReadWriteAccessToBuckets",
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion",
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetObjectVersion",
+                "s3:GetObjectVersionAcl",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:PutObjectVersionAcl"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::backup.test/*"
+        },
+        {
+            "Sid": "ListAllBuckets",
+            "Action": [
+                "s3:ListAllMyBuckets"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::*"
+        }
+    ]
+}
+
+{% endhighlight %}
+
+## Пример №2 - одна корзина, отдельные пользователи
+
+[Данная статья](https://aws.amazon.com/ru/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/) описывает как разграничить доступ различных пользователей внутри одной корзины.
+Чтобы было также как в SAMBE, при включенной опции homes, где у каждого пользователя будет своя папка внутри шары, куда не имеют доступ другие пользователи.
+
+
+
