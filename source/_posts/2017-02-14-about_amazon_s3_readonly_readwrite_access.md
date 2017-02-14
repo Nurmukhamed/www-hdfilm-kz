@@ -38,3 +38,41 @@ categories:
 
 ### Inline-политика на чтение
 
+{% highlight bash %}
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "GetAccessToBucket",
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::backup.test"
+        },
+        {
+            "Sid": "ListAllBuckets",
+            "Action": [
+                "s3:ListAllMyBuckets"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Sid": "ReadOnlyAccessToBuckets",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetObjectVersion",
+                "s3:GetObjectVersionAcl"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::backup.test/*"
+        }
+    ]
+}
+
+{% endhighlight %}
