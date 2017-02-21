@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cisco - учимся писать dialplan, dialpeer"
+title: "Cisco VOIP - учимся писать dialplan, dialpeer"
 date: 2017-02-21 12:30:30 +0600
 comments: true
 published: true
@@ -69,6 +69,7 @@ categories:
 
 
 ****Решение:****
+
 - Использовать трансляцию номеров при входящем звонке на каждом е1-потоке:
 	- Казахтелеком – добавить 11111 к набранному номеру;
 	- Avaya – добавить 22222 к набранному номеру;
