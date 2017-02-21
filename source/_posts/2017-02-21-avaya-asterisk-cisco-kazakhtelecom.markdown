@@ -3,7 +3,7 @@ layout: post
 title: "Cisco - учимся писать dialplan, dialpeer"
 date: 2017-02-21 12:30:30 +0600
 comments: true
-published: false
+published: true
 categories: 
 - cisco
 - avaya defenity
@@ -75,6 +75,13 @@ categories:
 - Использовать трансляцию номеров при исходящем звонке на каждом е1-потоке:
 	- Казахтелеком – отнять 33333 с набранного номера;
 	- Avaya – отнять 44444 с набранного номера;
-- Использовать incoming called-number для входящего dial-peer;
+- Использовать "incoming called-number" для входящего dial-peer;
+	- 252525, чтобы найти звонок с Е1-потока, передать дальше в Астериск;
+    - 363636, чтобы найти звонок с Е1-потока, передать дальше в Аваю;
+    - 12ХХ, 
+    
+В визио составил описание процесса звонка в cisco. 
 
 {% img https://s3-eu-west-1.amazonaws.com/images.hdfilm.kz/kazakhtelecom-incoming.png %}
+
+****TODO****: дописать статью
