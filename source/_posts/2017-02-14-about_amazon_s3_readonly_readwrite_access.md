@@ -1,15 +1,16 @@
 ---
 layout: post
-title: "Настройка групп на чтение, на запись в Amazon S3"
-date: 2017-02-14 12:30:30 +0600
+title: 'Настройка групп на чтение, на запись в Amazon S3'
+date: '2017-02-14 12:30:30 +0600'
 comments: true
-categories: 
-- amazon
-- amazon s3
-- amazon iam
-- bucket
-- security
-- howto
+categories:
+  - amazon
+  - amazon s3
+  - amazon iam
+  - bucket
+  - security
+  - howto
+published: true
 ---
 
 Описание моего опыта работы с Amazon S3. Создание групп "на чтение", "на запись". <!--more-->
@@ -76,7 +77,7 @@ categories:
 
 {% endhighlight %}
 
-### Inline-политика на чтение
+### Inline-политика на чтение-запись
 
 {% highlight bash %}
 {
@@ -126,6 +127,3 @@ categories:
 
 [Данная статья](https://aws.amazon.com/ru/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/) описывает как разграничить доступ различных пользователей внутри одной корзины.
 Чтобы было также как в SAMBE, при включенной опции homes, где у каждого пользователя будет своя папка внутри шары, куда не имеют доступ другие пользователи.
-
-
-
