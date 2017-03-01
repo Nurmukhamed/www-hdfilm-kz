@@ -37,16 +37,18 @@ categories:
 Алгоритм работы:
 
 - ****Домашний сервер****
+	- создает gpg-ключи;
 	- получает свой внешний ip-адрес;
 	- загружает (push) себе репозитарий с гитхаба;
-	- изменяет файл serverA.homeserver.kz (предположение);
-	- записывает в файл зашифрованный текст - ip-адрес;
+	- изменяет файл serverA.homeserver.kz - содержание файла - ip-адрес (предположение);
+	- делает коммит в репозиторий, подписывает своим gpg-ключом;
 	- выгружает (pull) репозитарий в гитхаб;
 - ****Github****
 	- получив изменения от сервера, вызывает сервис Travis-CI;
 - ****Travis-CI****
 	- запускает докер-контейнер;
 	- настраивает gpg;
+    - настраивает таблицу соответствия - имяфайла - gpg-ключ; 
     - находит измененные файлы;
     - проверяет, кто создал файл;
     - проверяет, что текст файла - только ip-адрес
@@ -57,6 +59,81 @@ categories:
 Вот от руки нарисовал как должен работать алгоритм
 
 {% img https://s3-eu-west-1.amazonaws.com/images.hdfilm.kz/dynamic_dns_yandex_github_travis_ci.jpg %}
+
+## Домашний сервер
+
+Узнал, что в git уже встроен функционал проверки коммитов через подписи gpg. Очень помогло прочтение следующих статей:
+- [Signing Git commits with GPG](https://blog.thibmaekelbergh.be/2016/11/29/signing-git-commits-with-gpg.html)
+- [Github : Signing commits using GPG (Ubuntu/Mac)](https://gist.github.com/ankurk91/c4f0e23d76ef868b139f3c28bde057fc)
+- [A Git Horror Story: Repository Integrity With Signed Commits](https://mikegerwitz.com/papers/git-horror-story)
+- [Automatic Git GPG Signing ](http://oloflarsson.se/automatic-git-gpg-signing/).
+
+****Предостережние**** - Создайте отдельного пользователя для обновления, не используйте свой gpg-ключ для обновления.
+
+{% highlight bash %}
+useradd yandex-dns-updater
+passwd yandex-dns-updater
+
+su - yandex-dns-updater
+
+# create ssh keys for github
+mkdir ~/.ssh
+chmod 700
+
+ssh-keygen -f github
+mv github github.pub ~/.ssh
+chmod 600 ~/.ssh/github*
+cat ~/.ssh/config
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github
+
+#
+# create new gpg key,
+# username main.homeserver.kz
+# email main@homeserver.kz
+#
+gpg --gen-key
+# save this file to some place, will used later
+gpg --export --armor GPGKEYID > gpgkeyid.txxt
+
+
+# setting for git 
+git config --user.name "Main.Homeserver.kz"
+git config --user.email "main@homeserver.kz"
+
+# setting for git and gpg 
+git config commit.gpgsign true
+git config --user.signingkey GPGKEYID
+git config gpg.program /home/yandex-dns-updater/autogpg.sh
+
+# gpg proxy 
+cat /home/yandex-dns-updater/autogpg.sh
+#!/bin/bash
+
+gpg --batch --no-tty --yes --passphrase GPGKEYPASSWD $@ <&0
+
+# Finally we exit with the same code as gpg.
+exit $?
+
+# create repo for updater
+mkdir github
+cd github
+git init 
+
+git remote add origin git@github.com:USERNAME/yandex-dns-api-updater.git
+
+git pull 
+
+curl -o main.txt http://myexternalip.com/raw
+
+git commit -S -m "Main.Homeserver.kz ip-address is changed at $(date)"
+
+git push -u origin master
+
+
+{% endhighlight %}
 
 ****TODO****
 
