@@ -149,6 +149,34 @@ git push -u origin master
 
 {% endhighlight %}
 
+{% highlight bash %}
+#!/usr/bin/env bash
+#
+# This is update script, cron it.
+#
+
+REPO=/PATH/TO/YOUR/GITHUB/REPOSITORY
+NAME=main
+
+cd ${REPO}
+
+# get external ip address
+curl -o ${NAME}.txt http://myexternalip.com/raw
+
+# check if file is changed
+CHANGED=$(git status --porcelain|grep ${NAME}.txt)
+
+if [ -n "${CHANGED}" ]; then
+	echo "IP address is changed, pushing new data to remote repository"
+	git add ${NAME}.txt
+	git commit -S -m "new ip-addres at $(date)"
+	git pull origin
+	git push -u origin master
+else
+	echo "IP address is not changed"
+fi
+{% endhighlight %}
+
 ****TODO****
 
 - функционал Домашнего Сервера;
