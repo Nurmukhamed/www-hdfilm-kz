@@ -63,6 +63,7 @@ categories:
 ## Домашний сервер
 
 Узнал, что в git уже встроен функционал проверки коммитов через подписи gpg. Очень помогло прочтение следующих статей:
+
 - [Signing Git commits with GPG](https://blog.thibmaekelbergh.be/2016/11/29/signing-git-commits-with-gpg.html)
 - [Github : Signing commits using GPG (Ubuntu/Mac)](https://gist.github.com/ankurk91/c4f0e23d76ef868b139f3c28bde057fc)
 - [A Git Horror Story: Repository Integrity With Signed Commits](https://mikegerwitz.com/papers/git-horror-story)
@@ -70,12 +71,15 @@ categories:
 
 ****Предостережние**** - Создайте отдельного пользователя для обновления, не используйте свой gpg-ключ для обновления.
 
+****Создаем пользователя****
 {% highlight bash %}
 useradd yandex-dns-updater
 passwd yandex-dns-updater
 
 su - yandex-dns-updater
+{% endhighlight %}
 
+{% highlight bash %}
 # create ssh keys for github
 mkdir ~/.ssh
 chmod 700
@@ -89,6 +93,9 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github
 
+{% endhighlight %}
+
+{% highlight bash %}
 #
 # create new gpg key,
 # username main.homeserver.kz
@@ -98,7 +105,9 @@ gpg --gen-key
 # save this file to some place, will used later
 gpg --export --armor GPGKEYID > gpgkeyid.txxt
 
+{% endhighlight %}
 
+{% highlight bash %}
 # setting for git 
 git config --user.name "Main.Homeserver.kz"
 git config --user.email "main@homeserver.kz"
@@ -107,7 +116,9 @@ git config --user.email "main@homeserver.kz"
 git config commit.gpgsign true
 git config --user.signingkey GPGKEYID
 git config gpg.program /home/yandex-dns-updater/autogpg.sh
+{% endhighlight %}
 
+{% highlight bash %}
 # gpg proxy 
 cat /home/yandex-dns-updater/autogpg.sh
 #!/bin/bash
@@ -117,6 +128,9 @@ gpg --batch --no-tty --yes --passphrase GPGKEYPASSWD $@ <&0
 # Finally we exit with the same code as gpg.
 exit $?
 
+{% endhighlight %}
+
+{% highlight bash %}
 # create repo for updater
 mkdir github
 cd github
@@ -126,12 +140,12 @@ git remote add origin git@github.com:USERNAME/yandex-dns-api-updater.git
 
 git pull 
 
+# get my external ip from myextenralip.com
 curl -o main.txt http://myexternalip.com/raw
 
 git commit -S -m "Main.Homeserver.kz ip-address is changed at $(date)"
 
 git push -u origin master
-
 
 {% endhighlight %}
 
