@@ -78,9 +78,9 @@ passwd yandex-dns-updater
 
 su - yandex-dns-updater
 {% endhighlight %}
-
+********
+****Создаем ключи ssh для github****
 {% highlight bash %}
-# create ssh keys for github
 mkdir ~/.ssh
 chmod 700
 
@@ -95,6 +95,7 @@ Host github.com
 
 {% endhighlight %}
 
+****Создаем GPG-ключ****
 {% highlight bash %}
 #
 # create new gpg key,
@@ -107,17 +108,19 @@ gpg --export --armor GPGKEYID > gpgkeyid.txxt
 
 {% endhighlight %}
 
+****Настройки Git****
 {% highlight bash %}
 # setting for git 
-git config --user.name "Main.Homeserver.kz"
-git config --user.email "main@homeserver.kz"
+git config --global user.name "Main.Homeserver.kz"
+git config --global user.email "main@homeserver.kz"
 
 # setting for git and gpg 
 git config commit.gpgsign true
-git config --user.signingkey GPGKEYID
+git config --global user.signingkey GPGKEYID
 git config gpg.program /home/yandex-dns-updater/autogpg.sh
 {% endhighlight %}
 
+****GPG-Прокси для Git****
 {% highlight bash %}
 # gpg proxy 
 cat /home/yandex-dns-updater/autogpg.sh
@@ -130,6 +133,7 @@ exit $?
 
 {% endhighlight %}
 
+****Создаем новый репозиторий****
 {% highlight bash %}
 # create repo for updater
 mkdir github
@@ -149,6 +153,7 @@ git push -u origin master
 
 {% endhighlight %}
 
+****Скрипт - обновление данных****
 {% highlight bash %}
 #!/usr/bin/env bash
 #
@@ -167,15 +172,65 @@ curl -o ${NAME}.txt http://myexternalip.com/raw
 CHANGED=$(git status --porcelain|grep ${NAME}.txt)
 
 if [ -n "${CHANGED}" ]; then
-	echo "IP address is changed, pushing new data to remote repository"
+	git pull
+    echo "IP address is changed, pushing new data to remote repository"
 	git add ${NAME}.txt
 	git commit -S -m "new ip-addres at $(date)"
-	git pull origin
 	git push -u origin master
 else
 	echo "IP address is not changed"
 fi
 {% endhighlight %}
+
+## Travis-Ci
+Для работы с тревисом рекомендую создать нового пользователя или создать новый контейнер docker. Я использую новый контейнер.
+
+
+{% highlight bash %}
+sudo docker run -it --name travis centos /bin/bash
+{% endhighlight %}
+
+{% highlight bash %}
+yum install ruby gem gpg vim rsync -y
+gem install travis
+travis login
+mkdir /travis
+{% endhighlight %}
+
+
+{% highlight bash %}
+gpg --gen-key
+gpg --import /tmp/main_homeserver_kz_gpg_key.txt
+gpg --editkey main_homeserver_kz_gpg_key_id
+trust
+save
+quit
+
+{% endhighlight %}
+
+Файл data.txt хранит в себе данные для обновления записи:
+
+- токен, [token](https://habrahabr.ru/post/129600/);
+- имя домена, [domainname](https://habrahabr.ru/post/129600/);
+- время жизни, [ttl](https://habrahabr.ru/post/129600/);
+- имя поддомена, [subdomain](https://habrahabr.ru/post/129600/);
+- номер записи, [record_id](https://habrahabr.ru/post/129600/);
+- номер gpg-ключа, gpg_key_id.
+
+{% highlight bash %}
+cd /travis
+rsync -avz /root/.gnupg/ .gnupg/
+echo "0123456789ABCDEF01234567890ABCDEF0123456789ABCDEF012:domain.kz:900:subdomain:record_id:gpg_key_id" > data.txt
+{% endhighlight %}
+
+{% highlight bash %}
+tar cvf encryptedfiles.tar .gnupg data.txt
+travis encrypt-file encryptedfiles.tar -r Username/repository
+{% endhighlight %}
+
+****encryptedfiles.tar.enc**** следует сохранить в репозитории на гитхабе.
+
+
 
 ****TODO****
 
