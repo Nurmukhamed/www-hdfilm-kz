@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Идея - как реализовать свой динамический днс сервер
+title: Реализовано - как реализовать свой динамический днс сервер
 date: '2017-02-28 12:30:30 +0600'
 comments: true
 published: true
@@ -185,11 +185,12 @@ fi
 ## Travis-Ci
 Для работы с тревисом рекомендую создать нового пользователя или создать новый контейнер docker. Я использую новый контейнер.
 
-
+****Создаем новый контейнер****
 {% highlight bash %}
 sudo docker run -it --name travis centos /bin/bash
 {% endhighlight %}
 
+****Устанавливаем необходимые пакеты****
 {% highlight bash %}
 yum install ruby gem gpg vim rsync -y
 gem install travis
@@ -197,7 +198,7 @@ travis login
 mkdir /travis
 {% endhighlight %}
 
-
+****Создаем gpg-ключи****
 {% highlight bash %}
 gpg --gen-key
 gpg --import /tmp/main_homeserver_kz_gpg_key.txt
@@ -217,22 +218,20 @@ quit
 - номер записи, [record_id](https://habrahabr.ru/post/129600/);
 - номер gpg-ключа, gpg_key_id.
 
+****Файл данных для обновления днс-записей****
 {% highlight bash %}
 cd /travis
 rsync -avz /root/.gnupg/ .gnupg/
 echo "0123456789ABCDEF01234567890ABCDEF0123456789ABCDEF012:domain.kz:900:subdomain:record_id:gpg_key_id" > data.txt
 {% endhighlight %}
 
+****Подготовка зашифрованных данных****
 {% highlight bash %}
 tar cvf encryptedfiles.tar .gnupg data.txt
 travis encrypt-file encryptedfiles.tar -r Username/repository
 {% endhighlight %}
 
-****encryptedfiles.tar.enc**** следует сохранить в репозитории на гитхабе.
+****encryptedfiles.tar.enc**** следует сохранить в репозитории на гитхабе. 
 
+Как работать с тревис, можно узнать в [этой статье](http://www.hdfilm.kz/blog/2017/01/24/Moving-to-GitHub-Travis/). Также вам понадобится мой [репозиторий](https://github.com/Nurmukhamed/yandex-dns-api-updater) для ознакомления.
 
-
-****TODO****
-
-- функционал Домашнего Сервера;
-- функционал на стороне Travis-CI;
