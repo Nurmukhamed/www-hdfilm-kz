@@ -3,7 +3,7 @@ layout: post
 title: Перестановка железа на сервере и игровом компьютере дома в выходные
 date: '2017-03-07 12:30:30 +0600'
 comments: true
-published: false
+published: true
 categories:
   - домашний сервер
   - игровой компьютер
