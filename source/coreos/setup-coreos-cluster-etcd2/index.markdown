@@ -1,4 +1,14 @@
-
+---
+layout: page
+title: "CoreOS: Установка кластера CoreOS ETCD2"
+date: 2017-03-10 12:30
+comments: true
+sharing: true
+footer: true
+categories: [centos, coreos, docker, docker registry, vmware, esxi]
+previous: "coreos/hardware-description"
+next: "coreos/setup-private-repository"
+---
 **Установка кластера CoreOS**
 
 ****Update****: С февраля 2015 года coreos успел сменить etcd на etcd2. В связи с этим изменилась настройка серверов coreos. Здесь я изменил настройки для работы с более современными версиями coreos.
