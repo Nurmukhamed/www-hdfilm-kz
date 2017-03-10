@@ -1,10 +1,11 @@
 ---
 layout: page
-title: "Кластер CoreOS для освоения Docker"
-date: 2015-02-13 14:58
+title: Кластер CoreOS для освоения Docker
+date: '2015-02-13 14:58'
 comments: true
 sharing: true
 footer: true
+published: true
 ---
 
 <!--more-->
@@ -17,12 +18,14 @@ footer: true
 * изучение работы кластера CoreOS
 * запуск тестовой площадки для проверки решения
 
+****Update****: Данная статья была написано давно и частично устарела. В ближайшее время будет обновлены разделы.
 
 **Содержание**
 
 *   [Вводная часть.]({{root_url}}/coreos/intro/)
 *   [Описание железа, виртуальных машин, топология сети]({{root_url}}/coreos/hardware-description/)
-*   [Установка кластера CoreOS]({{root_url}}/coreos/setup-coreos-cluster/)
+*   ****Устарело**** [Установка кластера CoreOS на ETCD]({{root_url}}/coreos/setup-coreos-cluster/)
+*   ****Обновление**** [Установка кластера CoreOS на ETCD2]({{root_url}}/coreos/setup-coreos-cluster-etcd2/)
 *   [Установка Private Repository]({{root_url}}/coreos/setup-private-repository/)
 *   [Установка Developers]({{root_url}}/coreos/setup-developers-vm/)
 *   [Работа с контейнерами, создание базового образа]({{root_url}}/coreos/docker-base-tools/)
@@ -31,4 +34,3 @@ footer: true
 *   [Запуск служб, тестирование работы]({{root_url}}/coreos/start-services-testing/)
 *   [Список использованной литературы]({{root_url}}/coreos/list-of-used-links/)
 *   [Решение проблемы при загрузке, если используется bond интерфейс]({{root_url}}/coreos/solve-bonding-problem/)
-
