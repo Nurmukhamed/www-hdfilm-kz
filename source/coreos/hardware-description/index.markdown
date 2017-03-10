@@ -7,7 +7,7 @@ sharing: true
 footer: true
 categories: [centos, coreos, docker, docker registry, vmware, esxi]
 previous: "coreos/intro"
-next: "coreos/setup-coreos-cluster"
+next: "coreos/setup-coreos-cluster-etcd2"
 ---
 
 **Описание железа, виртуальных машин, топология сети:**
