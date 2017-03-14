@@ -1,13 +1,20 @@
 ---
 layout: page
-title: "CoreOS: Установка кластера CoreOS ETCD2"
-date: 2017-03-10 12:30
+title: 'CoreOS: Установка кластера CoreOS ETCD2'
+date: '2017-03-10 12:30'
 comments: true
 sharing: true
 footer: true
-categories: [centos, coreos, docker, docker registry, vmware, esxi]
-previous: "coreos/hardware-description"
-next: "coreos/setup-private-repository"
+categories:
+  - centos
+  - coreos
+  - docker
+  - docker registry
+  - vmware
+  - esxi
+previous: coreos/hardware-description
+next: coreos/setup-private-repository
+published: true
 ---
 **Установка кластера CoreOS**
 
@@ -181,6 +188,24 @@ next: "coreos/setup-private-repository"
     echo "search nurm.local" > /etc/resolv.conf
     echo "nameserver 192.168.254.252" >> /etc/resolv.conf
 </code></pre>
+
+##Настройка DNS-сервера
+
+ETCD2 имеет возможность определить через днс-сервер, где находятся сервера ETCD2.
+У меня используется dnsmasq. Ниже настройки:
+
+<pre><code>
+address=/a-coreos.nurm.local/192.168.122.2
+address=/b-coreos.nurm.local/192.168.122.3
+address=/c-coreos.nurm.local/192.168.122.4
+srv-host=_etcd-server._tcp.nurm.local,a-coreos.nurm.local,2380,1
+srv-host=_etcd-server._tcp.nurm.local,b-coreos.nurm.local,2380,1
+srv-host=_etcd-server._tcp.nurm.local,c-coreos.nurm.local,2380,1
+srv-host=_etcd-client._tcp.nurm.local,a-coreos.nurm.local,2380,1
+srv-host=_etcd-client._tcp.nurm.local,b-coreos.nurm.local,2380,1
+srv-host=_etcd-client._tcp.nurm.local,c-coreos.nurm.local,2380,1
+</code></pre>
+
 
 **Виртуальная машина: a.coreos**
 
