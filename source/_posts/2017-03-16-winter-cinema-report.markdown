@@ -3,7 +3,7 @@ layout: post
 title: Разное - сколько фильмов успел посмотреть за зиму
 date: '2017-03-21 12:30:30 +0600'
 comments: true
-published: false
+published: true
 categories:
   - movies
   - imdb
