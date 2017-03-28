@@ -32,7 +32,7 @@ categories:
 
 Все виртуальные машины используют сеть по умолчанию в режиме nat, внес изменения в сеть default, закрепил адреса к макадресам виртуальных машин.
 
-<pre><code>
+{% highlight bash %}
 sudo virsh net-edit default
 
 <network>
@@ -53,11 +53,11 @@ sudo virsh net-edit default
     </dhcp>
   </ip>
 </network>
-</code></pre>
+{% endhighlight %}
 
 Виртуальные машины грузятся только по сети. Ниже конфигурация машины a.coreos
 
-<pre><code>
+{% highlight bash %}
 <domain type='kvm'>
   <name>a.coreos</name>
   <uuid>c6c30f6a-4a1b-4337-8325-c4c2543ad437</uuid>
@@ -141,12 +141,12 @@ sudo virsh net-edit default
     </memballoon>
   </devices>
 </domain>
-</code></pre>
+{% endhighlight %}
 
 Для каждой виртуальной машины был собран свой образ ipxe для сетевой карты.
 Вот настройки сетевой карты для a.coreos
 
-<pre><code>
+{% highlight bash %}
     <interface type='bridge'>
       <mac address='52:54:00:55:1c:ee'/>
       <source bridge='virbr0'/>
@@ -154,11 +154,11 @@ sudo virsh net-edit default
       <rom bar='on' file='/usr/share/ipxe/coreos/a/virtio-net.rom'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
     </interface>
-</code></pre>
+{% endhighlight %}
 
 Соберем образ ipxe для виртуальной машины a.coreos
 
-<pre><code>
+{% highlight bash %}
 cd /usr/src/ipxe/src
 
 cat menu.ipxe
@@ -172,7 +172,7 @@ make EMBED=menu.ipxe bin/virtio-net.rom
 mkdir -p /usr/share/ipxe/coreos/{a,b,c}
 mv bin/virtio-net.rom /usr/share/ipxe/coreos/a/virtio-net.rom
 
-</code></pre>
+{% endhighlight %}
 
 
 ###****Coreos-ipxe-server****
@@ -180,7 +180,7 @@ mv bin/virtio-net.rom /usr/share/ipxe/coreos/a/virtio-net.rom
 
 Я использую [coreos-ipxe-server](https://github.com/kelseyhightower/coreos-ipxe-server) для загрузки по сети конфигурации для coreos-машин
 
-<pre><code>
+{% highlight bash %}
 mkdir -p ${GOPATH}/src/github.com/kelseyhightower
 cd ${GOPATH}/src/github.com/kelseyhightower
 git clone git@github.com:kelseyhightower/coreos-ipxe-server.git
@@ -212,7 +212,7 @@ EOF
 systemctl enable coreos-ipxe-server
 systemctl start coreos-ipxe-server
 
-</code></pre>
+{% endhighlight %}
 
 Время от времени нужно проверять текущую версию Coreos. я написал небольшой скрипт, который:
 
@@ -222,7 +222,7 @@ systemctl start coreos-ipxe-server
 
 Закинул данный файл в /etc/cron.daily/
 
-<pre><code>
+{% highlight bash %}
 #!/bin/bash
 
 curl https://coreos.com/releases/releases.json -o /tmp/releases.json
@@ -253,11 +253,11 @@ fi
 if [ ! -f /opt/coreos-ipxe-server/images/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz ]; then
    curl -o /opt/coreos-ipxe-server/images/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz http://stable.release.core-os.net/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz
 fi
-</code></pre>
+{% endhighlight %}
 
 Создаем профили для виртуальных машин
 
-<pre><code>
+{% highlight bash %}
 [nurmukhamed@corei3 coreos-ipxe-server]$ cat profiles/a-coreos.json 
 {
     "cloud_config": "a-cloud-config",
@@ -279,7 +279,7 @@ fi
     "sshkey": "nurmukhamed",
     "version": "1353.1.0"
 }
-</code></pre>
+{% endhighlight %}
 
 Просмотр конфигурации для a-coreos. Что делает данная конфигурация:
 
@@ -292,7 +292,7 @@ fi
 - Производит форматирование разделов, подключает разделы к /var/lib/docker, /var/lib/rkt;
 - Настраивает сервер для работы с etcd2 сервисом, на сервере CentOS.
 
-<pre><code>
+{% highlight bash %}
 #cloud-config
 hostname: a-coreos.nurm.local
 users:
@@ -389,10 +389,10 @@ coreos:
     etcd_servers: "http://coreos-ipxe.nurm.local:2379"
   locksmith:
     endpoint: "http://coreos-ipxe.nurm.local:2379"
-</code></pre>
+{% endhighlight %}
 
 ###****Настройка dnsmasq****
-<pre><code>
+{% highlight bash %}
 cat /etc/dnsmasq.d/addresses.conf
 address=/coreos-ipxe.nurm.local/192.168.122.1
 address=/a-coreos.nurm.local/192.168.122.2
@@ -400,11 +400,11 @@ address=/b-coreos.nurm.local/192.168.122.3
 address=/c-coreos.nurm.local/192.168.122.4
 srv-host=_etcd-server._tcp.nurm.local,coreos-ipxe.nurm.local,2380,1
 srv-host=_etcd-client._tcp.nurm.local,coreos-ipxe.nurm.local,2380,1
-</code></pre>
+{% endhighlight %}
 
 ###****Настройка ETCD2****
 
-<pre><code>
+{% highlight bash %}
 # [member]
 ETCD_NAME=default
 ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
@@ -454,13 +454,13 @@ ETCD_ADVERTISE_CLIENT_URLS="http://coreos-ipxe.nurm.local:2379"
 #ETCD_DEBUG="false"
 # examples for -log-package-levels etcdserver=WARNING,security=DEBUG
 #ETCD_LOG_PACKAGE_LEVELS=""
-</code></pre>
+{% endhighlight %}
 
 ###****Настройка ssh-клиента****
 
 Также требуется внести изменения в работе ssh-клиента. При каждой загрузке виртуальной машины, сервер coreos генерирует новые ssh-ключи, нужно научить ssh-клиента не обращать на это внимание.
 
-<pre><code>
+{% highlight bash %}
 Host a-coreos
     Hostname a-coreos.nurm.local
     User nurmukhamed
@@ -475,9 +475,8 @@ Host c-coreos
     Hostname c-coreos.nurm.local
     User nurmukhamed
     StrictHostKeyChecking no
-</code></pre>
+{% endhighlight %}
 
 ###Итоги
 
 Данная конфигурация рабочая, после запуска 3х серверов, получаем рабочий кластер coreos.
-
