@@ -3,7 +3,7 @@ layout: post
 title: COREOS - загрузка по сети
 date: '2017-03-28 12:30:30 +0600'
 comments: true
-published: false
+published: true
 categories:
   - coreos
   - ipxe
@@ -289,7 +289,9 @@ fi
 - Задает ssh-ключ для авторизации;
 - Создает файл /home/nurmukhamed/.bashrc, где задаются алиасы и полезные утилиты;
 - Производит очистку жесткого диска, разбиение диска на два раздела;
-- Производит форматирование
+- Производит форматирование разделов, подключает разделы к /var/lib/docker, /var/lib/rkt;
+- Настраивает сервер для работы с etcd2 сервисом, на сервере CentOS.
+
 <pre><code>
 #cloud-config
 hostname: a-coreos.nurm.local
@@ -388,3 +390,94 @@ coreos:
   locksmith:
     endpoint: "http://coreos-ipxe.nurm.local:2379"
 </code></pre>
+
+###****Настройка dnsmasq****
+<pre><code>
+cat /etc/dnsmasq.d/addresses.conf
+address=/coreos-ipxe.nurm.local/192.168.122.1
+address=/a-coreos.nurm.local/192.168.122.2
+address=/b-coreos.nurm.local/192.168.122.3
+address=/c-coreos.nurm.local/192.168.122.4
+srv-host=_etcd-server._tcp.nurm.local,coreos-ipxe.nurm.local,2380,1
+srv-host=_etcd-client._tcp.nurm.local,coreos-ipxe.nurm.local,2380,1
+</code></pre>
+
+###****Настройка ETCD2****
+
+<pre><code>
+# [member]
+ETCD_NAME=default
+ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
+#ETCD_WAL_DIR=""
+#ETCD_SNAPSHOT_COUNT="10000"
+#ETCD_HEARTBEAT_INTERVAL="100"
+#ETCD_ELECTION_TIMEOUT="1000"
+ETCD_LISTEN_PEER_URLS="http://coreos-ipxe.nurm.local:2380"
+#ETCD_LISTEN_CLIENT_URLS="http://coreos-ipxe.nurm.local:2379"
+#ETCD_MAX_SNAPSHOTS="5"
+#ETCD_MAX_WALS="5"
+#ETCD_CORS=""
+ETCD_LISTEN_CLIENT_URLS="http://0.0.0.0:2379,http://0.0.0.0:4001"
+#ETCD_ADVERTISE_CLIENT_URLS="http://coreos-ipxe.nurm.local:2379"
+#
+#[cluster]
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://coreos-ipxe.nurm.local:2380"
+# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. "test=http://..."
+#ETCD_INITIAL_CLUSTER="default=http://localhost:2380"
+#ETCD_INITIAL_CLUSTER_STATE="new"
+#ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster-1"
+ETCD_ADVERTISE_CLIENT_URLS="http://coreos-ipxe.nurm.local:2379"
+#ETCD_DISCOVERY=""
+#ETCD_DISCOVERY_SRV="nurm.local"
+#ETCD_DISCOVERY_FALLBACK="proxy"
+#ETCD_DISCOVERY_PROXY=""
+#
+#[proxy]
+#ETCD_PROXY="off"
+#ETCD_PROXY_FAILURE_WAIT="5000"
+#ETCD_PROXY_REFRESH_INTERVAL="30000"
+#ETCD_PROXY_DIAL_TIMEOUT="1000"
+#ETCD_PROXY_WRITE_TIMEOUT="5000"
+#ETCD_PROXY_READ_TIMEOUT="0"
+#
+#[security]
+#ETCD_CERT_FILE=""
+#ETCD_KEY_FILE=""
+#ETCD_CLIENT_CERT_AUTH="false"
+#ETCD_TRUSTED_CA_FILE=""
+#ETCD_PEER_CERT_FILE=""
+#ETCD_PEER_KEY_FILE=""
+#ETCD_PEER_CLIENT_CERT_AUTH="false"
+#ETCD_PEER_TRUSTED_CA_FILE=""
+#
+#[logging]
+#ETCD_DEBUG="false"
+# examples for -log-package-levels etcdserver=WARNING,security=DEBUG
+#ETCD_LOG_PACKAGE_LEVELS=""
+</code></pre>
+
+###****Настройка ssh-клиента****
+
+Также требуется внести изменения в работе ssh-клиента. При каждой загрузке виртуальной машины, сервер coreos генерирует новые ssh-ключи, нужно научить ssh-клиента не обращать на это внимание.
+
+<pre><code>
+Host a-coreos
+    Hostname a-coreos.nurm.local
+    User nurmukhamed
+    StrictHostKeyChecking no
+
+Host b-coreos
+    Hostname b-coreos.nurm.local
+    User nurmukhamed
+    StrictHostKeyChecking no
+
+Host c-coreos
+    Hostname c-coreos.nurm.local
+    User nurmukhamed
+    StrictHostKeyChecking no
+</code></pre>
+
+###Итоги
+
+Данная конфигурация рабочая, после запуска 3х серверов, получаем рабочий кластер coreos.
+
