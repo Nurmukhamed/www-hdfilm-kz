@@ -14,6 +14,8 @@ categories:
 
 Решил настроить тестовый кластер coreos с загрузкой по сети.<!--more-->
 
+****UPDATE: 31-03-2017:**** Изменил скрипт поиска обновлений CoreOS.
+
 ****Используемые инструменты****:
 
 - домашний сервер CentOS 7
@@ -225,9 +227,13 @@ systemctl start coreos-ipxe-server
 {% highlight bash %}
 #!/bin/bash
 
-curl https://coreos.com/releases/releases.json -o /tmp/releases.json
+curl http://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.sh -o /tmp/coreos-current-version.sh
 
-CURRENT_RELEASE_VERSION=$(cat /tmp/releases.json | head -n 3 | tail -n 1 | sed 's/\"//g' | sed 's/{//' | sed 's/://' | tr -d '[:space:]')
+left=$(cat /tmp/coreos-current-version.sh | grep "VM_NAME" | grep "coreos_production"| cut -d "=" -f 2 | cut -d '-' -f 2)
+center=$(cat /tmp/coreos-current-version.sh | grep "VM_NAME" | grep "coreos_production" | cut -d "=" -f 2 | cut -d '-' -f 3)
+right=$(cat /tmp/coreos-current-version.sh | grep "VM_NAME" | grep "coreos_production" | cut -d "=" -f 2 | cut -d '-' -f 4 | sed "s/'//")
+
+CURRENT_RELEASE_VERSION=$(echo ${left}.${center}.${right})
 echo ${CURRENT_RELEASE_VERSION}
 
 echo "start circle"
@@ -237,7 +243,7 @@ for profile in $(ls /opt/coreos-ipxe-server/profiles); do
     echo ${USED_RELEASE_VERSION}
 
     if [ "${USED_RELEASE_VERSION}" != "${CURRENT_RELEASE_VERSION}" ]; then
-	echo "used release version dont match with current release version from website"
+        echo "used release version dont match with current release version from website"
         sed -i "s/${USED_RELEASE_VERSION}/${CURRENT_RELEASE_VERSION}/" /opt/coreos-ipxe-server/profiles/${profile}
     fi
 done
@@ -253,6 +259,7 @@ fi
 if [ ! -f /opt/coreos-ipxe-server/images/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz ]; then
    curl -o /opt/coreos-ipxe-server/images/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz http://stable.release.core-os.net/amd64-usr/${CURRENT_RELEASE_VERSION}/coreos_production_pxe_image.cpio.gz
 fi
+
 {% endhighlight %}
 
 Создаем профили для виртуальных машин
@@ -263,21 +270,21 @@ fi
     "cloud_config": "a-cloud-config",
     "rootfstype": "btrfs",
     "sshkey": "nurmukhamed",
-    "version": "1353.1.0"
+    "version": "1298.6.0"
 }
 [nurmukhamed@corei3 coreos-ipxe-server]$ cat profiles/b-coreos.json 
 {
     "cloud_config": "b-cloud-config",
     "rootfstype": "btrfs",
     "sshkey": "nurmukhamed",
-    "version": "1353.1.0"
+    "version": "1298.6.0"
 }
 [nurmukhamed@corei3 coreos-ipxe-server]$ cat profiles/c-coreos.json 
 {
     "cloud_config": "c-cloud-config",
     "rootfstype": "btrfs",
     "sshkey": "nurmukhamed",
-    "version": "1353.1.0"
+    "version": "1298.6.0"
 }
 {% endhighlight %}
 
@@ -392,6 +399,7 @@ coreos:
 {% endhighlight %}
 
 ###****Настройка dnsmasq****
+
 {% highlight bash %}
 cat /etc/dnsmasq.d/addresses.conf
 address=/coreos-ipxe.nurm.local/192.168.122.1
@@ -405,6 +413,7 @@ srv-host=_etcd-client._tcp.nurm.local,coreos-ipxe.nurm.local,2380,1
 ###****Настройка ETCD2****
 
 {% highlight bash %}
+cat /etc/etcd/etcd.conf
 # [member]
 ETCD_NAME=default
 ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
@@ -412,7 +421,7 @@ ETCD_DATA_DIR="/var/lib/etcd/default.etcd"
 #ETCD_SNAPSHOT_COUNT="10000"
 #ETCD_HEARTBEAT_INTERVAL="100"
 #ETCD_ELECTION_TIMEOUT="1000"
-ETCD_LISTEN_PEER_URLS="http://coreos-ipxe.nurm.local:2380"
+ETCD_LISTEN_PEER_URLS="http://192.168.122.1:2380"
 #ETCD_LISTEN_CLIENT_URLS="http://coreos-ipxe.nurm.local:2379"
 #ETCD_MAX_SNAPSHOTS="5"
 #ETCD_MAX_WALS="5"
