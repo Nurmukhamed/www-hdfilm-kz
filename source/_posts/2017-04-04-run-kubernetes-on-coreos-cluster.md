@@ -17,7 +17,7 @@ categories:
 ##Получилось
 
 Две недели пришлось потратить и вот у меня запущен kubernetes на кластере coreos.
-Решил создать отдельный репозиторий, куда выложу файлы необходимые для запуска kubernetes в кластере coreos
+Решил создать [отдельный репозиторий](https://github.com/Nurmukhamed/run-kubernetes-over-coreos-cluster-ipxe-booted), куда выложил файлы необходимые для запуска kubernetes в кластере coreos.
 
 ****Содержимое****
 
@@ -34,18 +34,18 @@ categories:
   - coreos-ipxe-server
   - images
     - amd64-usr
-      - 1298.5.0
-        - coreos_production_pxe_image.cpio.gz
-        - coreos_production_pxe.vmlinuz
-      - 1298.6.0
-        - coreos_production_pxe_image.cpio.gz
-        - coreos_production_pxe.vmlinuz
-      - 1298.7.0
-        - coreos_production_pxe_image.cpio.gz
-        - coreos_production_pxe.vmlinuz
   - profiles
     - a-coreos.json
     - b-coreos.json
     - c-coreos.json
   - sshkeys
     - nurmukhamed.pub
+
+##Описание
+- Количество машин в кластере - 3
+- Тип машин - виртуальные машины в libvirt
+- Тип загрузки - по сети через ipxe
+
+Kubernetes запускается поверх кластера, [который уже был настроен ранее]({{ root.url }}/blog/2017/03/28/coreos-ipxe-server-working-configurations/).
+
+Все файлы необходимые для старта kubernetes загружаются из конфигурационного файл coreos.
