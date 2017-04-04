@@ -34,3 +34,7 @@ published: true
 *   [Запуск служб, тестирование работы]({{root_url}}/coreos/start-services-testing/)
 *   [Список использованной литературы]({{root_url}}/coreos/list-of-used-links/)
 *   [Решение проблемы при загрузке, если используется bond интерфейс]({{root_url}}/coreos/solve-bonding-problem/)
+
+**Обновление**
+* [Обновление раздела CoreOS, использование ETCD2 взамен ETCD]({{root_url}}/blog/2017/03/13/coreos-pages-update/)
+* [COREOS - загрузка по сети]({{root_url}}/blog/2017/03/28/coreos-ipxe-server-working-configurations/)
