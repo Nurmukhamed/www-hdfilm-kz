@@ -3,7 +3,7 @@ layout: post
 title: Запускаем Kubernetes на кластере CoreOS
 date: '2017-04-04 12:30:30 +0600'
 comments: true
-published: false
+published: true
 categories:
 - coreos
 - kubernetes
