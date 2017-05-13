@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ID-Cooling Frostflow 240l - Работаем в пассивном режиме 
-date: '2017-04-25 12:30:30 +0600'
+date: '2017-05-13 12:30:30 +0600'
 comments: true
 published: true
 categories:
