@@ -3,15 +3,15 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Initialize a new git repo in _site, and push it to our server.
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 
-    cd gh-pages
+    cd www-hdfilm-kz-hugo.git
     git checkout -b gh-pages
     
     cd ..
     
-    rsync -avz --delete public/ gh-pages/
+    rsync -avz --delete public/ www-hdfilm-kz-hugo.git/
     
     # Go To Public folder
-    cd gh-pages
+    cd www-hdfilm-kz-hugo.git
     # Add changes to git.
     git add .
 
@@ -24,13 +24,10 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     git commit -a -m "$msg"
 
     # Push source and build repos.
-    git push 
+    git push origin gh-pages
 
     # Come Back up to the Project Root
     cd ..
-    
-    git add gh-pages
-    git commit -m "Updated gh-pages"
     
 else
     echo "Not deploying, since this branch isn't master."
