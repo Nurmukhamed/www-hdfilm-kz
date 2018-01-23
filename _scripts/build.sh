@@ -1,7 +1,8 @@
 #!/bin/bash
 # build Octopress 
+rm -rf .git
 rm -rf public
-git submodule add -b master git@github.com:Nurmukhamed/www-hdfilm-kz-hugo.git gh-pages
+git clone git@github.com:Nurmukhamed/www-hdfilm-kz-hugo.git
 
 bundle exec rake generate
 
