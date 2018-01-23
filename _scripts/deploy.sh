@@ -3,8 +3,6 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Initialize a new git repo in _site, and push it to our server.
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
     
-    git config --global push.default gh-pages
-    
     cd www-hdfilm-kz-hugo
     git checkout -b gh-pages
     
