@@ -1,11 +1,10 @@
 #!/bin/bash
 # build Octopress 
 rm -rf public
-git submodule add -b gh-pages git@github.com:Nurmukhamed/www-hdfilm-kz-hugo.git public
-cd public 
-rm -rf *
-cd ..
+git submodule add -b master git@github.com:Nurmukhamed/www-hdfilm-kz-hugo.git gh-pages
+
 bundle exec rake generate
+rsync -avz --delete public/ gh-pages/
 
 
 
