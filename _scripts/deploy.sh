@@ -3,9 +3,15 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Initialize a new git repo in _site, and push it to our server.
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 
-
+    cd gh-pages
+    git checkout -b gh-pages
+    
+    cd ..
+    
+    rsync -avz --delete public/ gh-pages/
+    
     # Go To Public folder
-    cd public
+    cd gh-pages
     # Add changes to git.
     git add .
 
