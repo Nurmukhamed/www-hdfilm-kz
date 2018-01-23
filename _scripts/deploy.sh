@@ -8,8 +8,11 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     
     cd ..
     
+    mv www-hdfilm-kz-hugo.git/.git .git
+    
     rsync -avz --delete public/ www-hdfilm-kz-hugo.git/
     
+    mv .git www-hdfilm-kz-hugo.git/.git
     # Go To Public folder
     cd www-hdfilm-kz-hugo.git
     # Add changes to git.
