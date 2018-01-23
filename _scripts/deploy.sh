@@ -20,9 +20,6 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     cd www-hdfilm-kz-hugo
     # Add changes to git.
     git add .
-    git stash save
-    git pull -r
-    git stash pop
     
     # Commit changes.
     msg="rebuilding site `date`"
@@ -33,7 +30,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     git commit -a -m "$msg"
 
     # Push source and build repos.
-    git push -r
+    git push -f origin gh-pages
 
     # Come Back up to the Project Root
     cd ..
