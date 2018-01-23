@@ -15,11 +15,15 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     rsync -avz --delete public/ www-hdfilm-kz-hugo/
     
     mv .git www-hdfilm-kz-hugo/.git
+    
     # Go To Public folder
     cd www-hdfilm-kz-hugo
     # Add changes to git.
     git add .
-
+    git stash save
+    git pull -r
+    git stash pop
+    
     # Commit changes.
     msg="rebuilding site `date`"
     if [ $# -eq 1 ]
