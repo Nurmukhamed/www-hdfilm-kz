@@ -21,13 +21,17 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
         then msg="$1"
     fi
     
-    git commit -m "$msg"
+    git commit -a -m "$msg"
 
     # Push source and build repos.
-    git push origin gh-pages
+    git push 
 
     # Come Back up to the Project Root
     cd ..
+    
+    git add gh-pages
+    git commit -m "Updated gh-pages"
+    
 else
     echo "Not deploying, since this branch isn't master."
 fi
