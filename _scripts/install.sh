@@ -6,8 +6,7 @@ tar xvf encryptedfiles.tar
 rm encryptedfiles.tar
 
 # Import the SSH deployment key
-mv id-rsa ~/.ssh/id_rsa
-rm id-rsa.enc
+mv id_rsa ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
 # Import Octopress 
