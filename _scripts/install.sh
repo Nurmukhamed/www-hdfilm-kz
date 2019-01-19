@@ -16,4 +16,4 @@ chmod 600 Rakefile
 chmod 600 _config.yml
 
 
-gem install bundler
+gem install bundler -v 1.17.3
