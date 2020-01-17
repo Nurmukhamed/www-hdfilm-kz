@@ -19,10 +19,13 @@ categories:
 ## Предыстория
 У меня имеется Orange Pi PC (далее - плата), уже пару лет. Мощное железо, 1 ГБ ОЗУ, 1 ГБит/с Ethernet порт. Для домашних задач подходит. В последнее время работала как шлюз для 3д-принтера. Но в какой-то момент, уже в апреле 2019 года, перестал работать слот SD-карт и система перестала грузится.
 
+## Update
+
+* Добавлен [пост про сборку u-boot для orange pi zero plus](http://www.hdfilm.kz/blog/2020/01/17/OrangePIZeroPlus-Boot-From-SPIFLASH/).
+
 ## TODO
 
-* Собрать рабочий образ для процессоров H5;
-* Собрать рабочий образ для Orange PI Zero Plus.
+* Не работает загрузка по сети.
 
 
 ## Чего я не знал
@@ -38,12 +41,12 @@ categories:
 
 ## Что нам нужно
 
-* Компьютер под управлением Ubuntu;
-* ПО ARM Trusted Firmware
-* ПО U-boot;
-* ПО Sunxi-fel;
-* Плата;
-* Плата-переходник с spi-флешкой;
+* Компьютер под управлением [Ubuntu](https://ubuntu.com/);
+* ПО [ARM Trusted Firmware](https://github.com/ARM-software/arm-trusted-firmware)
+* ПО [U-boot](https://www.denx.de/wiki/U-Boot);
+* ПО [Sunxi-fel](https://linux-sunxi.org/FEL);
+* [Плата](http://www.orangepi.org/orangepipc/);
+* [Плата-переходник с spi-флешкой](https://www.linux.org.ru/forum/talks/15114641?cid=15464327);
 
 ## Сборка пакетов.
 Необходимо собрать ARM Trusted Firmware. 
