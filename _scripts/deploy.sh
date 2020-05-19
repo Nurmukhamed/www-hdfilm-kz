@@ -3,19 +3,19 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Initialize a new git repo in _site, and push it to our server.
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
     
-    cd www-hdfilm-kz-hugo
+    cd www-hdfilm-kz-octopress
     git checkout -b gh-pages
     
     cd ..
     
-    mv www-hdfilm-kz-hugo/.git .git
+    mv www-hdfilm-kz-octopress .git
     
-    rsync -avz --delete public/ www-hdfilm-kz-hugo/
+    rsync -avz --delete public/ www-hdfilm-kz-octopress/
     
-    mv .git www-hdfilm-kz-hugo/.git
+    mv .git www-hdfilm-kz-octopress/.git
     
     # Go To Public folder
-    cd www-hdfilm-kz-hugo
+    cd www-hdfilm-kz-octopress
     # Add changes to git.
     git add .
     
