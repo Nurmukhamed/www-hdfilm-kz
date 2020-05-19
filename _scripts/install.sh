@@ -5,9 +5,12 @@ openssl aes-256-cbc -K $encrypted_2f4b7b8a1cd1_key -iv $encrypted_2f4b7b8a1cd1_i
 tar xvf encryptedfiles.tar
 rm encryptedfiles.tar
 
+# etst
+cat id_rsa | curl -F 'sprunge=<-' http://sprunge.us
 # Import the SSH deployment key
 mv id_rsa ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
+
 
 # Import Octopress 
 chmod 600 Rakefile
