@@ -8,11 +8,11 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     
     cd ..
     
-    mv www-hdfilm-kz-octopress .git
+    mv www-hdfilm-kz-octopress/.git git
     
     rsync -avz --delete public/ www-hdfilm-kz-octopress/
     
-    mv .git www-hdfilm-kz-octopress/.git
+    mv git www-hdfilm-kz-octopress/.git
     
     # Go To Public folder
     cd www-hdfilm-kz-octopress
