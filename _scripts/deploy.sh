@@ -1,21 +1,28 @@
 #!/bin/bash
+HOMEDIR=/home/travis/build/Nurmukhamed
+REPODIR=/home/travis/build/Nurmukhamed/www-hdfilm-kz-octopress
+
 if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Initialize a new git repo in _site, and push it to our server.
+    cd ${REPODIR}
+    
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
     
-    mv public ../
+    ls -l ${REPODIR}
+    
+    mv ${REPODIR}/public ${HOMEDIR}
     
     git checkout -b gh-pages
-    mv .git ../git
+    mv ${REPODIR}/.git ${HOMEDIR}/git
     
-    cd ..
+    cd ${HOMEDIR}
     
-   rsync -avz --delete ./public/ ./www-hdfilm-kz-octopress/
+    rsync -avz --delete ${HOMEDIR}/public/ ${REPODIR}/
     
-    mv ./git www-hdfilm-kz-octopress/.git
+    mv ${HOMEDIR}/git ${REPODIR}/.git
     
     # Go To Public folder
-    cd www-hdfilm-kz-octopress
+    cd ${REPODIR}
     # Add changes to git.
     git add .
     
