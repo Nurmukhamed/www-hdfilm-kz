@@ -18,5 +18,5 @@ group :development do
   
 end
 
-gem 'posix_spawn', '0.3.12'
+gem 'posix-spawn', '0.3.12'
 gem 'sinatra', '~> 1.4.2'
