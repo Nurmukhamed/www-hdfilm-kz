@@ -9,6 +9,8 @@ ls -l
 
 rm -rf public
 
+bundle exec rake install; 
+bundle exec rake generate
 bundle exec rake generate
 
 
