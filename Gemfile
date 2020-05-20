@@ -14,6 +14,7 @@ group :development do
   gem 'liquid', '~> 2.3.0'
   gem 'directory_watcher', '1.4.1'
   gem 'sassc', '~> 2.2.1'
+  gem 'sass-globbing', '~> 1.0.0'
 end
 
 gem 'posix-spawn', '0.3.12'
