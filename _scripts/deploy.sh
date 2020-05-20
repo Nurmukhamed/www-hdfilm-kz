@@ -10,6 +10,8 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     
     ls -l ${REPODIR}
     
+    ls -l ${HOMEDIR}
+    
     mv ${REPODIR}/public ${HOMEDIR}
     
     git checkout -b gh-pages
