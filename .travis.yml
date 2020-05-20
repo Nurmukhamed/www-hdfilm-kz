@@ -10,6 +10,8 @@ addons:
     packages:
     - lftp
     - tree
+    - ruby-sass
+    - ruby-compass
 before_install:
 - openssl aes-256-cbc -K $encrypted_2f4b7b8a1cd1_key -iv $encrypted_2f4b7b8a1cd1_iv
   -in encryptedfiles.tar.enc -out encryptedfiles.tar -d
