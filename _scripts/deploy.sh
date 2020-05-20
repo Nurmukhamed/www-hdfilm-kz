@@ -36,6 +36,9 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     
     git commit -a -m "$msg"
 
+    # Change git remote
+    git remote set-url origin git@github.com:Nurmukhamed/www-hdfilm-kz-octopress.git
+    
     # Push source and build repos.
     git push -f origin gh-pages
 
