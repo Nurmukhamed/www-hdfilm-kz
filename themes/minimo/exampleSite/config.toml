@@ -1,6 +1,5 @@
-baseURL = "https://www.hdfilm.kz"
-title = "Нұрмұхамед Артықалы"
-languageCode = "ru-RU"
+baseURL = "http://www.example.com"
+title = "Minimo"
 # for smart copyright line, leave this blank and check [params.copyright]
 copyright = ""
 
@@ -20,19 +19,11 @@ pygmentsCodefences = true
 enableEmoji = true
 
 # Missing translations will default to this content language
-defaultContentLanguage = "ru"
-
-[params]
-ArticlePerPage = 15
-generateTaxonomyList = true
-tableOfContents = true
-compactIndex = false
-
-
+defaultContentLanguage = "en"
 
 [params.info]
-description = "Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире."
-title404 = "Howtos"
+description = "Minimalist theme for Hugo"
+title404 = "Nothing's here!"
 
 [params.assets]
 favicon = "favicon.ico"
@@ -42,8 +33,8 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 
 [params.copyright]
 prefix = ""
-holder = "Nurmukhamed Artykaly"
-startYear = "2009"
+holder = "MunifTanjim"
+startYear = "2017"
 suffix = ""
 
 [params.settings]
@@ -64,18 +55,35 @@ rtl = false
 enable = true
 
 [params.widgets]
+header = ["breadcrumbs"]
 homepage = ["recent_posts"]
 sidebar = ["about","search","sidebar_menu","taxonomy_cloud"]
 footer = ["social_menu"]
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
 
 [params.seo]
 # Title Separator: - – — · • * ⋆ | ~ « » < >
 titleSeparator = "•"
 
 [params.social]
-email = "nurmukhamed.artykaly@hdfilm.kz"
-github = "Nurmukhamed"
-telegram = "nartykaly"
+codepen = "MunifTanjim"
+email = "contact@example.com"
+facebook = "MunifTanjim"
+github = "MunifTanjim"
+gitlab = "MunifTanjim"
+instagram = "MunifTanjim"
+linkedin = "muniftanjim"
+twitter = "MunifTanjim"
+telegram = "MunifTanjim"
+google_scholar = "qc6CJjYAAAAJ"
+youtube = "UCT-U0rNerYxItGcuoPX-WYA"
 
 [params.comments]
 enable = false
@@ -86,6 +94,21 @@ enable = false
 scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
 dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
 
+[params.comments.staticman]
+enable = true
+apiEndpoint = "https://api.staticman.net/v2/entry"
+maxDepth = 2
+username = "MunifTanjim"
+repository = "minimo"
+
+# Utterances: https://utteranc.es
+[params.comments.utterances]
+enable = false
+issueTerm = "pathname" # pathname / url / title
+
+[params.comments.utterances.github]
+username = "MunifTanjim"
+repository = "minimo"
 
 [params.search]
 client = "fuse" # algolia / fuse / lunr
@@ -96,61 +119,22 @@ indexName = ""
 searchApiKey = ""
 
 [taxonomies]
+author = "authors"
 category = "categories"
+series = "series"
 tag = "tags"
 
 [permalinks]
-blog = "/blog/:year/:month/:day/:filename/"
-coreos = "/coreos/:year/:month/:day/:filename/"
-kubernetes = "/kubernetes/:year/:month/:day/:filename/"
-categories = "/blog/category/:title/"
-tags = "/blog/tag/:title/"
-
-[[menu.main]]
-name = "About"
-weight = -10
-identifier = "about"
-url = "/about.md"
-
-[[menu.main]]
-name = "Blog"
-weight = -10
-identifier = "blog"
-url = "/blog/"
-
-[[menu.main]]
-name = "Kubernetes"
-weight = -10
-identifier = "kubernetes"
-url = "/kubernetes/"
-
-[[menu.main]]
-name = "CoreOS"
-weight = -10
-identifier = "coreos"
-url = "/coreos/"
-
-[[menu.main]]
-name = "GitHub"
-weight = -10
-identifier = "repository"
-url = "https://github.com/Nurmukhamed/"
-
-[[menu.main]]
-name = "Резюме"
-weight = -10
-identifier = "cv"
-url = "/cv.pdf"
+page = "/:slug/"
 
 [[menu.main]]
 name = "Repo"
 weight = -10
 identifier = "repository"
-url = "https://github.com/Nurmukhamed/www-hdfilm-kz-octopress"
+url = "https://github.com/MunifTanjim/minimo"
 
 [blackfriday]
-hrefTargetBlank = true # open external links in a new window
-fractions = false
+hrefTargetBlank = true
 
 [languages]
 # edit this block for your own language
@@ -158,13 +142,3 @@ fractions = false
 lang = "en"
 languageName = "English"
 weight = 1
-
-[languages.ru]
-lang = "ru"
-languageName = "Русский"
-weight = 2
-
-[languages.kk]
-lang = "kk"
-languageName = "Қазақ"
-weight = 3
