@@ -11,10 +11,5 @@ chmod 600 ~/.ssh/id_rsa
 
 
 # Import Octopress 
-chmod 600 Rakefile
-
-
-chmod 600 _config.yml
-
-
-gem install bundler -v 1.17.3
+rm Rakefile
+rm  _config.yml
