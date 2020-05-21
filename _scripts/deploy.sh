@@ -7,11 +7,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     cd ${REPODIR}
     
     echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
-    
-    ls -l ${REPODIR}
-    
-    ls -l ${HOMEDIR}
-    
+        
     mv ${REPODIR}/public ${HOMEDIR}
     
     git checkout -b gh-pages

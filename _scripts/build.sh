@@ -5,13 +5,9 @@ REPODIR=/home/travis/build/Nurmukhamed/www-hdfilm-kz-octopress
 
 cd ${REPODIR}
 
-ls -l
-
 rm -rf public
 
-bundle exec rake install; 
-bundle exec rake generate
-bundle exec rake generate
+hugo
 
 
 
