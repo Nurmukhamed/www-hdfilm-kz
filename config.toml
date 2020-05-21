@@ -1,0 +1,170 @@
+baseURL = "https://www.hdfilm.kz"
+title = "Нұрмұхамед Артықалы"
+languageCode = "ru-RU"
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
+
+theme = "Hugo-Octopress"
+
+disqusShortname = ""
+googleAnalytics = ""
+
+Paginate = 5
+preserveTaxonomyNames = true
+
+enableRobotsTXT = true # generate robots.txt
+
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+
+enableEmoji = true
+
+# Missing translations will default to this content language
+defaultContentLanguage = "ru"
+
+[params]
+ArticlePerPage = 15
+generateTaxonomyList = true
+tableOfContents = true
+compactIndex = false
+
+
+
+[params.info]
+description = "Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире."
+title404 = "Howtos"
+
+[params.assets]
+favicon = "favicon.ico"
+customCSS = ["css/custom.css"]
+customJS = ["js/custom.js"]
+gopher = "" # used in 404 template ( Generator: https://gopherize.me )
+
+[params.copyright]
+prefix = ""
+holder = "Nurmukhamed Artykaly"
+startYear = "2009"
+suffix = ""
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+archiveDateFormat = "Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+hideEntryMeta = ["page"] # boolean / array of sections
+showReadingTime = true
+showLastmod = true
+taxonomyCloudShuffle = true
+accentColor = "#ffcd00"
+hideMainMenu = false
+rtl = false
+
+[params.sidebar]
+enable = true
+
+[params.widgets]
+homepage = ["recent_posts"]
+sidebar = ["about","search","sidebar_menu","taxonomy_cloud"]
+footer = ["social_menu"]
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+email = "nurmukhamed.artykaly@hdfilm.kz"
+github = "Nurmukhamed"
+telegram = "nartykaly"
+
+[params.comments]
+enable = false
+
+# Isso: https://posativ.org/isso/
+[params.comments.isso]
+enable = false
+scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
+dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
+
+
+[params.search]
+client = "fuse" # algolia / fuse / lunr
+
+[params.search.algolia]
+appId = ""
+indexName = ""
+searchApiKey = ""
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+[permalinks]
+blog = "/blog/:year/:month/:day/:filename/"
+coreos = "/coreos/:year/:month/:day/:filename/"
+kubernetes = "/kubernetes/:year/:month/:day/:filename/"
+categories = "/blog/category/:title/"
+tags = "/blog/tag/:title/"
+
+[[menu.main]]
+name = "About"
+weight = -10
+identifier = "about"
+url = "/about.md"
+
+[[menu.main]]
+name = "Blog"
+weight = -10
+identifier = "blog"
+url = "/blog/"
+
+[[menu.main]]
+name = "Kubernetes"
+weight = -10
+identifier = "kubernetes"
+url = "/kubernetes/"
+
+[[menu.main]]
+name = "CoreOS"
+weight = -10
+identifier = "coreos"
+url = "/coreos/"
+
+[[menu.main]]
+name = "GitHub"
+weight = -10
+identifier = "repository"
+url = "https://github.com/Nurmukhamed/"
+
+[[menu.main]]
+name = "Резюме"
+weight = -10
+identifier = "cv"
+url = "/cv.pdf"
+
+[[menu.main]]
+name = "Repo"
+weight = -10
+identifier = "repository"
+url = "https://github.com/Nurmukhamed/www-hdfilm-kz-octopress"
+
+[blackfriday]
+hrefTargetBlank = true # open external links in a new window
+fractions = false
+
+[languages]
+# edit this block for your own language
+[languages.en]
+lang = "en"
+languageName = "English"
+weight = 1
+
+[languages.ru]
+lang = "ru"
+languageName = "Русский"
+weight = 2
+
+[languages.kk]
+lang = "kk"
+languageName = "Қазақ"
+weight = 3
