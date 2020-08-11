@@ -454,7 +454,7 @@ sudo rm -rf ~/myrootfs/etc/sysconfig/network-scripts/ifcfg-*
 Произведем упаковку образа
 
 ```
-sudo -Jcvf /var/lib/firecracker/rootfs/centos7-$(/bin/date +%Y%m%d).tar.xz -C /home/nurmukhamed/myrootfs .
+sudo tar -Jcvf /var/lib/firecracker/rootfs/centos7-$(/bin/date +%Y%m%d).tar.xz -C /home/nurmukhamed/myrootfs .
 ```
 
 Теперь у нас имеется образ ОС CentOS, который мы можем развернуть в любой момент.
