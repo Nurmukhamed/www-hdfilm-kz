@@ -22,6 +22,10 @@ categories:
 
 Firecracker - *это технология виртуализации с открытым исходным кодом, предназначенная для создания и управления защищенными, мультитенантными контейнерными и функциональными сервисами, обеспечивающими бессерверные операционные модели. Firecracker запускает рабочие нагрузки в облегченных виртуальных машинах, называемых microVMs, которые сочетают свойства безопасности и изоляции, предоставляемые технологией аппаратной виртуализации, со скоростью и гибкостью контейнеров.*
 
+## UPDATE 
+
+* 13-08-2020 - Обновлен раздел "Сборка Debian"
+  
 ## План работ
 
 * Вступительное слово;
@@ -454,12 +458,92 @@ sudo rm -rf ~/myrootfs/etc/sysconfig/network-scripts/ifcfg-*
 Произведем упаковку образа
 
 ```
-sudo tar -Jcvf /var/lib/firecracker/rootfs/centos7-$(/bin/date +%Y%m%d).tar.xz -C /home/nurmukhamed/myrootfs .
+sudo tar -Jcvf /var/lib/firecracker/rootfs/centos7-$(/bin/date +%Y%m%d).tar.xz -C ~/myrootfs .
 ```
 
 Теперь у нас имеется образ ОС CentOS, который мы можем развернуть в любой момент.
 
-### TODO - Сборка корневой системы Debian
+### Сборка корневой системы Debian Buster
+
+В данной сборке будет минимальная система Debian. Основной послужила [следующая статья](https://habr.com/ru/post/147522/). 
+
+Подготовим рабочее окружение
+
+```
+sudo yum install debootstrap -y
+mkdir ~/debian
+
+sudo debootstrap --include=sudo,nano,wget --arch amd64 buster ~/debian http://mirror.neolabs.kz/debian/
+
+sudo mount -o bind /dev ~/debian/dev
+sudo mount -o bind /sys ~/debian/sys
+sudo mount -o bind /proc ~/debian/proc
+
+cat<<EOF | sudo tee ~/debian/etc/resolv.conf
+search lan
+nameserver 192.168.1.1
+EOF
+```
+
+Рабочий вариант /etc/apt/source.list
+```
+cat<<EOF| sudo tee ~/debian/etc/apt/source.list
+deb http://mirror.neolabs.kz/debian/ buster main contrib non-free
+deb-src http://mirror.neolabs.kz/debian/ stretch main contrib non-free
+
+deb http://mirror.neolabs.kz/debian/ buster-updates main contrib non-free
+deb-src http://mirror.neolabs.kz/debian/ buster-updates main contrib non-free
+
+deb http://security.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src http://security.debian.org/debian-security/ buster/updates main contrib non-free
+EOF
+```
+
+Скрипт постустановки
+
+```
+cat<<EOF| sudo tee ~/debian/postinstall.sh
+#!/bin/bash
+
+## обновление индекса репозитария
+apt-get update
+
+## настройка часовых поясов
+dpkg-reconfigure tzdata
+
+## участие в опросе популярности пакетов
+apt-get -y install popularity-contest
+
+## русский язык в консоли, русская локаль
+## при настройке console-cyrillic лучше выбрать, как шрифт, UniCyr, а на последний вопрос ответить «Да»
+
+apt-get -y install locales console-cyrillic
+dpkg-reconfigure locales
+dpkg-reconfigure console-cyrillic
+EOF
+```
+
+Запустим скрипт в chroot
+
+```
+env LANG=C env HOME=/root sudo -E chroot ~/debian /bin/bash /postinstall.sh
+```
+
+Отключаем разделы
+```
+sudo rm ~/debian/etc/resolv.conf
+sudo umount ~/debian/dev
+sudo umount ~/debian/sys
+sudo umount ~/debian/proc
+```
+
+Произведем упаковку образа
+
+```
+sudo tar -Jcvf /var/lib/firecracker/rootfs/debian-buster-$(/bin/date +%Y%m%d).tar.xz -C ~/debian .
+```
+
+Теперь у нас имеется образ ОС Debian, который мы можем развернуть в любой момент.
 
 ### TODO - Сборка корневой системы Ubuntu
 
@@ -666,7 +750,5 @@ sudo journalctl -u firecracker@testcentos.service
 
 
 ##  TODO Примеры:
-###  TODO CentOS
-###  TODO Debian
 ###  TODO Ubuntu
 ##   TODO Дальнейшие действия. 
