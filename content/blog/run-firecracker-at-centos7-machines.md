@@ -740,6 +740,7 @@ sudo journalctl -u firecracker@testcentos.service
 ```
 
 ## TODO Автоматизация действий
+
 Теперь у нас появилась возможность для автоматизации наших действий и программно запускать виртуальные машины в firecracker.
 
 Представим, что у нас имеется рабочий CI/CD, например, Gitlab. Тогда мы можем добавить в него еще 3 pipeline:
@@ -751,4 +752,6 @@ sudo journalctl -u firecracker@testcentos.service
 
 ##  TODO Примеры:
 ###  TODO Ubuntu
-##   TODO Дальнейшие действия. 
+##  Дальнейшие действия. 
+
+**UPDATE: 14-08-2020** Вышла новая статья как [поднять кластер Kubernetes поверх Firecracker, используя rke](https://www.hdfilm.kz/install-kubernetes-using-rke-on-firecracker-virt) 

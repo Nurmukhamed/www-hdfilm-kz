@@ -30,6 +30,7 @@ RKE - *Rancher Kubernetes Engine (RKE) is a CNCF-certified Kubernetes distributi
 ## План работ
 
 * Вступительное слово;
+* Зачем это было сделано?;
 * Обсуждение архитекутуры;
 * Сборка ядра;
 * Сборка корневой системы;
@@ -89,6 +90,14 @@ Swap:       8126460      142592     7983868
 **Для более менее серьезных задач следуете рекомендациям создателей [Kubernetes](https://kubernetes.io/docs/setup/).**
 
 
+## Зачем это было сделано?;
+
+Firecracker - это система виртуализации с минимальным количеством функции. 
+
+Кластер Kubernetes использует docker, использует расширенные сетевые настойки - bridges, vxvlan, различные типы сетевых модулей. Мне было интересно - а возможно ли поднять рабочий кластер поверх firecracker???
+
+Как оказалось возможно, но с некоторыми ограничениям.
+
 ## Обсуждение архитекутуры
 
 Кластер kubernetes состоит из 5 узлов - виртуальные машины со следующими параметрами:
@@ -145,7 +154,9 @@ sudo cp ./vmlinux /var/lib/firecracker/kernels/k8s-5.6.13
 
 В данной сборке будет минимальная система Debian. Основной послужила [следующая статья](https://habr.com/ru/post/147522/). 
 
-Создадим ключ для openssh для доступа на сервера
+Создадим ключ для openssh для доступа на сервера. 
+
+**ВНИМАНИЕ** - ED25519 поддерживается версией OpenSSH 8.2 и позже. Если вы будете использовать иную версию Debian, используйте поддерживаемый тип публичных ключей.
 
 ```
 ssh-keygen -o -a 256 -t ed25519 -C "$(hostname)-$(date +'%d-%m-%Y')" -t ~/.ssh/rke
@@ -268,17 +279,17 @@ sudo tar -Jcvf /var/lib/firecracker/rootfs/k8s-debian-buster-$(/bin/date +%Y%m%d
 **ВНИМАНИЕ: br0 - это наименование моста для виртуальных машин, в данной конфигурации машины имеют прямой доступ к локальной сети.**
 ```
 for i in {1..5}; do
-sudo ip tuntap add tap${i} mode tap
-sudo ip link set tap${i} master br0
-sudo ip link set tap${i} up
+  sudo ip tuntap add tap${i} mode tap
+   ip link set tap${i} master br0
+  sudo ip link set tap${i} up
 
-sudo tee /etc/systemd/network/90-tap${i}.netdev << EOF
+  sudo tee /etc/systemd/network/90-tap${i}.netdev << EOF
 [NetDev]
 Name=tap${i}
 Kind=tap
 EOF
 
-sudo tee /etc/systemd/network/90-tap${i}.network << EOF
+  sudo tee /etc/systemd/network/90-tap${i}.network << EOF
 [Match]
 Name=tap${i}
 
@@ -306,24 +317,24 @@ servers["k8s05"]=9
 
 for server in "${!servers[@]}"; do
 
-ip=${servers[${server}]}
+  ip=${servers[${server}]}
 
-sudo dd if=/dev/zero of=${VMDATA}/${server}.ext4 bs=1M count=16384
-sudo mkfs.ext4 ${VMDATA}/${server}.ext4
-sudo mkdir ${MOUNTDIR}
-sudo mount -o loop ${VMDATA}/${server}.ext4 ${MOUNTDIR}
-sudo tar -Jxvf /var/lib/firecracker/rootfs/k8s-debian-buster-$(/bin/date +%Y%m%d).tar.xz -C ${MOUNTDIR}
+  sudo dd if=/dev/zero of=${VMDATA}/${server}.ext4 bs=1M count=16384
+  sudo mkfs.ext4 ${VMDATA}/${server}.ext4
+  sudo mkdir ${MOUNTDIR}
+  sudo mount -o loop ${VMDATA}/${server}.ext4 ${MOUNTDIR}
+  sudo tar -Jxvf /var/lib/firecracker/rootfs/k8s-debian-buster-$(/bin/date +%Y%m%d).tar.xz -C ${MOUNTDIR}
 
-cat<<EOF| sudo tee ${MOUNTDIR}/etc/resolv.conf
+  cat<<EOF| sudo tee ${MOUNTDIR}/etc/resolv.conf
 search lan
 nameserver 192.168.1.1
 EOF
 
-cat<<EOF | sudo tee ${MOUNTDIR}/etc/hostname
+  cat<<EOF | sudo tee ${MOUNTDIR}/etc/hostname
 ${server}.lan
 EOF
 
-cat<<EOF| sudo tee ${MOUNTDIR}/etc/network/interfaces
+  cat<<EOF| sudo tee ${MOUNTDIR}/etc/network/interfaces
 # interfaces(5) file used by ifup(8) and ifdown(8)
 # Include files from /etc/network/interfaces.d:
 source-directory /etc/network/interfaces.d
@@ -340,7 +351,7 @@ iface eth0 inet static
       gateway 192.168.1.1
 EOF
 
-cat<<EOF| sudo tee ${MOUNTDIR}/etc/hosts
+  cat<<EOF| sudo tee ${MOUNTDIR}/etc/hosts
 127.0.0.1       localhost
 ::1             localhost ip6-localhost ip6-loopback
 ff02::1         ip6-allnodes
@@ -352,18 +363,17 @@ ff02::2         ip6-allrouters
 192.168.1.9     k8s05.lan
 EOF
 
-sudo umount ${MOUNTDIR}
+  sudo umount ${MOUNTDIR}
 done
 ```
 
 Образ развернут, конфигурация виртуальной машины будет выглядет так:
 
 ```
-
 for i in {1..5}; do
-macaddress=$(echo 00:60:2F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
+  macaddress=$(echo 00:60:2F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
-cat<<EOF | sudo tee /etc/firecracker/k8s0${i}.json
+  cat<<EOF | sudo tee /etc/firecracker/k8s0${i}.json
 {
   "boot-source": {
     "kernel_image_path": "/var/lib/firecracker/kernels/k8s-5.6.13",
@@ -659,10 +669,11 @@ EOF
 ## Запуск виртуальных машин и установка кластера
 
 Запускаем виртуальные машины
+
 ```
 for i in {1..5}; do
-sudo systemctl enable --now firecracker@k8s0${i}
-sudo systemctl status firecracker@k8s0${i}
+  sudo systemctl enable --now firecracker@k8s0${i}
+  sudo systemctl status firecracker@k8s0${i}
 done
 ```
 
@@ -670,7 +681,7 @@ done
 
 ```
 for i in {5..9}; do
-slogin -i ~/.ssh/rke rke@192.168.1.${i} "uname -r; uptime"
+  slogin -i ~/.ssh/rke rke@192.168.1.${i} "uname -r; uptime"
 done
 ```
 
@@ -707,6 +718,80 @@ mkdir ~/.kube
 cp kube_config_rancher-cluster.yml ~/.kube/config
 ```
 
+## Потребление памяти в режиме простоя
+
+Решил выяснить, сколько памяти потребляется в режиме простоя
+
+```
+[nurmukhamed@otrs ~]$ for i in {1..5}; do
+> sudo systemctl stop firecracker@k8s0${i}
+> sudo systemctl start firecracker@k8s0${i}
+> sudo systemctl status firecracker@k8s0${i}
+> done
+● firecracker@k8s01.service - Firecracker starting microvm k8s01
+   Loaded: loaded (/usr/lib/systemd/system/firecracker@.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2020-08-14 10:39:48 +06; 140ms ago
+  Process: 29477 ExecStartPre=/bin/rm /var/run/firecracker/%I.socket (code=exited, status=0/SUCCESS)
+  Process: 29474 ExecStartPre=/usr/bin/mkdir /var/run/firecracker (code=exited, status=1/FAILURE)
+ Main PID: 29480 (firecracker)
+   CGroup: /system.slice/system-firecracker.slice/firecracker@k8s01.service
+           └─29480 /usr/sbin/firecracker --api-sock /var/run/firecracker/k8s01.socket --config-file /etc/firecracker/k8s01.json
+
+Aug 14 10:39:48 otrs.edenprime.kz mkdir[29474]: /usr/bin/mkdir: cannot create directory ‘/var/run/firecracker’: File exists
+Aug 14 10:39:48 otrs.edenprime.kz firecracker[29480]: 2020-08-14T10:39:48.652013740 [anonymous-instance:WARN:src/vmm/src/lib.rs:216] Could not add stdin event to epoll. Operation not permitted (os error 1)
+● firecracker@k8s02.service - Firecracker starting microvm k8s02
+   Loaded: loaded (/usr/lib/systemd/system/firecracker@.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2020-08-14 10:39:49 +06; 66ms ago
+  Process: 29510 ExecStartPre=/bin/rm /var/run/firecracker/%I.socket (code=exited, status=0/SUCCESS)
+  Process: 29507 ExecStartPre=/usr/bin/mkdir /var/run/firecracker (code=exited, status=1/FAILURE)
+ Main PID: 29512 (firecracker)
+   CGroup: /system.slice/system-firecracker.slice/firecracker@k8s02.service
+           └─29512 /usr/sbin/firecracker --api-sock /var/run/firecracker/k8s02.socket --config-file /etc/firecracker/k8s02.json
+● firecracker@k8s03.service - Firecracker starting microvm k8s03
+   Loaded: loaded (/usr/lib/systemd/system/firecracker@.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2020-08-14 10:39:49 +06; 255ms ago
+  Process: 29541 ExecStartPre=/bin/rm /var/run/firecracker/%I.socket (code=exited, status=0/SUCCESS)
+  Process: 29539 ExecStartPre=/usr/bin/mkdir /var/run/firecracker (code=exited, status=1/FAILURE)
+ Main PID: 29544 (firecracker)
+   CGroup: /system.slice/system-firecracker.slice/firecracker@k8s03.service
+           └─29544 /usr/sbin/firecracker --api-sock /var/run/firecracker/k8s03.socket --config-file /etc/firecracker/k8s03.json
+● firecracker@k8s04.service - Firecracker starting microvm k8s04
+   Loaded: loaded (/usr/lib/systemd/system/firecracker@.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2020-08-14 10:39:50 +06; 64ms ago
+  Process: 29574 ExecStartPre=/bin/rm /var/run/firecracker/%I.socket (code=exited, status=0/SUCCESS)
+  Process: 29571 ExecStartPre=/usr/bin/mkdir /var/run/firecracker (code=exited, status=1/FAILURE)
+ Main PID: 29577 (firecracker)
+   CGroup: /system.slice/system-firecracker.slice/firecracker@k8s04.service
+           └─29577 /usr/sbin/firecracker --api-sock /var/run/firecracker/k8s04.socket --config-file /etc/firecracker/k8s04.json
+
+Aug 14 10:39:50 otrs.edenprime.kz mkdir[29571]: /usr/bin/mkdir: cannot create directory ‘/var/run/firecracker’: File exists
+Aug 14 10:39:49 otrs.edenprime.kz systemd[1]: Stopping Firecracker starting microvm k8s04...
+Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Stopped Firecracker starting microvm k8s04.
+Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Starting Firecracker starting microvm k8s04...
+Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Started Firecracker starting microvm k8s04.
+● firecracker@k8s05.service - Firecracker starting microvm k8s05
+   Loaded: loaded (/usr/lib/systemd/system/firecracker@.service; enabled; vendor preset: disabled)
+   Active: active (running) since Fri 2020-08-14 10:39:50 +06; 52ms ago
+  Process: 29602 ExecStartPre=/bin/rm /var/run/firecracker/%I.socket (code=exited, status=0/SUCCESS)
+  Process: 29599 ExecStartPre=/usr/bin/mkdir /var/run/firecracker (code=exited, status=1/FAILURE)
+ Main PID: 29604 (firecracker)
+   CGroup: /system.slice/system-firecracker.slice/firecracker@k8s05.service
+           └─29604 /usr/sbin/firecracker --api-sock /var/run/firecracker/k8s05.socket --config-file /etc/firecracker/k8s05.json
+
+Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Starting Firecracker starting microvm k8s05...
+Aug 14 10:39:50 otrs.edenprime.kz mkdir[29599]: /usr/bin/mkdir: cannot create directory ‘/var/run/firecracker’: File exists
+Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Started Firecracker starting microvm k8s05.
+[nurmukhamed@otrs ~]$ sleep 5m
+[nurmukhamed@otrs ~]$ free
+              total        used        free      shared  buff/cache   available
+Mem:       15965700      828476      213860     7939680    14923364     6859272
+Swap:       8126460      364288     7762172
+
+```
+
+Но Htop не врет, система уже загружена.
+
+{{< imgcap src="/images/20200814-firecracker-rke-k8s.png" caption="20200814-firecracker-rke-k8s" >}}
 ## Что делать дальше
 
 Кластер поднят, теперь можно настраивать приложения по [данной статье](https://serveradmin.ru/rabota-s-helm-3-v-kubernetes/)
