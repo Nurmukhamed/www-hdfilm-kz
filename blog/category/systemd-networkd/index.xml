@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>systemd-networkd on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/systemd-networkd/</link>
+    <description>Recent content in systemd-networkd on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/systemd-networkd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Настройка беспроводной сети в armbian для Orange Pi Zero Plus</title>
+      <link>https://www.hdfilm.kz/blog/2020/01/17/set-wifi-on-armbian/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2020/01/17/set-wifi-on-armbian/</guid>
+      <description>&lt;p&gt;Как настроить беспроводную сеть на Orange Pi Zero Plus&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

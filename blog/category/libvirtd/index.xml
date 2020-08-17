@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>libvirtd on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/libvirtd/</link>
+    <description>Recent content in libvirtd on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Tue, 28 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/libvirtd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>COREOS - загрузка по сети</title>
+      <link>https://www.hdfilm.kz/blog/2017/03/28/coreos-ipxe-server-working-configurations/</link>
+      <pubDate>Tue, 28 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2017/03/28/coreos-ipxe-server-working-configurations/</guid>
+      <description>&lt;p&gt;Решил настроить тестовый кластер coreos с загрузкой по сети.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

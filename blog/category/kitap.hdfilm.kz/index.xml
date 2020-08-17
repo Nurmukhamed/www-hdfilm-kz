@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kitap.hdfilm.kz on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/kitap.hdfilm.kz/</link>
+    <description>Recent content in kitap.hdfilm.kz on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Wed, 21 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/kitap.hdfilm.kz/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Очень простой битторрент-трекер</title>
+      <link>https://www.hdfilm.kz/blog/2016/09/21/opentracker/</link>
+      <pubDate>Wed, 21 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2016/09/21/opentracker/</guid>
+      <description>&lt;p&gt;На &lt;a href=&#34;kitap.hdfilm.kz&#34;&gt;своем сайте&lt;/a&gt; я раздаю сканы книг на казахском языке. для раздачи использую opentracker.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

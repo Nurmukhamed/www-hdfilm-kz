@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>travis-ci on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/travis-ci/</link>
+    <description>Recent content in travis-ci on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Wed, 24 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/travis-ci/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Начинаем все с начало</title>
+      <link>https://www.hdfilm.kz/blog/2018/01/24/back-to-start/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2018/01/24/back-to-start/</guid>
+      <description>&lt;p&gt;После длительного перерыва, начинаю опять графоманить.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Реализовано - как реализовать свой динамический днс сервер</title>
+      <link>https://www.hdfilm.kz/blog/2017/02/28/how-to-create-dynamic-dns-server/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2017/02/28/how-to-create-dynamic-dns-server/</guid>
+      <description>&lt;p&gt;В голову пришла идея - как реализовать свой динамический днс сервер, используя доступные услуги.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
