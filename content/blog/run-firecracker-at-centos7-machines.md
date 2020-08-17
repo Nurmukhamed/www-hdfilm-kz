@@ -23,7 +23,7 @@ categories:
 Firecracker - *это технология виртуализации с открытым исходным кодом, предназначенная для создания и управления защищенными, мультитенантными контейнерными и функциональными сервисами, обеспечивающими бессерверные операционные модели. Firecracker запускает рабочие нагрузки в облегченных виртуальных машинах, называемых microVMs, которые сочетают свойства безопасности и изоляции, предоставляемые технологией аппаратной виртуализации, со скоростью и гибкостью контейнеров.*
 
 ## UPDATE 
-
+* 17-08-2020 - Обновлена версия firecracker - 0.22.0
 * 13-08-2020 - Обновлен раздел "Сборка Debian"
   
 ## План работ
@@ -136,13 +136,13 @@ EOF
 Создадим шаблон spec-файл для сборки пакета
 
 ```
-rpmdev-newspec rpmbuild/SPECS/firecracker.spec
+rpmdev-newspec rpmbuild/SPECS/firecracker-binary.spec
 ```
 
 Шаблон Spec-файла выглядит так:
 
 ```
-Name:           firecracker
+Name:           firecracker-binary
 Version:
 Release:        1%{?dist}
 Summary:
@@ -182,15 +182,15 @@ rm -rf $RPM_BUILD_ROOT
 Теперь файл нужно привести к следующему виду:
 
 ```
-Name:           firecracker
-Version:        v0.21.1
+Name:           firecracker-binary
+Version:        v0.22.0
 Release:        1%{?dist}
 Summary:        Open source virtualization technology
 
 License:        Apache License 2.0
 URL:            https://github.com/firecracker-microvm/firecracker
-Source0:        https://github.com/firecracker-microvm/firecracker/releases/download/v0.21.1/firecracker-v0.21.1-x86_64
-Source1:        https://github.com/firecracker-microvm/firecracker/releases/download/v0.21.1/jailer-v0.21.1-x86_64
+Source0:        https://github.com/firecracker-microvm/firecracker/releases/download/v0.22.0/firecracker-v0.22.0-x86_64
+Source1:        https://github.com/firecracker-microvm/firecracker/releases/download/v0.22.0/jailer-v0.22.0-x86_64
 Source2:        firecracker@.service
 BuildArch:      x86_64
 
@@ -267,14 +267,17 @@ rm -rf %{buildroot}
 %changelog
 * Mon May 18 2020 Nurmukhamed Artykaly <nurmukhamed.artykaly@hdfilm.kz> v0.21.1-1
 - Initial spec file
+* Mon Aug 17 2020 Nurmukhamed Artykaly <nurmukhamed.artykaly@hdfilm.kz> v0.22.0-1
+- Updated to v0.22.0
+
 ```
 
 Собираем RPM-пакет 
 
 ```
-spectool -g -R ~/rpmbuild/SPECS/firecracker.spec
-rpmbuild -bs ~/rpmbuild/SPECS/firecracker.spec
-sudo mock ~/rpmbuild/SRPMS/firecracker-v0.21.1-1.el7.src.rpm
+spectool -g -R ~/rpmbuild/SPECS/firecracker-binary.spec
+rpmbuild -bs ~/rpmbuild/SPECS/firecracker-binary.spec
+sudo mock ~/rpmbuild/SRPMS/firecracker-binary-v0.22.0-1.el7.src.rpm
 ```
 
 Готовый пакет будет здесь
@@ -283,8 +286,8 @@ sudo mock ~/rpmbuild/SRPMS/firecracker-v0.21.1-1.el7.src.rpm
 ll /var/lib/mock/epel-7-x86_64/result/
 total 2800
 -rw-rw-r-- 1 root mock    9792 May 18 16:03 build.log
--rw-r--r-- 1 root mock 1850581 May 18 16:03 firecracker-v0.21.1-1.el7.src.rpm
--rw-r--r-- 1 root mock  914196 May 18 16:03 firecracker-v0.21.1-1.el7.x86_64.rpm
+-rw-r--r-- 1 root mock 1850581 May 18 16:03 firecracker-binary-v0.22.0-1.el7.src.rpm
+-rw-r--r-- 1 root mock  914196 May 18 16:03 firecracker-binary-v0.22.0-1.el7.x86_64.rpm
 -rw-rw-r-- 1 root mock    1568 May 18 16:03 hw_info.log
 -rw-rw-r-- 1 root mock   16450 May 18 16:03 installed_pkgs.log
 -rw-rw-r-- 1 root mock   56517 May 18 16:03 root.log
@@ -294,7 +297,7 @@ total 2800
 Можем установить пакет
 
 ```
-sudo yum localinstall /var/lib/mock/epel-7-x86_64/result/firecracker-v0.21.1-1.el7.x86_64.rpm
+sudo yum localinstall /var/lib/mock/epel-7-x86_64/result/firecracker-binary-v0.22.0-1.el7.x86_64.rpm
 
 ```
 
@@ -552,7 +555,7 @@ sudo tar -Jcvf /var/lib/firecracker/rootfs/debian-buster-$(/bin/date +%Y%m%d).ta
 
 На данный момент у нас имеются:
 
-* Пакет firecracker;
+* Пакет firecracker-binary;
 * Собранное ядро linux 5.6.13;
 * Собранная корневая система ОС CentOS 7.
 
