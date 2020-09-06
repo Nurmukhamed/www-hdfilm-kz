@@ -1,36 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ipv6 on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/ipv6/</link>
-    <description>Recent content in ipv6 on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/ipv6/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Руководство по настройке IPV6 на OpenWRT Breaking Barrier в сетях Интернет-Дома от Beeline</title>
-      <link>https://www.hdfilm.kz/blog/2019/01/19/setup-ipv6-openwrt-beeline-l2tp/</link>
-      <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2019/01/19/setup-ipv6-openwrt-beeline-l2tp/</guid>
-      <description>&lt;p&gt;Краткая инструкция по настройке IPV6 в сетях Интернет-Дома от Билайна на роутерах OpenWRT.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Почему IPv6 лучше чем IPv4</title>
-      <link>https://www.hdfilm.kz/blog/2015/07/14/onereasonwhyipv6isbetterthanipv4/</link>
-      <pubDate>Tue, 14 Jul 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2015/07/14/onereasonwhyipv6isbetterthanipv4/</guid>
-      <description>Маленькая статья о том почему IPv6 лучше чем IPv4
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ipv6 on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/ipv6/</link><description>Recent content in ipv6 on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/ipv6/index.xml" rel="self" type="application/rss+xml"/><item><title>Руководство по настройке IPV6 на OpenWRT Breaking Barrier в сетях Интернет-Дома от Beeline</title><link>https://www.hdfilm.kz/blog/2019/01/19/setup-ipv6-openwrt-beeline-l2tp/</link><pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2019/01/19/setup-ipv6-openwrt-beeline-l2tp/</guid><description>&lt;p>Краткая инструкция по настройке IPV6 в сетях Интернет-Дома от Билайна на роутерах OpenWRT.&lt;/p></description></item><item><title>Почему IPv6 лучше чем IPv4</title><link>https://www.hdfilm.kz/blog/2015/07/14/onereasonwhyipv6isbetterthanipv4/</link><pubDate>Tue, 14 Jul 2015 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2015/07/14/onereasonwhyipv6isbetterthanipv4/</guid><description>Маленькая статья о том почему IPv6 лучше чем IPv4
 Сегодня занимался следующим: Есть пару гипервизоров ESXi, нужно по сети устанавливать Windows Server 2012 R2 на виртуальные машины. Без вмешательства инженера, в автономном режиме.
 Какие статьи использовал:
- Using VMware Tools drivers on Windows PE Inject VMware Drivers into Windows Server 2012 ISO Image How to create bootable Windows 8 ISO DVD using Oscdimg.exe Установка Windows 7 по сети при помощи Microsoft Windows AIK Установка Windows Server 2008 по сети с Linux PXE сервера.</description>
-    </item>
-    
-  </channel>
-</rss>
+Using VMware Tools drivers on Windows PE Inject VMware Drivers into Windows Server 2012 ISO Image How to create bootable Windows 8 ISO DVD using Oscdimg.exe Установка Windows 7 по сети при помощи Microsoft Windows AIK Установка Windows Server 2008 по сети с Linux PXE сервера.</description></item></channel></rss>

@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>common on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/common/</link>
-    <description>Recent content in common on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Mon, 06 Jan 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/common/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Переехал на octopress</title>
-      <link>https://www.hdfilm.kz/blog/2014/01/06/moved_to_octopress/</link>
-      <pubDate>Mon, 06 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2014/01/06/moved_to_octopress/</guid>
-      <description>Давно думал о том, что WordPress избыточен, и у меня проблема с написанием статей в WordPress. нужно было знать и уметь оформлять статьи в блоге, а я не научился.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>common on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/common/</link><description>Recent content in common on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Mon, 06 Jan 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/common/index.xml" rel="self" type="application/rss+xml"/><item><title>Переехал на octopress</title><link>https://www.hdfilm.kz/blog/2014/01/06/moved_to_octopress/</link><pubDate>Mon, 06 Jan 2014 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2014/01/06/moved_to_octopress/</guid><description>Давно думал о том, что WordPress избыточен, и у меня проблема с написанием статей в WordPress. нужно было знать и уметь оформлять статьи в блоге, а я не научился.
 основная задача - быстро и легко публиковать статьи.
-Изменение №1</description>
-    </item>
-    
-  </channel>
-</rss>
+Изменение №1</description></item></channel></rss>

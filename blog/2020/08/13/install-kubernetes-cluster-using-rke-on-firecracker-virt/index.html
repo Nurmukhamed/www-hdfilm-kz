@@ -1,201 +1,6 @@
-<!DOCTYPE html>
-<html lang='ru'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker'>
-<meta name='theme-color' content='#ffcd00'>
-
-<meta property='og:title' content='Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker • Нұрмұхамед Артықалы'>
-<meta property='og:description' content='Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker'>
-<meta property='og:url' content='https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/'>
-<meta property='og:site_name' content='Нұрмұхамед Артықалы'>
-<meta property='og:type' content='article'><meta property='article:section' content='blog'><meta property='article:published_time' content='2020-08-13T00:00:00Z'/><meta property='article:modified_time' content='2020-08-13T00:00:00Z'/><meta name='twitter:card' content='summary'>
-
-<meta name="generator" content="Hugo 0.71.0" />
-
-  <title>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker • Нұрмұхамед Артықалы</title>
-  <link rel='canonical' href='https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#ffcd00;}
-</style>
-
-  
-
-</head>
-<body class='page type-blog layout-page has-sidebar'>
-
-  <div class='site'><div id='sidebar' class='sidebar'>
-  <a class='screen-reader-text' href='#main-menu'></a>
-
-  <div class='container'><section class='widget widget-about sep-after'>
-  <header>
-    
-    <div class='logo'>
-      <a href='/'>
-        <img src='/images/logo.png'>
-      </a>
-    </div>
-    
-    <h2 class='title site-title '>
-      <a href='/'>
-      Нұрмұхамед Артықалы
-      </a>
-    </h2>
-    <div class='desc'>
-    Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.
-    </div>
-  </header>
-
-</section>
-<section class='widget widget-search sep-after'>
-  <header>
-    <h4 class='title widget-title'>Search</h4>
-  </header>
-
-  <form action='/search' id='search-form' class='search-form'>
-    <label>
-      <span class='screen-reader-text'></span>
-      <input id='search-term' class='search-term' type='search' name='q' placeholder='&hellip;'>
-    </label></form>
-
-</section>
-<section class='widget widget-taxonomy_cloud sep-after'>
-  <header>
-    <h4 class='title widget-title'></h4>
-  </header>
-
-  <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><span></span></ul>
-</div>
-
-
-</section>
-</div>
-
-  <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label=''>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'></a>
-
-<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
-  <span class='screen-reader-text'></span>
-  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="3" y1="12" x2="21" y2="12" />
-  <line x1="3" y1="6" x2="21" y2="6" />
-  <line x1="3" y1="18" x2="21" y2="18" />
-  
-</svg>
-</span>
-  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-  
-</svg>
-</span>
-</button>
-    <ul><li class='item'>
-        <a href='/about.md'>About</a>
-      </li><li class='item'>
-        <a href='/blog/'>Blog</a>
-      </li><li class='item'>
-        <a href='/coreos/'>CoreOS</a>
-      </li><li class='item'>
-        <a href='/kubernetes/'>Kubernetes</a>
-      </li><li class='item'>
-        <a href='https://github.com/Nurmukhamed/www-hdfilm-kz-octopress'>Repo</a>
-      </li><li class='item'>
-        <a href='/cv.pdf'>Резюме</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Нұрмұхамед Артықалы</p><p class='desc site-desc'>Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.</p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='ru' class='entry'>
-  <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'> </span>
-  <time class='entry-date' datetime='2020-08-13T00:00:00Z'>2020, Aug 13</time>
-</span>
-
-  
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-  
-  
-
-  <div class='container entry-content'>
-  <p><strong>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</strong></p>
-<p>В этой статье продолжаю исследовать <a href="https://github.com/firecracker-microvm/firecracker/">Firecracker</a>.  Совместно с утилитой rke можно легко установить кластер Kubernetes.</p>
-<p>Firecracker - <em>это технология виртуализации с открытым исходным кодом, предназначенная для создания и управления защищенными, мультитенантными контейнерными и функциональными сервисами, обеспечивающими бессерверные операционные модели. Firecracker запускает рабочие нагрузки в облегченных виртуальных машинах, называемых microVMs, которые сочетают свойства безопасности и изоляции, предоставляемые технологией аппаратной виртуализации, со скоростью и гибкостью контейнеров.</em></p>
-<p>RKE - <em>Rancher Kubernetes Engine (RKE) is a CNCF-certified Kubernetes distribution that runs entirely within Docker containers. It works on bare-metal and virtualized servers. RKE solves the problem of installation complexity, a common issue in the Kubernetes community. With RKE, the installation and operation of Kubernetes is both simplified and easily automated, and it’s entirely independent of the operating system and platform you’re running. As long as you can run a supported version of Docker, you can deploy and run Kubernetes with RKE.</em></p>
-<h2 id="план-работ">План работ</h2>
-<ul>
-<li>Вступительное слово;</li>
-<li>Зачем это было сделано?;</li>
-<li>Обсуждение архитекутуры;</li>
-<li>Сборка ядра;</li>
-<li>Сборка корневой системы;
-<ul>
-<li>Сборка корневой системы Debian Buster;</li>
-</ul>
-</li>
-<li>Создание сетевой подсистемы</li>
-<li>Создание корневой системы из образа для виртуальных машин</li>
-<li>Установка необходимого ПО</li>
-<li>Конфигурация rke</li>
-<li>Запуск виртуальных машин и установка кластера</li>
-<li>Управление кластером</li>
-<li>Что делать дальшеВступительное слово.</li>
-</ul>
-<h2 id="вступительное-слово">Вступительное слово</h2>
-<p><em>АВТОР ПРЕДОСТАВЛЯЕТ СТАТЬЮ “КАК ЕСТЬ” БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ, НО НЕ ОГРАНИЧИВАЯСЬ, ПОДРАЗУМЕВАЕМЫМИ ГАРАНТИЯМИ ТОВАРНОЙ ПРИГОДНОСТИ И ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННОЙ ЦЕЛИ. ВЕСЬ РИСК, СВЯЗАННЫЙ С КАЧЕСТВОМ И ЭФФЕКТИВНОСТЬЮ СТАТЬИ, ЛЕЖИТ НА ВАС. ЕСЛИ СОДЕРЖАНИЕ СТАТЬИ ОКАЖЕТСЯ НЕВЕРНЫМ, ВЫ БЕРЕТЕ НА СЕБЯ РАСХОДЫ НА ВСЕ НЕОБХОДИМОЕ ОБСЛУЖИВАНИЕ, РЕМОНТ ИЛИ ИСПРАВЛЕНИЕ.</em></p>
-<p><em>Используемое оборудование - это сервер на базе материнской платы AsRock J1900D c 4 ядерным процессором Celeron и 16 Гигабайт ОЗУ. Данный сервер был выбран по причине дешевизны, наличия 4 ядер и пассивного охлаждения, что крайне необходимо для домашнего сервера.</em></p>
-<pre><code>[nurmukhamed@otrs ~]$ lscpu
+<!doctype html><html lang=ru><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker"><meta name=theme-color content="#ffcd00"><meta property="og:title" content="Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker • Нұрмұхамед Артықалы"><meta property="og:description" content="Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker"><meta property="og:url" content="https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/"><meta property="og:site_name" content="Нұрмұхамед Артықалы"><meta property="og:type" content="article"><meta property="article:section" content="blog"><meta property="article:published_time" content="2020-08-13T00:00:00Z"><meta property="article:modified_time" content="2020-08-13T00:00:00Z"><meta name=twitter:card content="summary"><meta name=generator content="Hugo 0.74.2"><title>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker • Нұрмұхамед Артықалы</title><link rel=canonical href=https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.6a060eb7.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#ffcd00}</style></head><body class="page type-blog layout-page has-sidebar"><div class=site><div id=sidebar class=sidebar><a class=screen-reader-text href=#main-menu></a><div class=container><section class="widget widget-about sep-after"><header><div class=logo><a href=/><img src=/images/logo.png></a></div><h2 class="title site-title"><a href=/>Нұрмұхамед Артықалы</a></h2><div class=desc>Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.</div></header></section><section class="widget widget-search sep-after"><header><h4 class="title widget-title">Search</h4></header><form action=/search id=search-form class=search-form><label><span class=screen-reader-text></span><input id=search-term class=search-term type=search name=q placeholder=&mldr;></label></form></section><section class="widget widget-taxonomy_cloud sep-after"><header><h4 class="title widget-title"></h4></header><div class="container list-container"><ul class="list taxonomy-cloud"><span></span></ul></div></section></div><div class=sidebar-overlay></div></div><div class=main><nav id=main-menu class="menu main-menu" aria-label><div class=container><a class=screen-reader-text href=#content></a><button id=sidebar-toggler class=sidebar-toggler aria-controls=sidebar>
+<span class=screen-reader-text></span><span class=open><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></span><span class=close><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button><ul><li class=item><a href=/about.md>About</a></li><li class=item><a href=/blog/>Blog</a></li><li class=item><a href=/coreos/>CoreOS</a></li><li class=item><a href=/kubernetes/>Kubernetes</a></li><li class=item><a href=https://github.com/Nurmukhamed/www-hdfilm-kz-octopress>Repo</a></li><li class=item><a href=/cv.pdf>Резюме</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class="header site-header"><div class="container sep-after"><div class=header-info><p class="site-title title">Нұрмұхамед Артықалы</p><p class="desc site-desc">Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.</p></div></div></header><main id=content><article lang=ru class=entry><header class="header entry-header"><div class="container sep-after"><div class=header-info><h1 class=title>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text></span><time class=entry-date datetime=2020-08-13T00:00:00Z>2020, Aug 13</time></span>
+<span class=reading-time><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></span></div></div></header><div class="container entry-content"><p><strong>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</strong></p><p>В этой статье продолжаю исследовать <a href=https://github.com/firecracker-microvm/firecracker/>Firecracker</a>. Совместно с утилитой rke можно легко установить кластер Kubernetes.</p><p>Firecracker - <em>это технология виртуализации с открытым исходным кодом, предназначенная для создания и управления защищенными, мультитенантными контейнерными и функциональными сервисами, обеспечивающими бессерверные операционные модели. Firecracker запускает рабочие нагрузки в облегченных виртуальных машинах, называемых microVMs, которые сочетают свойства безопасности и изоляции, предоставляемые технологией аппаратной виртуализации, со скоростью и гибкостью контейнеров.</em></p><p>RKE - <em>Rancher Kubernetes Engine (RKE) is a CNCF-certified Kubernetes distribution that runs entirely within Docker containers. It works on bare-metal and virtualized servers. RKE solves the problem of installation complexity, a common issue in the Kubernetes community. With RKE, the installation and operation of Kubernetes is both simplified and easily automated, and it’s entirely independent of the operating system and platform you’re running. As long as you can run a supported version of Docker, you can deploy and run Kubernetes with RKE.</em></p><h2 id=план-работ>План работ</h2><ul><li>Вступительное слово;</li><li>Зачем это было сделано?;</li><li>Обсуждение архитекутуры;</li><li>Сборка ядра;</li><li>Сборка корневой системы;<ul><li>Сборка корневой системы Debian Buster;</li></ul></li><li>Создание сетевой подсистемы</li><li>Создание корневой системы из образа для виртуальных машин</li><li>Установка необходимого ПО</li><li>Конфигурация rke</li><li>Запуск виртуальных машин и установка кластера</li><li>Управление кластером</li><li>Что делать дальшеВступительное слово.</li></ul><h2 id=вступительное-слово>Вступительное слово</h2><p><em>АВТОР ПРЕДОСТАВЛЯЕТ СТАТЬЮ “КАК ЕСТЬ” БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ, НО НЕ ОГРАНИЧИВАЯСЬ, ПОДРАЗУМЕВАЕМЫМИ ГАРАНТИЯМИ ТОВАРНОЙ ПРИГОДНОСТИ И ПРИГОДНОСТИ ДЛЯ ОПРЕДЕЛЕННОЙ ЦЕЛИ. ВЕСЬ РИСК, СВЯЗАННЫЙ С КАЧЕСТВОМ И ЭФФЕКТИВНОСТЬЮ СТАТЬИ, ЛЕЖИТ НА ВАС. ЕСЛИ СОДЕРЖАНИЕ СТАТЬИ ОКАЖЕТСЯ НЕВЕРНЫМ, ВЫ БЕРЕТЕ НА СЕБЯ РАСХОДЫ НА ВСЕ НЕОБХОДИМОЕ ОБСЛУЖИВАНИЕ, РЕМОНТ ИЛИ ИСПРАВЛЕНИЕ.</em></p><p><em>Используемое оборудование - это сервер на базе материнской платы AsRock J1900D c 4 ядерным процессором Celeron и 16 Гигабайт ОЗУ. Данный сервер был выбран по причине дешевизны, наличия 4 ядер и пассивного охлаждения, что крайне необходимо для домашнего сервера.</em></p><pre><code>[nurmukhamed@otrs ~]$ lscpu
 Architecture:          x86_64
 CPU op-mode(s):        32-bit, 64-bit
 Byte Order:            Little Endian
@@ -225,74 +30,7 @@ Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca 
               total        used        free      shared  buff/cache   available
 Mem:       15965700     1002912      278152    10462696    14684636     4161820
 Swap:       8126460      142592     7983868
-</code></pre><p><em>Конфигурация виртуальных машин не является оптимальной и выбрана чтобы уместить на домашнем сервере 5 виртуальных машин в пределах 16 Гигабайт ОЗУ.</em></p>
-<p><em>Данная конфигурация сервера и виртуальных машин предназначена только для образовательных целях для проверки возможностей. Не является отказоустойчивой и развернута на одном сервере</em></p>
-<p><strong>Для более менее серьезных задач следуете рекомендациям создателей <a href="https://kubernetes.io/docs/setup/">Kubernetes</a>.</strong></p>
-<h2 id="зачем-это-было-сделано">Зачем это было сделано?;</h2>
-<p>Firecracker - это система виртуализации с минимальным количеством функции.</p>
-<p>Кластер Kubernetes использует docker, использует расширенные сетевые настойки - bridges, vxvlan, различные типы сетевых модулей. Мне было интересно - а возможно ли поднять рабочий кластер поверх firecracker???</p>
-<p>Как оказалось возможно, но с некоторыми ограничениям.</p>
-<h2 id="обсуждение-архитекутуры">Обсуждение архитекутуры</h2>
-<p>Кластер kubernetes состоит из 5 узлов - виртуальные машины со следующими параметрами:</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Role</th>
-<th>CPU</th>
-<th>RAM, MB</th>
-<th>HDD, GB</th>
-<th>IP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>k8s01</td>
-<td>etcd</td>
-<td>1</td>
-<td>2</td>
-<td>16</td>
-<td>192.168.1.5</td>
-</tr>
-<tr>
-<td>k8s02</td>
-<td>control-plane</td>
-<td>1</td>
-<td>2</td>
-<td>16</td>
-<td>192.168.1.6</td>
-</tr>
-<tr>
-<td>k8s03</td>
-<td>control-plane</td>
-<td>1</td>
-<td>2</td>
-<td>16</td>
-<td>192.168.1.7</td>
-</tr>
-<tr>
-<td>k8s04</td>
-<td>worker</td>
-<td>1</td>
-<td>2</td>
-<td>16</td>
-<td>192.168.1.8</td>
-</tr>
-<tr>
-<td>k8s05</td>
-<td>worker</td>
-<td>1</td>
-<td>2</td>
-<td>16</td>
-<td>192.168.1.9</td>
-</tr>
-</tbody>
-</table>
-<h2 id="сборка-ядра">Сборка ядра</h2>
-<p>Нам понадобится ядро Linux. Особенность firecracker - используется ядро со встроенными модулями. Без поддержки initrd.</p>
-<p>Также существуют <a href="https://rancher.com/docs/rke/latest/en/os/">требования</a> к модулям ядра. Поэтому мы должны собрать новое ядро со встроенными модулями, чтобы не нарушать требования.</p>
-<p><a href="https://linuxhint.com/compile-linux-kernel-centos7/">По данной ссылке</a> подготовим рабочее окружение и загрузим последнею версию ядра.</p>
-<pre><code>sudo yum install flex flex-devel bison bison-devel ncurses-devel make gcc bc openssl-devel elfutils-libelf-devel rpm-build
+</code></pre><p><em>Конфигурация виртуальных машин не является оптимальной и выбрана чтобы уместить на домашнем сервере 5 виртуальных машин в пределах 16 Гигабайт ОЗУ.</em></p><p><em>Данная конфигурация сервера и виртуальных машин предназначена только для образовательных целях для проверки возможностей. Не является отказоустойчивой и развернута на одном сервере</em></p><p><strong>Для более менее серьезных задач следуете рекомендациям создателей <a href=https://kubernetes.io/docs/setup/>Kubernetes</a>.</strong></p><h2 id=зачем-это-было-сделано>Зачем это было сделано?;</h2><p>Firecracker - это система виртуализации с минимальным количеством функции.</p><p>Кластер Kubernetes использует docker, использует расширенные сетевые настойки - bridges, vxvlan, различные типы сетевых модулей. Мне было интересно - а возможно ли поднять рабочий кластер поверх firecracker???</p><p>Как оказалось возможно, но с некоторыми ограничениям.</p><h2 id=обсуждение-архитекутуры>Обсуждение архитекутуры</h2><p>Кластер kubernetes состоит из 5 узлов - виртуальные машины со следующими параметрами:</p><table><thead><tr><th>Name</th><th>Role</th><th>CPU</th><th>RAM, MB</th><th>HDD, GB</th><th>IP</th></tr></thead><tbody><tr><td>k8s01</td><td>etcd</td><td>1</td><td>2</td><td>16</td><td>192.168.1.5</td></tr><tr><td>k8s02</td><td>control-plane</td><td>1</td><td>2</td><td>16</td><td>192.168.1.6</td></tr><tr><td>k8s03</td><td>control-plane</td><td>1</td><td>2</td><td>16</td><td>192.168.1.7</td></tr><tr><td>k8s04</td><td>worker</td><td>1</td><td>2</td><td>16</td><td>192.168.1.8</td></tr><tr><td>k8s05</td><td>worker</td><td>1</td><td>2</td><td>16</td><td>192.168.1.9</td></tr></tbody></table><h2 id=сборка-ядра>Сборка ядра</h2><p>Нам понадобится ядро Linux. Особенность firecracker - используется ядро со встроенными модулями. Без поддержки initrd.</p><p>Также существуют <a href=https://rancher.com/docs/rke/latest/en/os/>требования</a> к модулям ядра. Поэтому мы должны собрать новое ядро со встроенными модулями, чтобы не нарушать требования.</p><p><a href=https://linuxhint.com/compile-linux-kernel-centos7/>По данной ссылке</a> подготовим рабочее окружение и загрузим последнею версию ядра.</p><pre><code>sudo yum install flex flex-devel bison bison-devel ncurses-devel make gcc bc openssl-devel elfutils-libelf-devel rpm-build
 
 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.13.tar.xz
 tar xvf linux-5.6.13.tar.xz
@@ -301,22 +39,11 @@ cd linux-5.6.13
 curl https://gist.githubusercontent.com/Nurmukhamed/033eacdc00ea20f5d3dd8d60d8ebea7b/raw/beae09d4984c84a8b335cb2f3dcdbb3ec2a179cc/firecracker-microvm-kubernetes-ready-kernel-config -o .config
 
 make menuconfig
-</code></pre><p>Ничего не выбираем, просто сохраняем конфиг как .config</p>
-<pre><code>make vmlinux
-</code></pre><p>Скопируем полученный файл в каталог /var/lib/firecracker/kernels/</p>
-<pre><code>sudo cp ./vmlinux /var/lib/firecracker/kernels/k8s-5.6.13
-</code></pre><h2 id="сборка-корневой-системы">Сборка корневой системы</h2>
-<p><strong>ВНИМАНИЕ: Я потерял очень много времени пытаясь почему же у меня возникают ошибки, не проходит установка кластера. Виной всему оказалась ошибка в CentOS / Docker / iptables. Из-за чего не было возможности прокинуть порты из Docker наружу. Пока советую не использовать CentOS 7|8</strong></p>
-<p><strong>ВНИМАНИЕ: В Debian Buster установка прошла успешно. Рекомендую использовать Debian Buster</strong></p>
-<p>Нам понадобится образ корневой системы.</p>
-<h3 id="сборка-корневой-системы-debian-buster">Сборка корневой системы Debian Buster</h3>
-<p>В данной сборке будет минимальная система Debian. Основной послужила <a href="https://habr.com/ru/post/147522/">следующая статья</a>.</p>
-<p>Создадим ключ для openssh для доступа на сервера.</p>
-<p><strong>ВНИМАНИЕ</strong> - ED25519 поддерживается версией OpenSSH 8.2 и позже. Если вы будете использовать иную версию Debian, используйте поддерживаемый тип публичных ключей.</p>
-<pre><code>ssh-keygen -o -a 256 -t ed25519 -C &quot;$(hostname)-$(date +'%d-%m-%Y')&quot; -t ~/.ssh/rke
+</code></pre><p>Ничего не выбираем, просто сохраняем конфиг как .config</p><pre><code>make vmlinux
+</code></pre><p>Скопируем полученный файл в каталог /var/lib/firecracker/kernels/</p><pre><code>sudo cp ./vmlinux /var/lib/firecracker/kernels/k8s-5.6.13
+</code></pre><h2 id=сборка-корневой-системы>Сборка корневой системы</h2><p><strong>ВНИМАНИЕ: Я потерял очень много времени пытаясь почему же у меня возникают ошибки, не проходит установка кластера. Виной всему оказалась ошибка в CentOS / Docker / iptables. Из-за чего не было возможности прокинуть порты из Docker наружу. Пока советую не использовать CentOS 7|8</strong></p><p><strong>ВНИМАНИЕ: В Debian Buster установка прошла успешно. Рекомендую использовать Debian Buster</strong></p><p>Нам понадобится образ корневой системы.</p><h3 id=сборка-корневой-системы-debian-buster>Сборка корневой системы Debian Buster</h3><p>В данной сборке будет минимальная система Debian. Основной послужила <a href=https://habr.com/ru/post/147522/>следующая статья</a>.</p><p>Создадим ключ для openssh для доступа на сервера.</p><p><strong>ВНИМАНИЕ</strong> - ED25519 поддерживается версией OpenSSH 8.2 и позже. Если вы будете использовать иную версию Debian, используйте поддерживаемый тип публичных ключей.</p><pre><code>ssh-keygen -o -a 256 -t ed25519 -C &quot;$(hostname)-$(date +'%d-%m-%Y')&quot; -t ~/.ssh/rke
 cat ~/.ssh/rke.pub
-</code></pre><p>Подготовим рабочее окружение</p>
-<pre><code>sudo yum install debootstrap -y
+</code></pre><p>Подготовим рабочее окружение</p><pre><code>sudo yum install debootstrap -y
 mkdir ~/debian
 
 sudo debootstrap --include=sudo,nano,wget --arch amd64 buster ~/debian http://mirror.neolabs.kz/debian/
@@ -329,8 +56,7 @@ cat&lt;&lt;EOF | sudo tee ~/debian/etc/resolv.conf
 search lan
 nameserver 192.168.1.1
 EOF
-</code></pre><p>Рабочий вариант /etc/apt/source.list</p>
-<pre><code>cat&lt;&lt;EOF| sudo tee ~/debian/etc/apt/source.list
+</code></pre><p>Рабочий вариант /etc/apt/source.list</p><pre><code>cat&lt;&lt;EOF| sudo tee ~/debian/etc/apt/source.list
 deb http://mirror.neolabs.kz/debian/ buster main contrib non-free
 deb-src http://mirror.neolabs.kz/debian/ stretch main contrib non-free
 
@@ -343,10 +69,8 @@ deb-src http://security.debian.org/debian-security/ buster/updates main contrib 
 
 deb http://deb.debian.org/debian buster-backports main
 EOF
-</code></pre><p>Запустим chroot</p>
-<pre><code>env LANG=C env HOME=/root sudo -E chroot ~/debian /bin/bash /postinstall.sh
-</code></pre><p>Выполняем</p>
-<pre><code>cat&lt;&lt;EOF| sudo tee ~/debian/postinstall.sh
+</code></pre><p>Запустим chroot</p><pre><code>env LANG=C env HOME=/root sudo -E chroot ~/debian /bin/bash /postinstall.sh
+</code></pre><p>Выполняем</p><pre><code>cat&lt;&lt;EOF| sudo tee ~/debian/postinstall.sh
 #!/bin/bash
 
 ## обновление индекса репозитария
@@ -390,19 +114,12 @@ curl https://releases.rancher.com/install-docker/18.09.2.sh | sh
 
 # добавим пользователя rke в группу Docker
 usermod -aG docker rke
-</code></pre><p>Отключаем разделы</p>
-<pre><code>sudo rm ~/debian/etc/resolv.conf
+</code></pre><p>Отключаем разделы</p><pre><code>sudo rm ~/debian/etc/resolv.conf
 sudo umount ~/debian/dev
 sudo umount ~/debian/sys
 sudo umount ~/debian/proc
-</code></pre><p>Произведем упаковку образа</p>
-<pre><code>sudo tar -Jcvf /var/lib/firecracker/rootfs/k8s-debian-buster-$(/bin/date +%Y%m%d).tar.xz -C ~/debian .
-</code></pre><p>Теперь у нас имеется образ ОС Debian, готовый для развертывания Kubernetes.</p>
-<h2 id="создание-сетевой-подсистемы">Создание сетевой подсистемы</h2>
-<p>Настроем сетевую подсистему для виртуальных машин.</p>
-<p><strong>ВНИМАНИЕ: Я использую systemd-networkd и не использую NetworkManager.</strong></p>
-<p><strong>ВНИМАНИЕ: br0 - это наименование моста для виртуальных машин, в данной конфигурации машины имеют прямой доступ к локальной сети.</strong></p>
-<pre><code>for i in {1..5}; do
+</code></pre><p>Произведем упаковку образа</p><pre><code>sudo tar -Jcvf /var/lib/firecracker/rootfs/k8s-debian-buster-$(/bin/date +%Y%m%d).tar.xz -C ~/debian .
+</code></pre><p>Теперь у нас имеется образ ОС Debian, готовый для развертывания Kubernetes.</p><h2 id=создание-сетевой-подсистемы>Создание сетевой подсистемы</h2><p>Настроем сетевую подсистему для виртуальных машин.</p><p><strong>ВНИМАНИЕ: Я использую systemd-networkd и не использую NetworkManager.</strong></p><p><strong>ВНИМАНИЕ: br0 - это наименование моста для виртуальных машин, в данной конфигурации машины имеют прямой доступ к локальной сети.</strong></p><pre><code>for i in {1..5}; do
   sudo ip tuntap add tap${i} mode tap
    ip link set tap${i} master br0
   sudo ip link set tap${i} up
@@ -422,9 +139,7 @@ Bridge=br0
 EOF
 
 done
-</code></pre><h2 id="создание-корневой-системы-из-образа-для-виртуальных-машин">Создание корневой системы из образа для виртуальных машин</h2>
-<p>Написал небольшой скрипт для развертывания образа виртуальной машины.</p>
-<pre><code>VMDATA=&quot;/opt/k8s&quot;
+</code></pre><h2 id=создание-корневой-системы-из-образа-для-виртуальных-машин>Создание корневой системы из образа для виртуальных машин</h2><p>Написал небольшой скрипт для развертывания образа виртуальной машины.</p><pre><code>VMDATA=&quot;/opt/k8s&quot;
 MOUNTDIR=&quot;/tmp/testmount&quot;
 
 declare -A servers
@@ -484,8 +199,7 @@ EOF
 
   sudo umount ${MOUNTDIR}
 done
-</code></pre><p>Образ развернут, конфигурация виртуальной машины будет выглядет так:</p>
-<pre><code>for i in {1..5}; do
+</code></pre><p>Образ развернут, конфигурация виртуальной машины будет выглядет так:</p><pre><code>for i in {1..5}; do
   macaddress=$(echo 00:60:2F:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10]:$[RANDOM%10]$[RANDOM%10])
 
   cat&lt;&lt;EOF | sudo tee /etc/firecracker/k8s0${i}.json
@@ -520,26 +234,18 @@ done
 }
 EOF
 done
-</code></pre><h2 id="установка-необходимого-по">Установка необходимого ПО</h2>
-<p>Нам необходимо дополнительное программное обеспечение для управления кластером Kubernetes</p>
-<p><strong>kubectl</strong>:</p>
-<pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+</code></pre><h2 id=установка-необходимого-по>Установка необходимого ПО</h2><p>Нам необходимо дополнительное программное обеспечение для управления кластером Kubernetes</p><p><strong>kubectl</strong>:</p><pre><code>curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
-</code></pre><p><strong>rke</strong></p>
-<pre><code>curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep amd64 | cut -d '&quot;' -f 4 | wget -qi -
+</code></pre><p><strong>rke</strong></p><pre><code>curl -s https://api.github.com/repos/rancher/rke/releases/latest | grep download_url | grep amd64 | cut -d '&quot;' -f 4 | wget -qi -
 chmod +x rke_linux-amd64
 sudo mv rke_linux-amd64 /usr/local/bin/rke
 rke --version
-</code></pre><p><strong>helm</strong></p>
-<pre><code>curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+</code></pre><p><strong>helm</strong></p><pre><code>curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-</code></pre><h2 id="конфигурация-rke">Конфигурация rke</h2>
-<p>Более подробно можно почитать <a href="http://itisgood.ru/2020/01/29/ustanovka-proizvodstvennogo-klastera-kubernetes-s-rancher-rke/">здесь</a>.</p>
-<p>У меня получилась следующая конфигурация.</p>
-<pre><code>mkdir ~/rke
+</code></pre><h2 id=конфигурация-rke>Конфигурация rke</h2><p>Более подробно можно почитать <a href=http://itisgood.ru/2020/01/29/ustanovka-proizvodstvennogo-klastera-kubernetes-s-rancher-rke/>здесь</a>.</p><p>У меня получилась следующая конфигурация.</p><pre><code>mkdir ~/rke
 cd ~/rke
 
 cat&lt;&lt;EOF| tee cluster.yml
@@ -760,23 +466,16 @@ restore:
   snapshot_name: &quot;&quot;
 dns: null
 EOF
-</code></pre><h2 id="запуск-виртуальных-машин-и-установка-кластера">Запуск виртуальных машин и установка кластера</h2>
-<p>Запускаем виртуальные машины</p>
-<pre><code>for i in {1..5}; do
+</code></pre><h2 id=запуск-виртуальных-машин-и-установка-кластера>Запуск виртуальных машин и установка кластера</h2><p>Запускаем виртуальные машины</p><pre><code>for i in {1..5}; do
   sudo systemctl enable --now firecracker@k8s0${i}
   sudo systemctl status firecracker@k8s0${i}
 done
-</code></pre><p>Проверим удаленный доступ к серверам</p>
-<pre><code>for i in {5..9}; do
+</code></pre><p>Проверим удаленный доступ к серверам</p><pre><code>for i in {5..9}; do
   slogin -i ~/.ssh/rke rke@192.168.1.${i} &quot;uname -r; uptime&quot;
 done
-</code></pre><p>Запускаем установку кластера, через минут 10 (на моем железе) будет готовый кластер.</p>
-<pre><code>cd ~/rke
+</code></pre><p>Запускаем установку кластера, через минут 10 (на моем железе) будет готовый кластер.</p><pre><code>cd ~/rke
 rke up
-</code></pre><p>Если появились ошибки, нужно делать troubleshooting.</p>
-<h2 id="управление-кластером">Управление кластером</h2>
-<p>Теперь можем проверить состояние кластера.</p>
-<pre><code>cd ~/rke/
+</code></pre><p>Если появились ошибки, нужно делать troubleshooting.</p><h2 id=управление-кластером>Управление кластером</h2><p>Теперь можем проверить состояние кластера.</p><pre><code>cd ~/rke/
 export KUBECONFIG=./kube_config_cluster.yml
 kubectl get nodes
 NAME          STATUS   ROLES          AGE   VERSION
@@ -785,12 +484,9 @@ NAME          STATUS   ROLES          AGE   VERSION
 192.168.1.7   Ready    controlplane   24h   v1.18.6
 192.168.1.8   Ready    worker         24h   v1.18.6
 192.168.1.9   Ready    worker         24h   v1.18.6
-</code></pre><p>Вы можете скопировать этот файл в $HOME/.kube/config, если у вас нет другого кластера kubernetes.</p>
-<pre><code>mkdir ~/.kube
+</code></pre><p>Вы можете скопировать этот файл в $HOME/.kube/config, если у вас нет другого кластера kubernetes.</p><pre><code>mkdir ~/.kube
 cp kube_config_rancher-cluster.yml ~/.kube/config
-</code></pre><h2 id="потребление-памяти-в-режиме-простоя">Потребление памяти в режиме простоя</h2>
-<p>Решил выяснить, сколько памяти потребляется в режиме простоя</p>
-<pre><code>[nurmukhamed@otrs ~]$ for i in {1..5}; do
+</code></pre><h2 id=потребление-памяти-в-режиме-простоя>Потребление памяти в режиме простоя</h2><p>Решил выяснить, сколько памяти потребляется в режиме простоя</p><pre><code>[nurmukhamed@otrs ~]$ for i in {1..5}; do
 &gt; sudo systemctl stop firecracker@k8s0${i}
 &gt; sudo systemctl start firecracker@k8s0${i}
 &gt; sudo systemctl status firecracker@k8s0${i}
@@ -854,20 +550,8 @@ Aug 14 10:39:50 otrs.edenprime.kz systemd[1]: Started Firecracker starting micro
 Mem:       15965700      828476      213860     7939680    14923364     6859272
 Swap:       8126460      364288     7762172
 
-</code></pre><p>Но Htop не врет, система уже загружена.</p>
-
-
-
-
-
-<span class="caption-wrapper">
-  <img class="caption" src="/images/20200814-firecracker-rke-k8s.png" title="" alt="">
-  <span class="caption-text"></span>
-</span>
-
-<h2 id="что-делать-дальше">Что делать дальше</h2>
-<p>Кластер поднят, теперь можно настраивать приложения по <a href="https://serveradmin.ru/rabota-s-helm-3-v-kubernetes/">данной статье</a></p>
-<pre><code>kubectl get pods -w --namespace kubeapps
+</code></pre><p>Но Htop не врет, система уже загружена.</p><span class=caption-wrapper><img class=caption src=/images/20200814-firecracker-rke-k8s.png alt>
+<span class=caption-text></span></span><h2 id=что-делать-дальше>Что делать дальше</h2><p>Кластер поднят, теперь можно настраивать приложения по <a href=https://serveradmin.ru/rabota-s-helm-3-v-kubernetes/>данной статье</a></p><pre><code>kubectl get pods -w --namespace kubeapps
 NAME                                                          READY   STATUS             RESTARTS   AGE
 apprepo-kubeapps-sync-bitnami-1597317600-lslkt                0/1     Completed          0          28m
 apprepo-kubeapps-sync-bitnami-1597318200-mb5xr                0/1     Completed          1          18m
@@ -896,86 +580,4 @@ kubeapps-internal-tiller-proxy-69f596b886-xpspw               0/1     CrashLoopB
 kubeapps-postgresql-master-0                                  1/1     Running            0          24h
 kubeapps-postgresql-slave-0                                   1/1     Running            0          24h
 
-</code></pre><p>В случае ошибки, можно посмотреть логи системы.</p>
-<p><em>Не забудьте обновить свое резюме, впишите в него строку &ldquo;Kubernetes, Rancher, RKE&rdquo; и просите прибавку к зарплате +50 тысяч рублей РФ.</em></p>
-</div>
-
-  
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
-  
-</svg>
-<span class='screen-reader-text'>categories: </span><a class='category' href='/blog/category/linux/'>linux</a>, <a class='category' href='/blog/category/centos/'>centos</a>, <a class='category' href='/blog/category/debian/'>debian</a>, <a class='category' href='/blog/category/amazon/'>amazon</a>, <a class='category' href='/blog/category/virtualization/'>virtualization</a>, <a class='category' href='/blog/category/kvm/'>kvm</a>, <a class='category' href='/blog/category/firecracker/'>firecracker</a>, <a class='category' href='/blog/category/kubernetes/'>kubernetes</a>, <a class='category' href='/blog/category/manual/'>manual</a>, <a class='category' href='/blog/category/rancher/'>rancher</a>, <a class='category' href='/blog/category/rke/'>rke</a></div>
-
-  </div>
-</footer>
-
-
-</article>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/blog/2020/06/16/gmail-oauth2-postfix-support/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- </span>
-        <span class='screen-reader-text'>: </span>Включаем поддержку oauth2 в postfix для работы с Gmail</a>
-    </div></div>
-</nav>
-
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label=''>
-    <ul><li>
-        <a href='https://github.com/Nurmukhamed' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'></span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='mailto:nurmukhamed.artykaly@hdfilm.kz' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'></span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://t.me/nartykaly' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'></span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="m 22.05,1.577 c -0.393,-0.016 -0.784,0.08 -1.117,0.235 -0.484,0.186 -4.92,1.902 -9.41,3.64 C 9.263,6.325 7.005,7.198 5.267,7.867 3.53,8.537 2.222,9.035 2.153,9.059 c -0.46,0.16 -1.082,0.362 -1.61,0.984 -0.79581202,1.058365 0.21077405,1.964825 1.004,2.499 1.76,0.564 3.58,1.102 5.087,1.608 0.556,1.96 1.09,3.927 1.618,5.89 0.174,0.394 0.553,0.54 0.944,0.544 l -0.002,0.02 c 0,0 0.307,0.03 0.606,-0.042 0.3,-0.07 0.677,-0.244 1.02,-0.565 0.377,-0.354 1.4,-1.36 1.98,-1.928 l 4.37,3.226 0.035,0.02 c 0,0 0.484,0.34 1.192,0.388 0.354,0.024 0.82,-0.044 1.22,-0.337 0.403,-0.294 0.67,-0.767 0.795,-1.307 0.374,-1.63 2.853,-13.427 3.276,-15.38 L 23.676,4.725 C 23.972,3.625 23.863,2.617 23.18,2.02 22.838,1.723 22.444,1.593 22.05,1.576 Z"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2009-2020 Nurmukhamed Artykaly </p>
-</div>
-
-        </div>
-      </footer>
-
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
-
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
-
-</body>
-
-</html>
-
+</code></pre><p>В случае ошибки, можно посмотреть логи системы.</p><p><em>Не забудьте обновить свое резюме, впишите в него строку &ldquo;Kubernetes, Rancher, RKE&rdquo; и просите прибавку к зарплате +50 тысяч рублей РФ.</em></p></div><footer class=entry-footer><div class="container sep-before"><div class=categories><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5A2 2 0 014 3H9l2 3h9a2 2 0 012 2z"/></svg><span class=screen-reader-text>categories: </span><a class=category href=/blog/category/linux/>linux</a>, <a class=category href=/blog/category/centos/>centos</a>, <a class=category href=/blog/category/debian/>debian</a>, <a class=category href=/blog/category/amazon/>amazon</a>, <a class=category href=/blog/category/virtualization/>virtualization</a>, <a class=category href=/blog/category/kvm/>kvm</a>, <a class=category href=/blog/category/firecracker/>firecracker</a>, <a class=category href=/blog/category/kubernetes/>kubernetes</a>, <a class=category href=/blog/category/manual/>manual</a>, <a class=category href=/blog/category/rancher/>rancher</a>, <a class=category href=/blog/category/rke/>rke</a></div></div></footer></article><nav class=entry-nav><div class=container><div class="prev-entry sep-before"><a href=/blog/2020/06/16/gmail-oauth2-postfix-support/><span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 18 4 12 10 6"/></svg></span><span class=screen-reader-text>: </span>Включаем поддержку oauth2 в postfix для работы с Gmail</a></div><div class="next-entry sep-before"><a href=/blog/2020/08/24/fixing-permission-in-docker-logstash-image/><span class=screen-reader-text>: </span>Правильные права на сертификаты в Docker-образе Logstash<span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></a></div></div></nav></main><footer id=footer class=footer><div class="container sep-before"><section class="widget widget-social_menu sep-after"><nav aria-label><ul><li><a href=https://github.com/Nurmukhamed target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=mailto:nurmukhamed.artykaly@hdfilm.kz target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></li><li><a href=https://t.me/nartykaly target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="m22.05 1.577c-.393-.016-.784.08-1.117.235-.484.186-4.92 1.902-9.41 3.64C9.263 6.325 7.005 7.198 5.267 7.867 3.53 8.537 2.222 9.035 2.153 9.059c-.46.16-1.082.362-1.61.984-.79581202 1.058365.21077405 1.964825 1.004 2.499 1.76.564 3.58 1.102 5.087 1.608.556 1.96 1.09 3.927 1.618 5.89.174.394.553.54.944.544l-.002.02s.307.03.606-.042c.3-.07.677-.244 1.02-.565.377-.354 1.4-1.36 1.98-1.928l4.37 3.226.035.02s.484.34 1.192.388c.354.024.82-.044 1.22-.337.403-.294.67-.767.795-1.307.374-1.63 2.853-13.427 3.276-15.38L23.676 4.725C23.972 3.625 23.863 2.617 23.18 2.02 22.838 1.723 22.444 1.593 22.05 1.576z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2009-2020 Nurmukhamed Artykaly</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.67d669ac.js></script><script src=/js/custom.js></script></body></html>

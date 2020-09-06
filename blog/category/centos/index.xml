@@ -1,167 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>centos on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/centos/</link>
-    <description>Recent content in centos on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Thu, 13 Aug 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/centos/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</title>
-      <link>https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/</link>
-      <pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Включаем поддержку oauth2 в postfix для работы с Gmail</title>
-      <link>https://www.hdfilm.kz/blog/2020/06/16/gmail-oauth2-postfix-support/</link>
-      <pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/06/16/gmail-oauth2-postfix-support/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Включаем поддержку oauth2 в postfix для работы с Gmail&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Настройка исходящей почты для OTRS</title>
-      <link>https://www.hdfilm.kz/blog/2020/06/16/otrs-setup-outgoing-email/</link>
-      <pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/06/16/otrs-setup-outgoing-email/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Настройка исходящей почты для OTRS&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Репозиторий для собираемых пакетов</title>
-      <link>https://www.hdfilm.kz/blog/2020/06/16/repo-edenprime-kz-is-created/</link>
-      <pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/06/16/repo-edenprime-kz-is-created/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Репозиторий для собираемых пакетов&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Сборка пакета asterisk-chan_dongle</title>
-      <link>https://www.hdfilm.kz/blog/2020/06/16/asterisk-dongle-package/</link>
-      <pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/06/16/asterisk-dongle-package/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Сборка пакета asterisk-chan_dongle&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5</title>
-      <link>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</link>
-      <pubDate>Thu, 28 May 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Пропала сеть при обновление ядра kernel-ml</title>
-      <link>https://www.hdfilm.kz/blog/2020/05/20/lost-nic-after-kernel-upgrade/</link>
-      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/05/20/lost-nic-after-kernel-upgrade/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Пропала сеть при обновление ядра&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Настройка Firecracker на CentOS 7</title>
-      <link>https://www.hdfilm.kz/blog/2020/05/18/run-firecracker-at-centos7-machines/</link>
-      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/05/18/run-firecracker-at-centos7-machines/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Настройка Firecracker на CentOS 7&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Настройка Suricata на CentOS 7</title>
-      <link>https://www.hdfilm.kz/blog/2020/02/03/setting-suricata-ids-ips-system/</link>
-      <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/02/03/setting-suricata-ids-ips-system/</guid>
-      <description>&lt;p&gt;Настройка Suricata на CentOS 7&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>ID-Cooling Frostflow 240l - Работаем в пассивном режиме</title>
-      <link>https://www.hdfilm.kz/blog/2017/05/13/idcooling-frostflow-240l-running-in-passive-mode/</link>
-      <pubDate>Sat, 13 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2017/05/13/idcooling-frostflow-240l-running-in-passive-mode/</guid>
-      <description>&lt;p&gt;Краткий рассказ о системе необслуживаемой водянки, установленной в моем домашнем сервере.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Установка Iredmail-почтового сервера как шлюз перед Exchange</title>
-      <link>https://www.hdfilm.kz/blog/2017/02/07/iredmail-as-smtp-gateway-for-exchange/</link>
-      <pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2017/02/07/iredmail-as-smtp-gateway-for-exchange/</guid>
-      <description>&lt;p&gt;Опишу здесь свой опыт настройки  Iredmail для работы с Exchange&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>CoreOS: Описание железа, виртуальных машин, топология сети</title>
-      <link>https://www.hdfilm.kz/coreos-hardware-description/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/coreos-hardware-description/</guid>
-      <description>Описание железа, виртуальных машин, топология сети:
- Сервер:  HP Proliant Microserver 16GB Ram 160GB SSD 1GB NIC   Операционная система  VmWare ESXi 5.5   Виртуальные машины  Router Dnsmasq Developer Hub a.coreos b.coreos c.coreos d.coreos e.coreos   Docker Containers  a.httpd b.httpd c.httpd a.haproxy a.curl b.curl c.curl   Сетевые настройки  Network - 192.168.254.0/24 Router - 192.168.254.254 ESXi - 192.168.254.253 Dnsmasq - 192.168.254.252 Developer - 192.</description>
-    </item>
-    
-    <item>
-      <title>CoreOS: Работа с контейнерами, создание базового образа</title>
-      <link>https://www.hdfilm.kz/coreos-docker-base-tools/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/coreos-docker-base-tools/</guid>
-      <description>Кратко опишем, что нужно сделать, чтобы создать новый образ, как загрузить образ в репозиторий.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>centos on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/centos/</link><description>Recent content in centos on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Thu, 13 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/centos/index.xml" rel="self" type="application/rss+xml"/><item><title>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker</title><link>https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/</link><pubDate>Thu, 13 Aug 2020 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2020/08/13/install-kubernetes-cluster-using-rke-on-firecracker-virt/</guid><description>&lt;p>&lt;strong>Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker&lt;/strong>&lt;/p></description></item><item><title>Включаем поддержку oauth2 в postfix для работы с Gmail</title><link>https://www.hdfilm.kz/blog/2020/06/16/gmail-oauth2-postfix-support/</link><pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/06/16/gmail-oauth2-postfix-support/</guid><description>&lt;p>&lt;strong>Включаем поддержку oauth2 в postfix для работы с Gmail&lt;/strong>&lt;/p></description></item><item><title>Настройка исходящей почты для OTRS</title><link>https://www.hdfilm.kz/blog/2020/06/16/otrs-setup-outgoing-email/</link><pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/06/16/otrs-setup-outgoing-email/</guid><description>&lt;p>&lt;strong>Настройка исходящей почты для OTRS&lt;/strong>&lt;/p></description></item><item><title>Репозиторий для собираемых пакетов</title><link>https://www.hdfilm.kz/blog/2020/06/16/repo-edenprime-kz-is-created/</link><pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/06/16/repo-edenprime-kz-is-created/</guid><description>&lt;p>&lt;strong>Репозиторий для собираемых пакетов&lt;/strong>&lt;/p></description></item><item><title>Сборка пакета asterisk-chan_dongle</title><link>https://www.hdfilm.kz/blog/2020/06/16/asterisk-dongle-package/</link><pubDate>Tue, 16 Jun 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/06/16/asterisk-dongle-package/</guid><description>&lt;p>&lt;strong>Сборка пакета asterisk-chan_dongle&lt;/strong>&lt;/p></description></item><item><title>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5</title><link>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</link><pubDate>Thu, 28 May 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</guid><description>&lt;p>&lt;strong>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5&lt;/strong>&lt;/p></description></item><item><title>Пропала сеть при обновление ядра kernel-ml</title><link>https://www.hdfilm.kz/blog/2020/05/20/lost-nic-after-kernel-upgrade/</link><pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2020/05/20/lost-nic-after-kernel-upgrade/</guid><description>&lt;p>&lt;strong>Пропала сеть при обновление ядра&lt;/strong>&lt;/p></description></item><item><title>Настройка Firecracker на CentOS 7</title><link>https://www.hdfilm.kz/blog/2020/05/18/run-firecracker-at-centos7-machines/</link><pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2020/05/18/run-firecracker-at-centos7-machines/</guid><description>&lt;p>&lt;strong>Настройка Firecracker на CentOS 7&lt;/strong>&lt;/p></description></item><item><title>Настройка Suricata на CentOS 7</title><link>https://www.hdfilm.kz/blog/2020/02/03/setting-suricata-ids-ips-system/</link><pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2020/02/03/setting-suricata-ids-ips-system/</guid><description>&lt;p>Настройка Suricata на CentOS 7&lt;/p></description></item><item><title>ID-Cooling Frostflow 240l - Работаем в пассивном режиме</title><link>https://www.hdfilm.kz/blog/2017/05/13/idcooling-frostflow-240l-running-in-passive-mode/</link><pubDate>Sat, 13 May 2017 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2017/05/13/idcooling-frostflow-240l-running-in-passive-mode/</guid><description>&lt;p>Краткий рассказ о системе необслуживаемой водянки, установленной в моем домашнем сервере.&lt;/p></description></item><item><title>Установка Iredmail-почтового сервера как шлюз перед Exchange</title><link>https://www.hdfilm.kz/blog/2017/02/07/iredmail-as-smtp-gateway-for-exchange/</link><pubDate>Tue, 07 Feb 2017 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2017/02/07/iredmail-as-smtp-gateway-for-exchange/</guid><description>&lt;p>Опишу здесь свой опыт настройки Iredmail для работы с Exchange&lt;/p></description></item><item><title>CoreOS: Описание железа, виртуальных машин, топология сети</title><link>https://www.hdfilm.kz/coreos-hardware-description/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/coreos-hardware-description/</guid><description>Описание железа, виртуальных машин, топология сети:
+Сервер: HP Proliant Microserver 16GB Ram 160GB SSD 1GB NIC Операционная система VmWare ESXi 5.5 Виртуальные машины Router Dnsmasq Developer Hub a.coreos b.coreos c.coreos d.coreos e.coreos Docker Containers a.httpd b.httpd c.httpd a.haproxy a.curl b.curl c.curl Сетевые настройки Network - 192.168.254.0/24 Router - 192.168.254.254 ESXi - 192.168.254.253 Dnsmasq - 192.168.254.252 Developer - 192.</description></item><item><title>CoreOS: Работа с контейнерами, создание базового образа</title><link>https://www.hdfilm.kz/coreos-docker-base-tools/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/coreos-docker-base-tools/</guid><description>Кратко опишем, что нужно сделать, чтобы создать новый образ, как загрузить образ в репозиторий.
 Создание нового образа
 Мы не будем использовать публичные репозитории. все образы будут собраны нами. что позволит нам лучше контролировать образы, улучшить безопасность.
 Для генерации нового образа воспользуемся скриптом mkimage-yum.sh. Данный скрипт создает CentOS из под CentOS.
 Скачаем скрипт с github
- cd /usr/local/bin wget https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh chmod +x mkimage-yum.sh Создадим первый образ
- sudo /usr/local/bin/mkimage-yum.sh centos Проверим образ</description>
-    </item>
-    
-    <item>
-      <title>CoreOS: Создание контейнеров для тестовой площадки</title>
-      <link>https://www.hdfilm.kz/coreos-create-docker-images-for-test/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/coreos-create-docker-images-for-test/</guid>
-      <description>Введение
+cd /usr/local/bin wget https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh chmod +x mkimage-yum.sh Создадим первый образ
+sudo /usr/local/bin/mkimage-yum.sh centos Проверим образ</description></item><item><title>CoreOS: Создание контейнеров для тестовой площадки</title><link>https://www.hdfilm.kz/coreos-create-docker-images-for-test/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/coreos-create-docker-images-for-test/</guid><description>Введение
 Создать контейнеры для docker можно двумя способами:
- ручное через dockerfile  В данное время будем рассматривать только ручное создание. Для создания контейнеров используем Developers.
+ручное через dockerfile В данное время будем рассматривать только ручное создание. Для создания контейнеров используем Developers.
 Контейнеры
 curl
 Запустить контейнер centos-base-with-localrepo - базовый контейнер, использующий локальные репозитории
 docker run -i -t hub.nurm.local:5000/centos-base-with-localrepo /bin/bash Создать скрипт - бесконечный цикл, запрашивающий страницу
-cat &amp;lt;&amp;lt;EOF &amp;gt; /root/curl_loop.sh #!/bin/bash CURL=/usr/bin/curl #echo $CURL while true do $CURL -silent http://a.haproxy.nurm.local/counter.php &amp;gt; /dev/null sleep 300 done EOF chmod + x /root/curl_loop.</description>
-    </item>
-    
-    <item>
-      <title>Кластер CoreOS для освоения Docker</title>
-      <link>https://www.hdfilm.kz/coreos-intro/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/coreos-intro/</guid>
-      <description>Вводная часть
+cat &amp;lt;&amp;lt;EOF &amp;gt; /root/curl_loop.sh #!/bin/bash CURL=/usr/bin/curl #echo $CURL while true do $CURL -silent http://a.haproxy.nurm.local/counter.php &amp;gt; /dev/null sleep 300 done EOF chmod + x /root/curl_loop.</description></item><item><title>Кластер CoreOS для освоения Docker</title><link>https://www.hdfilm.kz/coreos-intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/coreos-intro/</guid><description>Вводная часть
 Предполагается, что все работы проводятся внутри предприятия с ограниченным доступом к ресурсам Internet. CentOS выбрана основой для виртуальных машин и контейнеров. На предприятие есть зеркала популярных репозиториев, нет необходимости в доступе к интернет для установки пакетов.
 Данная статья - это конспектирование опыта изучения как работает кластер CoreOS, как работает Docker, развертывания кластера.
-Данный кластер был развернут на работе, затем был развернут дома на домашнем сервере, для написания данной статьи.</description>
-    </item>
-    
-  </channel>
-</rss>
+Данный кластер был развернут на работе, затем был развернут дома на домашнем сервере, для написания данной статьи.</description></item></channel></rss>

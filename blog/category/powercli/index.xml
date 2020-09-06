@@ -1,37 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>powercli on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/powercli/</link>
-    <description>Recent content in powercli on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Thu, 28 May 2020 12:30:30 +0600</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/powercli/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5</title>
-      <link>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</link>
-      <pubDate>Thu, 28 May 2020 12:30:30 +0600</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>как заменить образ сетевой карты в виртуальной машине на образ ipxe</title>
-      <link>https://www.hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/</link>
-      <pubDate>Fri, 24 Jul 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/</guid>
-      <description>Небольшая статья - как заменить образ сетевой карты в виртуальной машине на образ ipxe.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>powercli on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/powercli/</link><description>Recent content in powercli on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Thu, 28 May 2020 12:30:30 +0600</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/powercli/index.xml" rel="self" type="application/rss+xml"/><item><title>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5</title><link>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</link><pubDate>Thu, 28 May 2020 12:30:30 +0600</pubDate><guid>https://www.hdfilm.kz/blog/2020/05/28/2018-kubernetes-manual/</guid><description>&lt;p>&lt;strong>Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5&lt;/strong>&lt;/p></description></item><item><title>как заменить образ сетевой карты в виртуальной машине на образ ipxe</title><link>https://www.hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/</link><pubDate>Fri, 24 Jul 2015 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/</guid><description>Небольшая статья - как заменить образ сетевой карты в виртуальной машине на образ ipxe.
 На сайте ipxe нашел как можно заменить образы сетевой карты на свои. Но это все делается ручками. Что делать, если у тебя виртуальных машин больше 100 и более.
 Нужно автоматизировать данный процесс. Используем powershell и powercli. Также нам понадобятся putty, pscp.
 Использовал информацию со следующих сайтов:
- Using plink to modify ESXi host configuration files via SSH from a PowerCLI script Using iPXE in VMware Changing VMX files just got a whole lot easier.</description>
-    </item>
-    
-  </channel>
-</rss>
+Using plink to modify ESXi host configuration files via SSH from a PowerCLI script Using iPXE in VMware Changing VMX files just got a whole lot easier.</description></item></channel></rss>

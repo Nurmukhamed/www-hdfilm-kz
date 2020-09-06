@@ -1,29 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>spi flash on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/spi-flash/</link>
-    <description>Recent content in spi flash on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Mon, 20 Feb 2017 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/spi-flash/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Паяльник - 2 неудачи в выходные дни</title>
-      <link>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</link>
-      <pubDate>Mon, 20 Feb 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</guid>
-      <description>&lt;p&gt;На выходных решил закончить ранее начатые дела:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Прошить китайкий роутер - клон Hame A15 на базе чипсета Ralink 5350F;&lt;/li&gt;
-&lt;li&gt;Собрать DIY-набор для линейного лабораторного блока питания.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Далее, описание того, что произошло&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>spi flash on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/spi-flash/</link><description>Recent content in spi flash on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Mon, 20 Feb 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/spi-flash/index.xml" rel="self" type="application/rss+xml"/><item><title>Паяльник - 2 неудачи в выходные дни</title><link>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</link><pubDate>Mon, 20 Feb 2017 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</guid><description>&lt;p>На выходных решил закончить ранее начатые дела:&lt;/p>
+&lt;ul>
+&lt;li>Прошить китайкий роутер - клон Hame A15 на базе чипсета Ralink 5350F;&lt;/li>
+&lt;li>Собрать DIY-набор для линейного лабораторного блока питания.&lt;/li>
+&lt;/ul>
+&lt;p>Далее, описание того, что произошло&lt;/p></description></item></channel></rss>

@@ -1,25 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>monitoring on Нұрмұхамед Артықалы</title>
-    <link>https://www.hdfilm.kz/blog/category/monitoring/</link>
-    <description>Recent content in monitoring on Нұрмұхамед Артықалы</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ru-RU</language>
-    <lastBuildDate>Thu, 09 Jan 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.hdfilm.kz/blog/category/monitoring/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Оперативное отслеживание баланса и трафика в сети ТОО Intelsoft.kz</title>
-      <link>https://www.hdfilm.kz/blog/2014/01/09/zabbixintelsoftmonitoring/</link>
-      <pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.hdfilm.kz/blog/2014/01/09/zabbixintelsoftmonitoring/</guid>
-      <description>Введение Написал презентацию как мониторить трафик в сетях Intelsoft Kazakhstan
-презентацию можно скачать отсюда</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>monitoring on Нұрмұхамед Артықалы</title><link>https://www.hdfilm.kz/blog/category/monitoring/</link><description>Recent content in monitoring on Нұрмұхамед Артықалы</description><generator>Hugo -- gohugo.io</generator><language>ru-RU</language><lastBuildDate>Thu, 09 Jan 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://www.hdfilm.kz/blog/category/monitoring/index.xml" rel="self" type="application/rss+xml"/><item><title>Оперативное отслеживание баланса и трафика в сети ТОО Intelsoft.kz</title><link>https://www.hdfilm.kz/blog/2014/01/09/zabbixintelsoftmonitoring/</link><pubDate>Thu, 09 Jan 2014 00:00:00 +0000</pubDate><guid>https://www.hdfilm.kz/blog/2014/01/09/zabbixintelsoftmonitoring/</guid><description>Введение Написал презентацию как мониторить трафик в сетях Intelsoft Kazakhstan
+презентацию можно скачать отсюда</description></item></channel></rss>
