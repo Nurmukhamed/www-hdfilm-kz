@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master  # Set a branch to deploy
+    paths:
+      - "content"
 
 jobs:
   deploy:
