@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ergodox on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/ergodox/</link>
+    <description>Recent content in ergodox on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Thu, 10 Jul 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/ergodox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ergodox - смета на одну клавиатуру</title>
+      <link>https://www.hdfilm.kz/blog/2014/07/10/ergodox-smeta-na-odnu-klaviaturu/</link>
+      <pubDate>Thu, 10 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2014/07/10/ergodox-smeta-na-odnu-klaviaturu/</guid>
+      <description>Смета на один набор клавиатуры
+В данную смету я включил все что нужно будет для самостоятельной сборки клавиатуры. все цены в долларах США без учета доставки. нужно будет самостоятельно подсчитать.
+Печатная плата
+Печатную плату я заказывал в Китае. Последовательность действии:
+ Нужно связаться по емайлу yangyang@hqew.net. Скачать чертежи в формате gerber Выслать чертежи по указанному адресу Получить потверждение, что файлы читаемые и инженера могут распечатать плату Заказать нужное количество плат. Заказывать парное количество плат Договориться об оплате, произвести перевод Выслать свой почтовый адрес, получить трекинговый номер для отслеживания посылки Ждать новостей от почтальона  WWW.</description>
+    </item>
+    
+    <item>
+      <title>Общие расходы на сборку клавиатуры ergodox</title>
+      <link>https://www.hdfilm.kz/blog/2014/07/09/ergodox-rashody/</link>
+      <pubDate>Wed, 09 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2014/07/09/ergodox-rashody/</guid>
+      <description>О чем данная статья В данной статье решил подсчитать сколько денег было потрачено на сборку клавиатуры. Также отмечу, что первоначально я хотел собрать сразу 5 клавиатур. соответственно все расчеты на 5 клавиатур. не пугайтесь ценам. В отдельном посте будет смета на одну клавиатуру. Заказ №1 Ниже полная таблица с содержанием того, что я заказывал с www.digikey.com. Здесь я допустил пару ошибок при заказе, что мне обошлось в лишние 50 долларов США.</description>
+    </item>
+    
+  </channel>
+</rss>

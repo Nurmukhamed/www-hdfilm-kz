@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.hdfilm.kz/kk/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.hdfilm.kz/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://www.hdfilm.kz/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kk"
+                href="https://www.hdfilm.kz/kk/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.hdfilm.kz/kk/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.hdfilm.kz/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://www.hdfilm.kz/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kk"
+                href="https://www.hdfilm.kz/kk/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://www.hdfilm.kz/kk/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.hdfilm.kz/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://www.hdfilm.kz/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="kk"
+                href="https://www.hdfilm.kz/kk/"
+                />
+  </url>
+  
+</urlset>

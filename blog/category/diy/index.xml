@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>diy on Нұрмұхамед Артықалы</title>
+    <link>https://www.hdfilm.kz/blog/category/diy/</link>
+    <description>Recent content in diy on Нұрмұхамед Артықалы</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-RU</language>
+    <lastBuildDate>Mon, 20 Feb 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.hdfilm.kz/blog/category/diy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Паяльник - 2 неудачи в выходные дни</title>
+      <link>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</link>
+      <pubDate>Mon, 20 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2017/02/20/diy-my-failes-at-weekend/</guid>
+      <description>&lt;p&gt;На выходных решил закончить ранее начатые дела:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Прошить китайкий роутер - клон Hame A15 на базе чипсета Ralink 5350F;&lt;/li&gt;
+&lt;li&gt;Собрать DIY-набор для линейного лабораторного блока питания.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Далее, описание того, что произошло&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Общие расходы на сборку клавиатуры gh60</title>
+      <link>https://www.hdfilm.kz/blog/2015/04/06/gh60-raskhody/</link>
+      <pubDate>Mon, 06 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2015/04/06/gh60-raskhody/</guid>
+      <description>** Расходы по сборке клавиатуры **
+Расходы по почте
+В данную таблицу не вошли расходы по пересылке посылок внутри США, через Almapost.kz, пересылки внутри РК.
+Осталось закупить
+нужны стабилизаторы для клавиш, в ближайшее время планирую закупить их у поставщика из кореи.</description>
+    </item>
+    
+    <item>
+      <title>Ergodox - смета на одну клавиатуру</title>
+      <link>https://www.hdfilm.kz/blog/2014/07/10/ergodox-smeta-na-odnu-klaviaturu/</link>
+      <pubDate>Thu, 10 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2014/07/10/ergodox-smeta-na-odnu-klaviaturu/</guid>
+      <description>Смета на один набор клавиатуры
+В данную смету я включил все что нужно будет для самостоятельной сборки клавиатуры. все цены в долларах США без учета доставки. нужно будет самостоятельно подсчитать.
+Печатная плата
+Печатную плату я заказывал в Китае. Последовательность действии:
+ Нужно связаться по емайлу yangyang@hqew.net. Скачать чертежи в формате gerber Выслать чертежи по указанному адресу Получить потверждение, что файлы читаемые и инженера могут распечатать плату Заказать нужное количество плат. Заказывать парное количество плат Договориться об оплате, произвести перевод Выслать свой почтовый адрес, получить трекинговый номер для отслеживания посылки Ждать новостей от почтальона  WWW.</description>
+    </item>
+    
+    <item>
+      <title>Общие расходы на сборку клавиатуры ergodox</title>
+      <link>https://www.hdfilm.kz/blog/2014/07/09/ergodox-rashody/</link>
+      <pubDate>Wed, 09 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.hdfilm.kz/blog/2014/07/09/ergodox-rashody/</guid>
+      <description>О чем данная статья В данной статье решил подсчитать сколько денег было потрачено на сборку клавиатуры. Также отмечу, что первоначально я хотел собрать сразу 5 клавиатур. соответственно все расчеты на 5 клавиатур. не пугайтесь ценам. В отдельном посте будет смета на одну клавиатуру. Заказ №1 Ниже полная таблица с содержанием того, что я заказывал с www.digikey.com. Здесь я допустил пару ошибок при заказе, что мне обошлось в лишние 50 долларов США.</description>
+    </item>
+    
+  </channel>
+</rss>
