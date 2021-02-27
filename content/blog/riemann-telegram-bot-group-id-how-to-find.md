@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Настройка Telegram Bot для системы мониторинга Riemann"
-date: 2016-07-27
+date: 2021-02-27
 comments: true
 categories:
 - linux
