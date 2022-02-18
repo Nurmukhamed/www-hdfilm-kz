@@ -17,8 +17,13 @@ categories:
 Собираем U-boot для загрузки с usb-storage на Orange Pi Zero Plus <!--more-->
 
 ## Предыстория
-Это продолжение [прошлого поста](http://www.hdfilm.kz/blog/2020/01/16/OrangePIPC-Boot-From-SPIFLASH/). Решил, что нужно это сделать и забыть.
+Это продолжение [прошлого поста](https://www.hdfilm.kz/blog/2020/01/16/orangepipc-boot-from-spiflash/). Решил, что нужно это сделать и забыть.
 
+## Update
+
+* 2022-02-18: **Обновлена ссылка
+* 2022-01-18 - Добавлен новый [репозиторий](https://github.com/Nurmukhamed/OrangePIPC-Boot-From-SPIFLASH) для сборки в Docker. **Настоятельно советую использовать этот репозиторий**;
+* 2022-01-18 - Исправлены ошибки;
 ## TODO
 
 * Не работает загрузка по сети;

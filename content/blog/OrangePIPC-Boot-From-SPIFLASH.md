@@ -21,6 +21,8 @@ categories:
 
 ## Update
 
+* 2022-01-18 - Добавлен новый [репозиторий](https://github.com/Nurmukhamed/OrangePIPC-Boot-From-SPIFLASH) для сборки в Docker. **Настоятельно советую использовать этот репозиторий**;
+* 2022-01-18 - Исправлены ошибки;
 * Добавлен [пост про сборку u-boot для orange pi zero plus](http://www.hdfilm.kz/blog/2020/01/17/OrangePIZeroPlus-Boot-From-SPIFLASH/).
 
 ## TODO
@@ -37,7 +39,7 @@ categories:
 Существует специальный режим платы - sunxi-fel. Нужно отключить от платы sd-карту, подключить micro-usb кабель к плате, второй конец к компьютеру, желательно, под Linux. В этом режиме можно управлять платой, в частности, можно записывать образ u-boot на установленную на плате spi-flash и (или) удаленно загрузить образ U-boot в память и загрузить плату.
 
 ### Проект с ЛОРа
-Летом нашел проект на Linux.Org.Ru с простой платой-переходником, чтобы удобно было припаять spi-flash (sop8) на переходник и затем подключать ее к плате. Автор выложил проект на github, я сделал fork и дополнительно добавил файлы в Gerber, чтобы можно было заказать на китайских фабриках.
+Летом нашел проект на Linux.Org.Ru с простой платой-переходником, чтобы удобно было припаять spi-flash (sop8) на переходник и затем подключать ее к плате. Автор выложил проект на [github](https://github.com/ktkd/rpi_spi_board), я сделал [fork](https://github.com/Nurmukhamed/rpi_spi_board) и дополнительно добавил файлы в Gerber, чтобы можно было заказать на китайских фабриках.
 
 ## Что нам нужно
 
@@ -51,6 +53,13 @@ categories:
 ## Сборка пакетов.
 Необходимо собрать ARM Trusted Firmware. 
 
+Перед сборкой проверим систему:
+
+```
+sudo apt update
+sudo apt install gcc-arm-linux-gnueabihf bison flex swig
+```
+
 Затем нужно собрать U-boot, для Orange Pi PC команды следующие:
 
 ```
@@ -58,7 +67,7 @@ cd
 git clone https://github.com/u-boot/u-boot
 cd u-boot
 make distclean
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- orangepi_zero_plus_defconfig
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- orangepi_pc_defconfig
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- 
 ```
 
@@ -115,6 +124,7 @@ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
 ```
 
 **Config-файл**
+
 ```
 CONFIG_ARM=y
 CONFIG_ARCH_SUNXI=y
@@ -139,7 +149,6 @@ CONFIG_USB_EHCI_HCD=y
 CONFIG_USB_OHCI_HCD=y
 CONFIG_SYS_USB_EVENT_POLL_VIA_INT_QUEUE=y
 ```
-
 После сборки у вас должен появится файл **u-boot-sunxi-with-spl.bin**. Этот файл необходимо залить на флешку.
 
 ## Загрузка образа на spi-флешку
@@ -218,3 +227,5 @@ tmpfs           500M  4.0K  500M   1% /tmp
 tmpfs           100M     0  100M   0% /run/user/1000
 nurmukhamed@orangepipc:~$
 ```
+
+# Дополнение создал небольшой 
