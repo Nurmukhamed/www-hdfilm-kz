@@ -14,7 +14,6 @@ categories:
 - powercli
 - docker
 - bare-metall
-- all
 ---
 
 **Инструкция по настройке Kubernetes Bare-metall в среде виртуализации Vmware EsxI 6.5** <!--more-->
