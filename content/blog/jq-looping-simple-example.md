@@ -10,7 +10,7 @@ categories:
 - jq
 - vault
 - bash
-- curl3
+- curl
 ---
 
 **Простой пример работы с массивами в jq** <!--more-->
