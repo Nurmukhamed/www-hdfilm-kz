@@ -30,23 +30,5 @@ jobs:
       - name: 🔑 Load Secrets
         run: echo "machine ${{ secrets.FTP_HOSTNAME }} login ${{ secrets.FTP_USERNAME }} password ${{ secrets.FTP_PASSWORD }}" > ~/.netrc
 
-      - name: Deploy files via SFTP
-        uses: pressidium/lftp-mirror-action@v1
-        with:
-          # SFTP credentials
-          host: ${{ secrets.FTP_HOSTNAME }}
-          #port: ${{ secrets.SFTP_PORT }}
-          user: ${{ secrets.FTP_USERNAME }}
-          pass: ${{ secrets.FTP_PASSWORD }}
-          # lftp settings
-          onlyNewer: true
-          settings: 'sftp:auto-confirm=yes'
-          # Mirror command options
-          localDir: './public/'
-          remoteDir: '/'
-          reverse: true
-          ignoreFile: '.lftp_ignore'
-          options: '--verbose'
-
       - name: 📁 Upload Folder
         run: lftp -e "mirror --parallel=100 -R ./public/ /" ${{ secrets.FTP_HOSTNAME }}
