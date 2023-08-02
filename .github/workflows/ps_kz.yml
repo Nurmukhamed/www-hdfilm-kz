@@ -18,6 +18,9 @@ jobs:
         with:
           hugo-version: 'latest'
 
+      - name: Build
+        run: hugo --minify
+
       - name: 📦 Get LFTP
         run: sudo apt install lftp
 
