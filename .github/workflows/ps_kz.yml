@@ -31,6 +31,7 @@ jobs:
           echo "${{ secrets.FTP_CERTS_BASE64 }}" | base64 --decode > ~/.lftp/certs.crt
 
       - name: 📁 Upload Folder
+        environment: "FTP Deploy"
         env:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
