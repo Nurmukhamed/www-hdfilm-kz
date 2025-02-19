@@ -9,7 +9,8 @@ on:
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
-    secrets: inherit
+    secrets:
+      inherit: true
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v3
