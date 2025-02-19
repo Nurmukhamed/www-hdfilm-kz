@@ -32,3 +32,4 @@ jobs:
 
       - name: 📁 Upload Folder
         run: lftp -u "${{ secrets.FTP_USERNAME }}, ${{ secrets.FTP_PASSWORD }}" ${{ secrets.FTP_HOSTNAME}} -e "mirror --parallel=100 -R ./public/ /; bye"
+        secrets: inherit
