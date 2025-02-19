@@ -11,6 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
+    environment: "FTP Deploy"
     steps:
       - uses: actions/checkout@v3
         with:
@@ -30,3 +31,18 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+
+      - name: Upload files to FTP
+        uses: matteodf/lftp-upload@v1
+        with:
+            host: ${{ secrets.FTP_HOSTNAME }}
+            username: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            forceSsl: "false"
+            localDir: ./public
+            remoteDir: /
+            timeout: "120"
+            retries: "5"
+            multiplier: "2.0"
+            baseInterval: "10"
+            pConn: "10"
