@@ -5,6 +5,7 @@ date: 2025-02-19
 comments: true
 categories: 
 - common
+- bash
 ---
 
 Сегодня забавным способом решил одну задачу.

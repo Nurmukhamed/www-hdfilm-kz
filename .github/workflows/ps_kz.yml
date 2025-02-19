@@ -9,8 +9,6 @@ on:
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
-    secrets:
-      inherit: true
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v3
@@ -33,4 +31,8 @@ jobs:
           echo "${{ secrets.FTP_CERTS_BASE64 }}" | base64 --decode > ~/.lftp/certs.crt
 
       - name: 📁 Upload Folder
-        run: lftp -u "${{ secrets.FTP_USERNAME }}, ${{ secrets.FTP_PASSWORD }}" ${{ secrets.FTP_HOSTNAME}} -e "mirror --parallel=100 -R ./public/ /; bye"
+        env:
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_HOSTNAME: ${{ secrets.FTP_HOSTNAME }}
+        run: lftp -u "${FTP_USERNAME}, ${FTP_PASSWORD}" ${FTP_HOSTNAME} -e "mirror --parallel=100 -R ./public/ /; bye"
