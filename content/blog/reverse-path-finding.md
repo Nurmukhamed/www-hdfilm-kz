@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Переехал на octopress"
+title: "Одна из задач."
 date: 2025-02-19
 comments: true
 categories: 
@@ -19,6 +19,6 @@ categories:
 Одно из решений
 
 ~~~bash
-export PROJECT_NAME=$(pwd | rev | cut -d "/" -f 2 | rev)
+export PROJECT_NAME=$(pwd | rev | cut -d "/" -f 3 | rev)
 echo ${PROJECT_NAME}
 ~~~
