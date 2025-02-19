@@ -28,7 +28,7 @@ jobs:
             host: ${{ secrets.FTP_HOSTNAME }}
             username: ${{ secrets.FTP_USERNAME }}
             password: ${{ secrets.FTP_PASSWORD }}
-            forceSsl: "true"
+            forceSsl: "false"
             localDir: ./public
             remoteDir: /
             timeout: "120"
