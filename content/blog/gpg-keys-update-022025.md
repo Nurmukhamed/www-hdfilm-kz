@@ -1,3 +1,21 @@
+---
+layout: page
+title: "GPG Update 022025"
+date: 2025-02-23
+comments: true
+categories:
+- common
+- gpg
+---
+
+Мой ключ давно не обновлялся. Ранее я обновлял ключ регулярно в течение 90 дней. Но в последний год (2024) было не до этого.
+Хотя признаю, что всегда можно было найти 1 час в выходные и обновить ключ. Но что было, то было. 
+<!--more-->
+Ну и еще оставлю здесь копию публичного ключа здесь.
+
+Отпечаток ключа **28096C22DEF985A11FAE213FA95468F02B2E2A0E**
+
+~~~
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBF+ToYIBEACtqhWDU6rFyCAOYdJxvG1zr6Tu6tO81domMHZqz8O5D7D1dUPo
@@ -141,3 +159,4 @@ nh4JX0BrSOWcuV+THmCg9y0Sk+NTdrfbnzlUYKHPfZpzM+yynfPd1mLa4o3Tpm3R
 BqsiDepPvPAAeH3TzivRp7M=
 =gP2V
 -----END PGP PUBLIC KEY BLOCK-----
+~~~
