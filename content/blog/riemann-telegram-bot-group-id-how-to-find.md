@@ -13,6 +13,19 @@ categories:
 - curl
 ---
 
+# Update: 2025-08-11
+Сегодня получил письмо.
+
+```
+Hey, I checked out your post and noticed the link for the BotFather
+guide doesn’t seem to work. Any idea where I could find it? Here’s the
+post I’m talking about:
+https://hdfilm.kz/blog/2021/02/27/riemann-telegram-bot-group-id-how-to-find/.
+Thanks a bunch!
+```
+
+Посмотрел ссылки, действительно не работают. Исправляем.
+
 # Предыстория
 
 История о моих ошибках при настройке Telegram Bot для системы мониторинга Riemann. <!-- more --> 
@@ -20,7 +33,8 @@ categories:
 
 # Инструкции
 
-* [Инструкция по работе с BotFather ботом](https://medium.com/@bbsystemscorporation/%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F-%D0%BF%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5-%D1%81-botfather-%D0%B1%D0%BE%D1%82%D0%BE%D0%BC-5c6f74d99a1a)
+* [Инструкция по созданию и настройки бота в BotFather](https://docs.radist.online/radist.online-docs/nashi-produkty/radist-web/podklyucheniya/telegram-bot/instrukciya-po-sozdaniyu-i-nastroiki-bota-v-botfather)
+* [Создание и настройка Телеграм бота | Руководство по BotFather ](https://www.youtube.com/watch?v=VRlpyIdNX1w)
 * [riemann.telegram](https://riemann.io/api/riemann.telegram.html)
 
 # Ищем Telegram Group-ID
