@@ -24,6 +24,7 @@ categories:
 * 2022-01-18 - Добавлен новый [репозиторий](https://github.com/Nurmukhamed/OrangePIPC-Boot-From-SPIFLASH) для сборки в Docker. **Настоятельно советую использовать этот репозиторий**;
 * 2022-01-18 - Исправлены ошибки;
 * Добавлен [пост про сборку u-boot для orange pi zero plus](http://www.hdfilm.kz/blog/2020/01/17/OrangePIZeroPlus-Boot-From-SPIFLASH/).
+* 2025-09-09 - Платы давно нет, но вот rpi_spi_board у меня осталось много, если вы находитесь в Астане, то могу отдать сами платы бесплатно, не более 5 плат на руки.
 
 ## TODO
 
