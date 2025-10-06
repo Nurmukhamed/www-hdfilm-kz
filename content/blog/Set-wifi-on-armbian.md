@@ -16,7 +16,10 @@ categories:
 - systemd-resolved
 ---
 
+
 Как настроить беспроводную сеть на Orange Pi Zero Plus <!--more-->
+
+**UPDATE: 2025-10-06** Добавлена настройка для Le Potato с USB-wifi на базе mt7601u
 
 ## Предыстория
 Это решение проблемы - если настраивать сеть стандартным способом через NetworkManager, то после перезагрузки wifi-сеть не работает.
@@ -36,7 +39,7 @@ cat <<"EOF" | sudo tee /etc/systemd/system/wpa_supplicant@.service
 Description=WPA supplicant for %i
 
 [Service]
-ExecStart=/sbin/wpa_supplicant -i%i -c/etc/wpa_supplicant/wpa_supplicant.conf
+ExecStart=/sbin/wpa_supplicant -i%i -c /etc/wpa_supplicant/wpa_supplicant.conf
 
 [Install]
 WantedBy=multi-user.target
@@ -63,7 +66,7 @@ RouteMetric=10
 EOF
 ```
 
-Создаем профиль беспроводной сети
+Создаем профиль беспроводной сети Orange
 
 ```
 cat << "EOF" | sudo tee /etc/systemd/network/wireless.network
@@ -78,10 +81,39 @@ RouteMetric=10
 EOF
 ```
 
+Создаем профиль беспроводной сети LePotato
+
+```
+cat << "EOF" | sudo tee /etc/systemd/network/wireless.network
+[Match]
+Name=wlx*
+
+[Network]
+DHCP=yes
+
+[DHCP]
+RouteMetric=10
+EOF
+```
+
+
 Определяем SSID, к которым нужно подключатся
 
 ```
 wpa_passphrase SSIDNAME SSIDPASS > /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+Исправим wpa_supplicant.conf, необходимо для LePotato. После редактирования файл должен выглядит так.
+
+```
+ctrl_interface=/run/wpa_supplicant
+ctrl_interface_group=netdev
+update_config=1
+
+network={
+	ssid="YOURSSID"
+        psk=1234567890123456789012345678901234567890123456789012345678901234
+}
 ```
 
 Перезагружаемся
