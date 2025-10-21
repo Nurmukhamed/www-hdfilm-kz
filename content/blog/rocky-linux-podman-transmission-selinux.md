@@ -1,6 +1,6 @@
 ---
 title: "Запуск transmission в podman на Rocky Linux 8"
-date: 2025-09-08T12:44:55+05:00
+date: 2025-10-20T12:44:55+05:00
 summary: ""
 categories:
 - python
