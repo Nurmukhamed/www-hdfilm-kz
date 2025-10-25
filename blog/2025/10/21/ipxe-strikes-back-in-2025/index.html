@@ -1,0 +1,132 @@
+<script data-goatcounter=https://stats.hdfilm.kz/count async src=//stats.hdfilm.kz/count.js></script><!doctype html><html lang=ru><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi."><meta name=theme-color content="#ffcd00"><meta property="og:title" content="Настраиваем сетевую загрузку с помощью mikrotik, ipxe, bios, uefi • Нұрмұхамед Артықалы"><meta property="og:description" content="Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi."><meta property="og:url" content="https://www.hdfilm.kz/blog/2025/10/21/ipxe-strikes-back-in-2025/"><meta property="og:site_name" content="Нұрмұхамед Артықалы"><meta property="og:type" content="article"><meta property="article:section" content="blog"><meta property="article:published_time" content="2025-10-21T12:44:55+05:00"><meta property="article:modified_time" content="2025-10-21T12:44:55+05:00"><meta name=twitter:card content="summary"><meta name=generator content="Hugo 0.111.3"><title>Настраиваем сетевую загрузку с помощью mikrotik, ipxe, bios, uefi • Нұрмұхамед Артықалы</title><link rel=canonical href=https://www.hdfilm.kz/blog/2025/10/21/ipxe-strikes-back-in-2025/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.6a060eb7.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#ffcd00}</style></head><body class='page type-blog has-sidebar'><div class=site><div id=sidebar class=sidebar><a class=screen-reader-text href=#main-menu></a><div class=container><section class='widget widget-about sep-after'><header><div class=logo><a href=/><img src=/images/logo.png></a></div><h2 class='title site-title'><a href=/>Нұрмұхамед Артықалы</a></h2><div class=desc>Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.</div></header></section><section class='widget widget-search sep-after'><header><h4 class='title widget-title'>Search</h4></header><form action=/search id=search-form class=search-form><label><span class=screen-reader-text></span>
+<input id=search-term class=search-term type=search name=q placeholder=&mldr;></label></form></section><section class='widget widget-taxonomy_cloud sep-after'><header><h4 class='title widget-title'></h4></header><div class='container list-container'><ul class='list taxonomy-cloud'><span></span></ul></div></section></div><div class=sidebar-overlay></div></div><div class=main><nav id=main-menu class='menu main-menu' aria-label><div class=container><a class=screen-reader-text href=#content></a>
+<button id=sidebar-toggler class=sidebar-toggler aria-controls=sidebar>
+<span class=screen-reader-text></span>
+<span class=open><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></span><span class=close><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button><ul><li class=item><a href=/about.md>About</a></li><li class=item><a href=/blog/>Blog</a></li><li class=item><a href=/coreos/>CoreOS</a></li><li class=item><a href=/kubernetes/>Kubernetes</a></li><li class=item><a href=https://github.com/Nurmukhamed/www-hdfilm-kz-octopress>Repo</a></li><li class=item><a href=/cv.pdf>Резюме</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class='header site-header'><div class='container sep-after'><div class=header-info><p class='site-title title'>Нұрмұхамед Артықалы</p><p class='desc site-desc'>Нұрмұхамед Артықалы - IT-инженер, сисадмин, программист, DevOps, SRE. Изучает новые технологии и занимается борьбой. Блог посвящен IT технологиям и (или) событиями, связанными с IT в Казахстане, СНГ и в мире.</p></div></div></header><main id=content><article lang=ru class=entry><header class='header entry-header'><div class='container sep-after'><div class=header-info><h1 class=title>Настраиваем сетевую загрузку с помощью mikrotik, ipxe, bios, uefi</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text></span><time class=entry-date datetime=2025-10-21T12:44:55+05:00>2025, Oct 21</time></span>
+<span class=reading-time><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg></span></div></div></header><div class='container entry-content'><p>Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi.</p><h1 id=intro>Intro</h1><p>Купил себе два HP Proliant Microserver Gen8, один рабочий, другой не рабочий. Обновил bios, iLO. До последних версии. В принципе покупал
+сервера только из-за наличия iLO4, с надеждой, что можно эти сервера настроить и отправить в сельскую местность, в случае неисправности через iLO4 можно решить вопросы.</p><p>Так же есть слот MicroSD. Куда можно разместить emmc и установить систему, но их у меня пока нет.</p><p>Но сервера старые, там нет возможности загрузить с UEFI (и это для 2012 года, вроде тогда уже везде было).</p><p>Помучался несколько дней, для себя нашел верный вариант, загружаемся по сети, загружаем ipxe, затем уже в ipxe загружаемся с 0 диска. Ну еще для себя написал небольшое меню с возможностью установить Rocky Linux 8 версии. Другие версии и дистрибутивы в принципе тоже можно добавить. Просто нет такого желания.</p><h1 id=что-используем>Что используем?</h1><ul><li>mikrotik router - как dhcp-server и откуда указываем где tftp-сервер и какие файлы нужно загрузить;</li><li>h96max tv box - используется как tftp-сервер и http сервер. Отсюда загружаются нужные нам файлы;</li><li>ipxe - создаем два образа для сетевой загрузки - для BIOS и для UEFI;</li><li>podman - в контейнере собираем ipxe.</li></ul><h1 id=podman>Podman</h1><p>Где нибудь на сервере и (или) рабочей машине под платформой AMD64 будем запускать podman необходимой нам для сборки ipxe.</p><p>Для начала создадим <a href=https://ipxe.org/embed>ipxe embedded script</a> файл.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p ipxe
+</span></span><span style=display:flex><span>cd ipxe
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cat<span style=color:#e6db74>&lt;&lt;EOF | tee ipxe myscript.ipxe
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>#!ipxe
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>dhcp
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>chain http://192.168.1.18/default.ipxe
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>podman run -it --rm -v <span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span>:/app debian:12 bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>apt update -y
+</span></span><span style=display:flex><span>apt install build-essential git liblzma-dev -y
+</span></span><span style=display:flex><span>git clone https://github.com/ipxe/ipxe.git
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cd ipxe/src
+</span></span><span style=display:flex><span>make bin/undionly.kpxe EMBED<span style=color:#f92672>=</span>/app/myscript.ipxe
+</span></span><span style=display:flex><span>cp bin/undionly.kpxe /app
+</span></span><span style=display:flex><span>make bin-x86_64-efi/ipxe.efi EMBED<span style=color:#f92672>=</span>/app/myscript.ipxe
+</span></span><span style=display:flex><span>cp bin-x86_64-efi/ipxe.efi /app
+</span></span><span style=display:flex><span>exit
+</span></span></code></pre></div><p>Полученные файлы undionly.kpxe, ipxe.efi нам нужно скопировать на h96max.</p><h1 id=mikrotik>Mikrotik</h1><p>Скопирую свои настройки, нужно просто адаптировать под свои нужды</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>admin@MikroTik<span style=color:#f92672>]</span> /ip dhcp-server&gt; export 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/ip dhcp-server
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add address-pool<span style=color:#f92672>=</span>dhcp disabled<span style=color:#f92672>=</span>no interface<span style=color:#f92672>=</span>bridge name<span style=color:#f92672>=</span>defconf
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/ip dhcp-server option
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add code<span style=color:#f92672>=</span><span style=color:#ae81ff>66</span> name<span style=color:#f92672>=</span>TFTP value<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#39;192.168.1.18&#39;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add code<span style=color:#f92672>=</span><span style=color:#ae81ff>67</span> name<span style=color:#f92672>=</span>Bootfile value<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#39;undionly.kpxe&#39;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add code<span style=color:#f92672>=</span><span style=color:#ae81ff>67</span> name<span style=color:#f92672>=</span>UEFI value<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#39;ipxe.efi&#39;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/ip dhcp-server option sets
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add name<span style=color:#f92672>=</span>TFTPD options<span style=color:#f92672>=</span>Bootfile,TFTP
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add name<span style=color:#f92672>=</span>UEFI options<span style=color:#f92672>=</span>TFTP,UEFI
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>/ip dhcp-server network
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>add address<span style=color:#f92672>=</span>192.168.1.0/24 comment<span style=color:#f92672>=</span>defconf dhcp-option-set<span style=color:#f92672>=</span>TFTPD dns-server<span style=color:#f92672>=</span>192.168.1.3 gateway<span style=color:#f92672>=</span>192.168.1.1 next-server<span style=color:#f92672>=</span>192.168.1.18
+</span></span></code></pre></div><p>По умолчанию сетевая загрузка проходит в BIOS Legacy режиме, если нам нужно загрузить систему через UEFI, то нужно в Mikrotik UI выбрать lease и изменить options sets - выставить UEFI.</p><p>После этого данный lease host будет загружать ipxe.efi.</p><h1 id=h96max>H96Max</h1><p>Данную железку я купил по совету <a href=https://psenyukov.ru/%d1%83%d1%81%d1%82%d0%b0%d0%bd%d0%be%d0%b2%d0%ba%d0%b0-armbian-%d0%b8-home-assistant-%d0%bd%d0%b0-tv-box-h96-max-%d0%bd%d0%b0-%d0%bf%d1%80%d0%be%d1%86%d0%b5%d1%81%d1%81%d0%be%d1%80%d0%b5-rockchip-rk33/>&ldquo;У Павла&rdquo;</a>, в 2025 по сути стоящая замена для raspberry pi. Так как их наштамповали миллионы и продается не дорого.</p><p>Также хорошо, что есть emmc на 32 и 64 ГБ.</p><p>Также я туда перенес pi.hole.</p><p>Нужно установить tftp и http сервера.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt update -y
+</span></span><span style=display:flex><span>sudo apt install -y tftp-hpa tftpd-hpa nginx
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo mkdir -p /srv/tftp
+</span></span><span style=display:flex><span>sudo chown tftp:tftp -R /srv/tftp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cat<span style=color:#e6db74>&lt;&lt;EOF | sudo tee /etc/default/tftpd-hpa
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># /etc/default/tftpd-hpa
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>TFTP_USERNAME=&#34;tftp&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>TFTP_DIRECTORY=&#34;/srv/tftp&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>TFTP_ADDRESS=&#34;:69&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>TFTP_OPTIONS=&#34;--secure --create&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cp /tmp/undionly.kpxe /srv/tftp
+</span></span><span style=display:flex><span>cp /tmp/ipxe.efi /srv/tftp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sudo systemctl enable --now tftpd-hpa.service
+</span></span><span style=display:flex><span>sudo systemctl enable --now nginx.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cat<span style=color:#e6db74>&lt;&lt;EOF | sudo tee /var/www/html/default.ipxe
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>#!ipxe
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># Define variables for server details
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>set serverip 192.168.1.18  # Replace with your HTTP/NFS server IP
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>set repo mirror.ps.kz
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>set webpath /rocky/8.10/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>set ksfile ks.cfg          # Kickstart file name
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>menu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Rocky Linux 8 Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky8_install Install Rocky Linux 8 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky8_install_ks Install Rocky Linux 8 (HTTP + Kickstart)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- ----------------------------------------------------------------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd0 Boot from HDD0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd1 Boot from HDD1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd2 Boot from HDD2
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd3 Boot from HDD3
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd4 Boot from HDD4
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd5 Boot from HDD5
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- ----------------------------------------------------------------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item reboot Reboot
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item exit Exit iPXE
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># Default boot option
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>choose --default boot_from_hdd0 --timeout 15000 target &amp;&amp; goto ${target}
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:rocky8_install
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  kernel http://${serverip}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  initrd http://${serverip}/initrd.img
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  boot
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:rocky8_install_ks
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  kernel http://${serverip}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${ksfile}
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  initrd http://${serverip}/initrd.img
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  boot
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x80
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x81
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd2
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x82
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd3
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x83
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd4
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x84
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd5
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x85
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:reboot
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  reboot
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>:exit
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  exit
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><p>Ну вроде все настроено и теперь можем использовать сетевую загрузку для различных задач.</p></div><footer class=entry-footer><div class='container sep-before'><div class=categories><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5A2 2 0 014 3H9l2 3h9a2 2 0 012 2z"/></svg><span class=screen-reader-text>categories: </span><a class=category href=/blog/category/mikrotik/>mikrotik</a>, <a class=category href=/blog/category/netboot/>netboot</a>, <a class=category href=/blog/category/bios/>bios</a>, <a class=category href=/blog/category/uefi/>uefi</a>, <a class=category href=/blog/category/pxe/>pxe</a>, <a class=category href=/blog/category/ipxe/>ipxe</a></div></div></footer></article><nav class=entry-nav><div class=container><div class='prev-entry sep-before'><a href=/blog/2025/10/20/rocky-linux-podman-transmission-selinux/><span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 18 4 12 10 6"/></svg></span><span class=screen-reader-text>: </span>Запуск transmission в podman на Rocky Linux 8</a></div></div></nav></main><footer id=footer class=footer><div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label><ul><li><a href=https://github.com/Nurmukhamed target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=mailto:nurmukhamed.artykaly@hdfilm.kz target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></li><li><a href=https://t.me/nartykaly target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="m22.05 1.577c-.393-.016-.784.08-1.117.235-.484.186-4.92 1.902-9.41 3.64-2.26.873-4.518 1.746-6.256 2.415C3.53 8.537 2.222 9.035 2.153 9.059c-.46.16-1.082.362-1.61.984-.79581202 1.058365.21077405 1.964825 1.004 2.499 1.76.564 3.58 1.102 5.087 1.608.556 1.96 1.09 3.927 1.618 5.89.174.394.553.54.944.544l-.002.02s.307.03.606-.042c.3-.07.677-.244 1.02-.565.377-.354 1.4-1.36 1.98-1.928l4.37 3.226.035.02s.484.34 1.192.388c.354.024.82-.044 1.22-.337.403-.294.67-.767.795-1.307.374-1.63 2.853-13.427 3.276-15.38L23.676 4.725C23.972 3.625 23.863 2.617 23.18 2.02 22.838 1.723 22.444 1.593 22.05 1.576z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2009-2025 Nurmukhamed Artykaly</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.67d669ac.js></script><script src=/js/custom.js></script></body></html>
