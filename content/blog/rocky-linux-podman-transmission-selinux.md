@@ -176,4 +176,13 @@ sudo chown 166446:166446 -R /data/transmission/complete /data/transmission/incom
 
 **ЕЩЕ РАЗ** На вашем компьютере или сервере могут быть совершенно другие числа получится. Поэтому лучше начинать смотреть на /etc/subgid, /etc/subuid.
 
+# firewalld
 
+Добавим порты в firewalld, перезапустим firewalld.
+
+~~~bash
+sudo firewall-cmd --permanent --add-port=9091/tcp
+sudo firewall-cmd --permanent --add-port=51413/tcp
+sudo firewall-cmd --permanent --add-port=51413/udp
+sudo firewall-cmd --reload
+~~~
