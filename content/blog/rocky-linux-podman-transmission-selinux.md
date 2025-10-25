@@ -59,8 +59,8 @@ sudo dnf -y install podman
 sudo mkdir /opt/transmission
 sudo mkdir -p /data/transmission/complete /data/transmission/incomplete
 sudo chown transmission:transmission -R /opt/transmission /data/transmission
-sudo semanage -a -t container_file_t "/data/transmission(/.*)?"
-sudo semanage -a -t container_file_t "/opt/transmission(/.*)?"
+sudo semanage fcontext -a -t container_file_t "/data/transmission(/.*)?"
+sudo semanage fcontext -a -t container_file_t "/opt/transmission(/.*)?"
 sudo restorecon -Rv /data/transmission/
 sudo restorecon -Rv /opt/transmission/
 ~~~
