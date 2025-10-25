@@ -11,6 +11,7 @@ categories:
 - ipxe
 
 ---
+
 Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi.
 <!--more-->
 
