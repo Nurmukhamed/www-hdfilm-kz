@@ -229,4 +229,3 @@ tmpfs           100M     0  100M   0% /run/user/1000
 nurmukhamed@orangepipc:~$
 ```
 
-# Дополнение создал небольшой 
