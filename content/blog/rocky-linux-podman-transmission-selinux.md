@@ -82,6 +82,7 @@ Restart=on-failure
 TimeoutStopSec=70
 Group=transmission
 User=transmission
+ExecStartPre=-/usr/bin/podman system migrate 
 ExecStartPre=-/usr/bin/podman stop transmission
 ExecStartPre=-/usr/bin/podman rm transmission
 ExecStart=/usr/bin/podman \
