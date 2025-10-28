@@ -187,3 +187,154 @@ sudo firewall-cmd --permanent --add-port=51413/tcp
 sudo firewall-cmd --permanent --add-port=51413/udp
 sudo firewall-cmd --reload
 ~~~
+
+# Ansible playbook
+
+Решил добавить ansible playbook, так как все равно все делаю в ansible уже последние пару лет.
+
+Необходимо создать следующие файлы.
+
+* ansible.cfg
+* inventory
+* transmission-playbook.yaml
+
+## ansible.cfg
+
+~~~
+[defaults]
+inventory = inventory
+~~~
+
+## inventory
+
+~~~
+[podman]
+192.168.1.3
+
+[podman:vars]
+ansible_user=support
+ansible_port=22
+~~~
+
+## transmission-playbook.yaml
+
+~~~yaml
+---
+- name: Install and setup transmission service.
+  hosts: all
+  become: true
+
+  handlers:
+    - name: Set restorecon.
+      ansible.builtin.command:
+        cmd: "restorecon -RFv {{ item }}"
+      with_items:
+      - "/opt/transmission"
+      - "/data/transmission"
+      - "/data/transmission/incomplete"
+      - "/data/transmission/complete"
+
+    - name: Daemon-reload.
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Enable service.
+      ansible.builtin.systemd:
+        enabled: true
+        name: transmission
+
+    - name: Start service.
+      ansible.builtin.systemd:
+        name: transmission.service
+        state: started
+
+    - name: Restart service.
+      ansible.builtin.systemd:
+        name: transmission.service
+        state: restarted
+
+  tasks:
+    - name: Ensure that transmission group exists.
+      ansible.builtin.group:
+        name: transmission
+        gid: 1001
+        state: present
+  
+    - name: Ensure that transmission user exists.
+      ansible.builtin.user:
+        name: transmission
+        group: transmission
+        shell: /bin/bash
+        uid: 1001
+        home: /home/transmission
+        state: present
+
+    - name: Ensure that podman package is installed.
+      ansible.builtin.dnf:
+        name: podman
+        state: present
+
+    - name: Ensure that folders exist.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: transmission
+        group: transmission
+        mode: 0750
+        state: directory
+      with_items:
+      - "/opt/transmission"
+      - "/data/transmission"
+      - "/data/transmission/incomplete"
+      - "/data/transmission/complete"
+
+    - name: Set SELINUX labels for files.
+      community.general.sefcontext:
+        target: "{{ item }}(/.*)?"
+        setype: container_file_t
+        state: present
+      with_items:
+      - "/opt/transmission"
+      - "/data/transmission"
+      - "/data/transmission/incomplete"
+      - "/data/transmission/complete"
+      notify:
+      - Set restorecon.
+
+    - name: Create systemd transmission service file.
+      ansible.builtin.template:
+        src: ./transmission.service.j2
+        dest: /etc/systemd/system/transmission.service
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+      - Daemon-reload.
+      - Enable service.
+      - Start service.
+      - Restart service.
+
+    - name: Enable firewalld rules.
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        state: enabled
+      with_items:
+      - "9091/tcp"
+      - "51413/tcp"
+      - "51413/udp"
+~~~
+
+Запускаем ansible playbook - в режиме DRY-RUN, смотрим, что все хорошо.
+Если не хорошо, то делаем исправления в ansible playbook.
+
+~~~bash
+ansible-playbook -C -K transmission-playbook.yaml
+~~~
+
+Затем уже запускаем и смотрим что получилось
+
+~~~bash
+ansible-playbook -K transmission-playbook.yaml
+~~~
+
+
