@@ -10,6 +10,8 @@ categories:
 - rockylinux
 - selinux
 - systemd
+- yaml
+- ansible
 
 ---
 Запуск transmission в podman на Rocky Linux 8.
@@ -103,10 +105,10 @@ Type=forking
 
 [Install]
 WantedBy=default.target
+EOF
 
 sudo systemctl enable --now transmission.service
 sudo systemctl status transmission.service
-EOF
 ~~~
 
 # Еще раз меняем владельцев файлов transmission.
@@ -214,6 +216,45 @@ inventory = inventory
 [podman:vars]
 ansible_user=support
 ansible_port=22
+~~~
+
+## transmission.service.j2
+
+~~~
+[Unit]
+Description=Podman container-transmission.service
+Documentation=man:podman-generate-systemd(1)
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/tmp/containers-user-1001/containers
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+Group=transmission
+User=transmission
+ExecStartPre=-/usr/bin/podman system migrate 
+ExecStartPre=-/usr/bin/podman stop transmission
+ExecStartPre=-/usr/bin/podman rm transmission
+ExecStart=/usr/bin/podman \
+  run -d \
+  --name transmission \
+  -e TZ=Asia/Aqtobe \
+  -p 9091:9091 \
+  -p 51413:51413 \
+  -p 51413:51413/udp \
+  -v /opt/transmission/config:/config:z \
+  -v /data/transmission:/downloads:z  \
+  docker.io/linuxserver/transmission
+ExecStop=/usr/bin/podman stop  \
+  -t 10 transmission
+ExecStopPost=/usr/bin/podman stop  \
+  -t 10 transmission
+Type=forking
+
+[Install]
+WantedBy=default.target
 ~~~
 
 ## transmission-playbook.yaml
