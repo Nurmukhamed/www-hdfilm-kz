@@ -17,3 +17,5 @@ $RECYCLE.BIN/
 .hugo_build.lock
 
 run.sh
+
+./content/blog/template.md
