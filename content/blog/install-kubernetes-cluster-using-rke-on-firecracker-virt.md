@@ -20,6 +20,7 @@ categories:
 
 **Поднимаем кластер kubernetes с помощью утилиты rke в системе виртуализации firecracker** <!--more-->
 
+**UPDATE**: 2025-11-07 - Скорее всего статья уже устарела. 
 
 В этой статье продолжаю исследовать [Firecracker](https://github.com/firecracker-microvm/firecracker/).  Совместно с утилитой rke можно легко установить кластер Kubernetes.
 
