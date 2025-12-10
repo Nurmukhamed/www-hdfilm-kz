@@ -68,8 +68,8 @@ sudo systemctl start transmission-daemon.service
 
 # Problem - Описание проблемы
 
-Основная проблема - network-online.target - быстро стартует и сообщает systemd, что все хорошо, systemd начинает загрузжать units, mounts,
-в котороых указана зависимость от network-online.target.
+Основная проблема - network-online.target - быстро стартует и сообщает systemd, что все хорошо, systemd начинает загружать units, mounts,
+в которых указана зависимость от network-online.target.
 
 Это происходит очень быстро, nfs-client не успевает правильно загрузится и не может подключить nfs-шару.
 
@@ -77,7 +77,7 @@ sudo systemctl start transmission-daemon.service
 
 Ну я пришел к простому решению - создать новый unit, который будет:
 
-* ждать пока сеть будет готова;
+* ждать, пока сеть будет готова;
 * подключить nfs-шару;
 * запустить transmission.
 
