@@ -100,8 +100,8 @@ tag = "tags"
 
 [permalinks]
 blog = "/blog/:year/:month/:day/:filename/"
-coreos = "/coreos/:year/:month/:day/:filename/"
-kubernetes = "/kubernetes/:year/:month/:day/:filename/"
+#coreos = "/coreos/:year/:month/:day/:filename/"
+#kubernetes = "/kubernetes/:year/:month/:day/:filename/"
 categories = "/blog/category/:title/"
 tags = "/blog/tag/:title/"
 
@@ -117,17 +117,17 @@ weight = -10
 identifier = "blog"
 url = "/blog/"
 
-[[menu.main]]
-name = "Kubernetes"
-weight = -10
-identifier = "kubernetes"
-url = "/kubernetes/"
+#[[menu.main]]
+#name = "Kubernetes"
+#weight = -10
+#identifier = "kubernetes"
+#url = "/kubernetes/"
 
-[[menu.main]]
-name = "CoreOS"
-weight = -10
-identifier = "coreos"
-url = "/coreos/"
+#[[menu.main]]
+#name = "CoreOS"
+#weight = -10
+#identifier = "coreos"
+#url = "/coreos/"
 
 [[menu.main]]
 name = "GitHub"
