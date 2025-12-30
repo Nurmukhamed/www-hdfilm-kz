@@ -45,6 +45,13 @@ categories:
 В [этой статье][6] описано как это сделать, но есть один момент - желтый провод HP нужно замкнуть на землю (черный провод HP).
 В противном случае будет выводится ошибка iLO4 Fan error.
 
+**UPDATE**
+
+Прошло несколько дней и я заметил, что вентилятор 120мм крутится постоянно, даже когда сервер выключен.
+Начал искать почему так и нашел эти статьи - [IXBT][14], [YouTube][15], [YouTube][16], [StackOverflow][17].
+
+Нужно купить микросхему 74РС04 и быстро спаять переходник на макетке и по новой подключить вентиляторы.
+
 # Использую eMMC-TF-SC-Card Module как загрузочный диск
 
 Внутри сервера имеется порт SD-card, USB для флешки. Я решил установить [модуль eMMC][4], который отлично входит в разьем SD.
@@ -79,6 +86,10 @@ categories:
 * [Как подружить LSI 9211 и HP Microserver Gen8][11]
 * [Everything I know and like about the HPE Microserver Gen8][12]
 * [Packer examples for vsphere][13]
+* [HP ProLiant MicroServer: почти готовое решение для домашнего сервера (часть 3)][14]
+* [HP Gen8 Microserver PWM inverter for Noctua NF-S12A PWM 120mm.][15]
+* [HP Gen8 CPU+Noctua FANs via PWM inverter (noise from standard HP FAN)][16]
+* [12v PWM Fan Seems to Be Running Inversely of What It Should Be][17]
 
 [1]: <https://support.hpe.com/hpesc/public/docDisplay?docId=a00048622en_us> "Документация HP"
 [2]: <https://www.reddit.com/r/homelab/comments/udbg2c/easiest_way_to_update_hp_ilo4/> "Easiest way to update hp iLO4"
@@ -93,3 +104,7 @@ categories:
 [11]: <https://medium.com/@dittohead/%D0%BA%D0%B0%D0%BA-%D0%BF%D0%BE%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D1%8C-lsi-9211-%D0%B8-hp-microserver-gen8-b09b6549bb61> "Как подружить LSI 9211 и HP Microserver Gen8"
 [12]: <https://dennis.schmalacker.cloud/posts/hp-microserver-gen8-peculiarities/> "Everything I know and like about the HPE Microserver Gen8"
 [13]: <https://github.com/vmware/packer-examples-for-vsphere/blob/develop/tests/storage/golden/lvm-kickstart> "Packer examples for vsphere"
+[14]: <https://forum.ixbt.com/topic.cgi?id=109:313-122#8875>
+[15]: <https://www.youtube.com/watch?v=hCALqe1XpLc>
+[16]: <https://www.youtube.com/watch?v=EDyrlE6rILk>
+[17]: <https://electronics.stackexchange.com/questions/322390/12v-pwm-fan-seems-to-be-running-inversely-of-what-it-should-be>
