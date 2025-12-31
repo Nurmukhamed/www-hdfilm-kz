@@ -36,6 +36,8 @@ categories:
 Прежние хозяева не меняли пароль.
 Я просто сделал фото и сохранил пароли в KeePass.
 
+**UPDATE**: Вот здесь обсуждают как обновить [iLO4 License Key][18]
+
 # Замена вентиляторов  120mm и 40mm
 
 Вентиляторы родные со временем начинают шуметь, ощутимо шуметь. Особенно шумный вентилятор в блоке питания.
@@ -90,6 +92,7 @@ categories:
 * [HP Gen8 Microserver PWM inverter for Noctua NF-S12A PWM 120mm.][15]
 * [HP Gen8 CPU+Noctua FANs via PWM inverter (noise from standard HP FAN)][16]
 * [12v PWM Fan Seems to Be Running Inversely of What It Should Be][17]
+* [HP iLO License][18]
 
 [1]: <https://support.hpe.com/hpesc/public/docDisplay?docId=a00048622en_us> "Документация HP"
 [2]: <https://www.reddit.com/r/homelab/comments/udbg2c/easiest_way_to_update_hp_ilo4/> "Easiest way to update hp iLO4"
@@ -108,3 +111,4 @@ categories:
 [15]: <https://www.youtube.com/watch?v=hCALqe1XpLc>
 [16]: <https://www.youtube.com/watch?v=EDyrlE6rILk>
 [17]: <https://electronics.stackexchange.com/questions/322390/12v-pwm-fan-seems-to-be-running-inversely-of-what-it-should-be>
+[18]: <https://www.reddit.com/r/homelab/comments/vdlhqg/hp_ilo_license/>
