@@ -72,15 +72,32 @@
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>#!ipxe
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>
 </span></span></span><span style=display:flex><span><span style=color:#e6db74># Define variables for server details
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>set serverip 192.168.1.18  # Replace with your HTTP/NFS server IP
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>set serverip 192.168.1.18
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>set repo mirror.ps.kz
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>set webpath /rocky/8.10/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>set ksfile ks.cfg          # Kickstart file name
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>menu
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Rocky Linux 8 Installation --------------------------
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky8_install Install Rocky Linux 8 (HTTP)
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky8_install_ks Install Rocky Linux 8 (HTTP + Kickstart)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Rocky Linux 9 Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky9_install Install Rocky Linux 9 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky9_install_ks Install Rocky Linux 9 (HTTP + Kickstart)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Rocky Linux 10 Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky10_install Install Rocky Linux 10 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item rocky10_install_ks Install Rocky Linux 10 (HTTP + Kickstart)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Debian 12 (bootworm) Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item debian12_install Install Debian 12 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item debian12_install_preseed Install Debian 12 (HTTP + Preseed)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Debian 13 (trixie) Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item debian13_install Install Debian 13 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item debian13_install_preseed Install Debian 13 (HTTP + Preseed)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Devuan 5 (daedalus) Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item devuan5_install Install Devuan 5 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item devuan5_install_preseed Install Devuan 5 (HTTP + Preseed)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- -------------------------- Devuan 6 (excalibur) Installation --------------------------
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item devuan6_install Install Devuan 6 (HTTP)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item devuan6_install_preseed Install Devuan 6 (HTTP + Preseed)
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- ----------------------------------------------------------------------------------
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd0 Boot from HDD0
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd1 Boot from HDD1
@@ -90,43 +107,122 @@
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item boot_from_hdd5 Boot from HDD5
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item --gap -- ----------------------------------------------------------------------------------
 </span></span></span><span style=display:flex><span><span style=color:#e6db74>  item reboot Reboot
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item exit Exit iPXE
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74># Default boot option
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>choose --default boot_from_hdd0 --timeout 15000 target &amp;&amp; goto ${target}
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:rocky8_install
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  kernel http://${serverip}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  initrd http://${serverip}/initrd.img
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  boot
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:rocky8_install_ks
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  kernel http://${serverip}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${ksfile}
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  initrd http://${serverip}/initrd.img
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  boot
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd0
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x80
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd1
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x81
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd2
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x82
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd3
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x83
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd4
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x84
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:boot_from_hdd5
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  sanboot --no-describe --drive 0x85
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:reboot
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  reboot
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>:exit
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>  exit
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  item exit E</span>xit iPXE
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Default boot option</span>
+</span></span><span style=display:flex><span>choose --default boot_from_hdd0 --timeout <span style=color:#ae81ff>15000</span> target <span style=color:#f92672>&amp;&amp;</span> goto <span style=color:#e6db74>${</span>target<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky8_install
+</span></span><span style=display:flex><span>  set osroot RockyLinux/8
+</span></span><span style=display:flex><span>  set webpath /rocky/8.10/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky8_install_ks
+</span></span><span style=display:flex><span>  set osroot RockyLinux/8
+</span></span><span style=display:flex><span>  set webpath /rocky/8.10/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp inst.ks<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>ksfile<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky9_install
+</span></span><span style=display:flex><span>  set osroot RockyLinux/9
+</span></span><span style=display:flex><span>  set webpath /rocky/9.7/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky9_install_ks
+</span></span><span style=display:flex><span>  set osroot RockyLinux/9
+</span></span><span style=display:flex><span>  set webpath /rocky/9.7/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp inst.ks<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>ksfile<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky10_install
+</span></span><span style=display:flex><span>  set osroot RockyLinux/10
+</span></span><span style=display:flex><span>  set webpath /rocky/10.1/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:rocky10_install_ks
+</span></span><span style=display:flex><span>  set osroot RockyLinux/10
+</span></span><span style=display:flex><span>  set webpath /rocky/10.1/BaseOS/x86_64/os        <span style=color:#75715e># Path on your web server where Rocky Linux 8 ISO content is extracted</span>
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/vmlinuz inst.repo<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>repo<span style=color:#e6db74>}${</span>webpath<span style=color:#e6db74>}</span> ip<span style=color:#f92672>=</span>dhcp inst.ks<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>ksfile<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.img
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:debian12_install
+</span></span><span style=display:flex><span>  set osroot Debian/bookworm/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:debian12_install_preseed
+</span></span><span style=display:flex><span>  set osroot Debian/bookworm/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us preseed/url<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/$
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:debian13_install
+</span></span><span style=display:flex><span>  set osroot Debian/trixie/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:debian13_install_preseed
+</span></span><span style=display:flex><span>  set osroot Debian/trixie/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us preseed/url<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/$
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:devuan5_install
+</span></span><span style=display:flex><span>  set osroot Devuan/daedalus/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:devuan5_install_preseed
+</span></span><span style=display:flex><span>  set osroot Devuan/daedalus/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us preseed/url<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/$
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:devuan6_install
+</span></span><span style=display:flex><span>  set osroot Devuan/excalibur/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:devuan6_install_preseed
+</span></span><span style=display:flex><span>  set osroot Devuan/excalibur/debian-installer/amd64
+</span></span><span style=display:flex><span>  kernel http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/linux priority<span style=color:#f92672>=</span>critical interface<span style=color:#f92672>=</span>auto netcfg/dhcp_timeout<span style=color:#f92672>=</span><span style=color:#ae81ff>200</span> language<span style=color:#f92672>=</span>en country<span style=color:#f92672>=</span>KZ locale<span style=color:#f92672>=</span>en_US.UTF-8 keymap<span style=color:#f92672>=</span>us preseed/url<span style=color:#f92672>=</span>http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/preseeds/preseed.cfg
+</span></span><span style=display:flex><span>  initrd http://<span style=color:#e6db74>${</span>serverip<span style=color:#e6db74>}</span>/<span style=color:#e6db74>${</span>osroot<span style=color:#e6db74>}</span>/initrd.gz
+</span></span><span style=display:flex><span>  boot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd0
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x80
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd1
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x81
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd2
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x82
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd3
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x83
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd4
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x84
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:boot_from_hdd5
+</span></span><span style=display:flex><span>  sanboot --no-describe --drive 0x85
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:reboot
+</span></span><span style=display:flex><span>  reboot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>:exit
+</span></span><span style=display:flex><span>  exit
 </span></span></code></pre></div><p>Ну вроде все настроено и теперь можем использовать сетевую загрузку для различных задач.</p></div><footer class=entry-footer><div class='container sep-before'><div class=categories><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5A2 2 0 014 3H9l2 3h9a2 2 0 012 2z"/></svg><span class=screen-reader-text>categories: </span><a class=category href=/blog/category/mikrotik/>mikrotik</a>, <a class=category href=/blog/category/netboot/>netboot</a>, <a class=category href=/blog/category/bios/>bios</a>, <a class=category href=/blog/category/uefi/>uefi</a>, <a class=category href=/blog/category/pxe/>pxe</a>, <a class=category href=/blog/category/ipxe/>ipxe</a></div></div></footer></article><nav class=entry-nav><div class=container><div class='prev-entry sep-before'><a href=/blog/2025/10/20/rocky-linux-podman-transmission-selinux/><span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="20" y1="12" x2="4" y2="12"/><polyline points="10 18 4 12 10 6"/></svg></span><span class=screen-reader-text>: </span>Запуск transmission в podman на Rocky Linux 8</a></div><div class='next-entry sep-before'><a href=/blog/2025/10/28/le-potato-s905x-cc-debian-12-rtc-ds3231-module-for-pi/><span class=screen-reader-text>: </span>Настройка часов точного времени DS3231 на Debian 12 для платы Le Potato AML-S905X-CC<span aria-hidden=true><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg></span></a></div></div></nav></main><footer id=footer class=footer><div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label><ul><li><a href=https://github.com/Nurmukhamed target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=mailto:nurmukhamed.artykaly@hdfilm.kz target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></li><li><a href=https://t.me/nartykaly target=_blank rel=noopener><span class=screen-reader-text></span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="m22.05 1.577c-.393-.016-.784.08-1.117.235-.484.186-4.92 1.902-9.41 3.64-2.26.873-4.518 1.746-6.256 2.415C3.53 8.537 2.222 9.035 2.153 9.059c-.46.16-1.082.362-1.61.984-.79581202 1.058365.21077405 1.964825 1.004 2.499 1.76.564 3.58 1.102 5.087 1.608.556 1.96 1.09 3.927 1.618 5.89.174.394.553.54.944.544l-.002.02s.307.03.606-.042c.3-.07.677-.244 1.02-.565.377-.354 1.4-1.36 1.98-1.928l4.37 3.226.035.02s.484.34 1.192.388c.354.024.82-.044 1.22-.337.403-.294.67-.767.795-1.307.374-1.63 2.853-13.427 3.276-15.38L23.676 4.725C23.972 3.625 23.863 2.617 23.18 2.02 22.838 1.723 22.444 1.593 22.05 1.576z"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2009-2026 Nurmukhamed Artykaly</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.67d669ac.js></script><script src=/js/custom.js></script></body></html>
