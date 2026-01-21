@@ -15,6 +15,9 @@ categories:
 Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi.
 <!--more-->
 
+# update 
+**2026-01-21**: Добавил ansible-playbook.
+
 # Intro
 
 Купил себе два HP Proliant Microserver Gen8, один рабочий, другой не рабочий. Обновил bios, iLO. До последних версии. В принципе покупал
@@ -293,4 +296,297 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 ~~~
 
 Ну вроде все настроено и теперь можем использовать сетевую загрузку для различных задач.
+
+# Ansible
+
+Нужно было повторить установку еще два раза, ну вот появился повод настроить Ansible-playbook.
+Чтобы разом можно было сделать установку на 2 хоста и (или) более.
+
+Что нам нужно создать следующие файлы.
+
+## ansible.cfg
+
+~~~bash
+[defaults]
+inventory = inventory
+~~~
+
+## inventory
+
+~~~bash
+[netboot]
+192.168.1.18
+
+[netboot:vars]
+ansible_user=support
+ansible_port=22
+#ansible_python_interpreter=/usr/bin/python3
+~~~
+
+# main.yaml
+
+~~~yaml
+---
+- name: Install ipxe network boot.
+  hosts: all
+  become: true
+
+  vars:
+    server_ip: "192.168.1.18"
+
+    repo: "mirror.ps.kz"
+
+    oses:
+      - distroName: "RockyLinux"
+        distroShortName: "rocky"
+        distroVersion: "8"
+        osRoot: 'RockyLinux/8'
+        ks: "ks.cfg"
+        webpath: "/rocky/8.10/BaseOS/x86_64/os"
+      - distroName: "RockyLinux"
+        distroShortName: "rocky"
+        distroVersion: "9"
+        osRoot: 'RockyLinux/9'
+        ks: "ks.cfg"
+        webpath: "/rocky/9.7/BaseOS/x86_64/os"
+      - distroName: "RockyLinux"
+        distroShortName: "rocky"
+        distroVersion: "10"
+        osRoot: 'RockyLinux/10'
+        ks: "ks.cfg"
+        webpath: "/rocky/10.1/BaseOS/x86_64/os"
+      - distroName: "Debian"
+        distroShortName: "debian"
+        distroVersion: "12"
+        distroVersionName: "bookworm"
+        osRoot: "Debian/bookworm/debian-installer/amd64"
+        preseed: "preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg"
+        netboot_url: "https://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/netboot.tar.gz"
+      - distroName: "Debian"
+        distroShortName: "debian"
+        distroVersion: "13"
+        distroVersionName: "trixie"
+        osRoot: "Debian/trixie/debian-installer/amd64"
+        preseed: "preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg"
+        netboot_url: "https://deb.debian.org/debian/dists/trixie/main/installer-amd64/current/images/netboot/netboot.tar.gz"
+      - distroName: "Devuan"
+        distroShortName: "devuan"
+        distroVersion: "5"
+        distroVersionName: "daedalus"
+        osRoot: "Devuan/daedalus/debian-installer/amd64"
+        preseed: "preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg"
+        netboot_url: "https://pkgmaster.devuan.org/devuan/dists/excalibur/main/installer-amd64/current/images/netboot/netboot.tar.gz"
+      - distroName: "Devuan"
+        distroShortName: "devuan"
+        distroVersion: "6"
+        distroVersionName: "excalibur"
+        osRoot: "Devuan/excalibur/debian-installer/amd64"
+        preseed: "preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg"
+        netboot_url: "https://pkgmaster.devuan.org/devuan/dists/daedalus/main/installer-amd64/current/images/netboot/netboot.tar.gz"
+    hdds:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+
+  handlers:
+   - name: Daemon-reload
+     ansible.builtin.systemd:
+       enabled: true
+
+   - name: Service-tftpd-hpa-started
+     ansible.builtin.systemd:
+       name: tftpd-hpa
+       state: started
+       enabled: true
+
+   - name: Service-tftpd-hpa-started
+     ansible.builtin.systemd:
+       name: tftpd-hpa
+       state: restarted
+       enabled: true
+
+  tasks:
+    - name: Ensure that packages are installed.
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - tftp-hpa
+        - tftpd-hpa
+        - nginx
+
+    - name: Ensure that nginx is enabled and started.
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Ensure that /srv/tftp is exist.
+      ansible.builtin.file:
+        path: /srv/tftp
+        state: directory
+        owner: tftp
+        group: tftp
+        mode: '0755'
+
+    - name: Create or update /etc/default/tftpd-hpa.
+      ansible.builtin.copy:
+        content: |
+          TFTP_USERNAME="tftp"
+          TFTP_DIRECTORY="/srv/tftp"
+          TFTP_ADDRESS=":69"
+          TFTP_OPTIONS="--secure --create"
+        dest: /etc/default/tftpd-hpa
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Daemon-reload
+        - Service-tftpd-hpa-started
+        - Service-tftpd-hpa-started
+
+    - name: Create or update default.ipxe.
+      ansible.builtin.template:
+        src: default.ipxe.j2
+        dest: /var/www/html/default.ipxe
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Download pxeboot, netboot files.
+      ansible.builtin.include_tasks: download_files.yaml
+      with_items: "{{ oses }}"
+      loop_control:
+        loop_var: os
+~~~
+
+# download_files.yaml
+
+~~~yaml
+---
+- name: Ensure that folder is exist.
+  ansible.builtin.file:
+    path: "/var/www/html/{{ os['osRoot'] }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Download RedHat files.
+  when:
+    - os['distroShortName'] == "rocky"
+  ansible.builtin.get_url:
+    url: "http://{{ repo }}/{{ os['webpath'] }}/images/pxeboot/{{ item }}"
+    dest: "/var/www/html/{{ os['osRoot'] }}/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - vmlinuz
+    - initrd.img
+
+- name: Download Debian files.
+  when:
+    - os['distroShortName'] in ['debian', 'devuan']
+  ansible.builtin.unarchive:
+    src: "{{ os['netboot_url'] }}"
+    dest: "/var/www/html/{{ os['distroName'] }}/{{ os['distroVersionName'] }}"
+    remote_src: true
+    owner: root
+    group: root
+~~~
+
+# default.ipxe.j2
+
+~~~bash
+#!ipxe
+
+# Define variables for server details
+set serverip {{ server_ip }}
+set repo {{ repo }}
+set ksfile ks.cfg          # Kickstart file name
+
+menu
+{% for os in oses %}
+  item --gap -- -------------------------- {{ os['distroName'] }} {{ os['distroVersion'] }} Installation --------------------------
+  item {{ os['distroShortName'] }}{{ os['distroVersion'] }}_install Install {{ os['distroName'] }} {{ os['distroVersion'] }} (HTTP)
+{%   if os['ks'] is defined %}
+  item {{ os['distroShortName'] }}{{ os['distroVersion'] }}_install_ks Install {{ os['distroName'] }} {{ os['distroVersion'] }} (HTTP + Kickstart)
+{%   endif %}
+{%   if os['preseed'] is defined %}
+  item {{ os['distroShortName'] }}{{ os['distroVersion'] }}_install_preseed Install {{ os['distroName'] }} {{ os['distroVersion'] }} (HTTP + Preseed)
+{%   endif %}
+{% endfor %}
+  item --gap -- ----------------------------------------------------------------------------------
+{% for hdd in hdds %}
+  item boot_from_hdd{{ hdd }} Boot from HDD{{ hdd }}
+{% endfor %}
+  item --gap -- ----------------------------------------------------------------------------------
+  item reboot Reboot
+  item exit Exit iPXE
+
+# Default boot option
+choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
+
+{% for os in oses %}
+:{{ os['distroShortName'] }}{{ os['distroVersion'] }}_install
+  set osroot {{ os['osRoot'] }}
+{%   if os['webpath'] is defined %}
+  set webpath {{ os['webpath'] }}
+{%   endif %}
+{%   if os['distroShortName'] == 'rocky' %}
+  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+  initrd http://${serverip}/${osroot}/initrd.img
+{%   elif os['distroShortName'] == 'debian' %}
+  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  initrd http://${serverip}/${osroot}/initrd.gz
+{%   elif os['distroShortName'] == 'devuan' %}
+  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  initrd http://${serverip}/${osroot}/initrd.gz
+{%   endif %}
+  boot
+{%   if os['ks'] is defined %}
+:{{ os['distroShortName'] }}{{ os['distroVersion'] }}_install_ks
+  set osroot {{ os['osRoot'] }}
+{%     if os['webpath'] is defined %}
+  set webpath {{ os['webpath'] }}
+{%     endif %}
+  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
+  initrd http://${serverip}/${osroot}/initrd.img
+  boot
+{%   endif %}
+
+{%   if os['preseed'] is defined  %}
+:{{ os['distroShortName'] }}{{ os['distroVersion'] }}_install_preseed
+  set osroot {{ os['osRoot'] }}
+{%     if os['webpath'] is defined %}
+  set webpath {{ os['webpath'] }}
+{%     endif %}
+  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
+  initrd http://${serverip}/${osroot}/initrd.gz
+  boot
+  boot
+{%   endif %}
+{% endfor %}
+
+{% for hdd in hdds %}
+:boot_from_hdd{{ hdd }}
+  sanboot --no-describe --drive 0x8{{ hdd }}
+{% endfor %}
+
+:reboot
+  reboot
+
+:exit
+  exit
+~~~
+
+Запускаем плейбук следующей командой
+
+~~~bash
+ansible-playbook main.yaml -K
+~~~
 
