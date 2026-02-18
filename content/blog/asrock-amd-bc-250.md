@@ -56,6 +56,7 @@ Sony заказывает у AMD процессор/графический пр�
 * [Wifi6 AX900](https://aliexpress.ru/item/1005008818739752.html?spm=a2g2w.orderdetail.0.0.ad574aa6Oo7cJn&sku_id=12000046802349241)
 * [Copper Threaded Nut Inserts](https://aliexpress.ru/item/1005005920120561.html?spm=a2g2w.orderdetail.0.0.5f2c4aa6LBzf10&sku_id=12000034855956852)
 * [512GB Apacer AS2280P4](https://shop.kz/offer/ssd-nakopitel-512-gb-apacer-as2280p4-m-2-pcie-3-0/)
+* [Assembling Mini-Fit JR with IWIS SN-28B Crimper](https://www.youtube.com/watch?v=a1WHy_oDHnM)
 
 # 3d-Printer Case
 
