@@ -1,10 +1,10 @@
 {
   "name": "minimo",
   "description": "Minimalist theme for Hugo",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "author": {
     "name": "Munif Tanjim",
-    "url": "https://muniftanjim.com"
+    "url": "https://muniftanjim.dev"
   },
   "repository": "MunifTanjim/minimo",
   "license": "MIT",
@@ -26,15 +26,11 @@
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
+    "sass": "^1.83.1",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2",
-    "acorn": ">=6.4.1",
-    "minimist": ">=0.2.1",
-    "kind-of": ">=6.0.3",
-    "serialize-javascript": ">=2.1.1"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "algoliasearch": "^3.29.0",
