@@ -35,8 +35,8 @@ title404 = "Howtos"
 
 [params.assets]
 favicon = "favicon.ico"
-customCSS = ["css/custom.css"]
-customJS = ["js/custom.js"]
+#customCSS = ["css/custom.css"]
+#customJS = ["js/custom.js"]
 gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 
 [params.copyright]
@@ -64,7 +64,7 @@ enable = true
 
 [params.widgets]
 homepage = ["recent_posts"]
-sidebar = ["about","search","sidebar_menu","taxonomy_cloud"]
+sidebar = ["search","sidebar_menu","taxonomy_cloud"]
 footer = ["social_menu"]
 
 [params.seo]
@@ -104,12 +104,6 @@ blog = "/blog/:year/:month/:day/:filename/"
 #kubernetes = "/kubernetes/:year/:month/:day/:filename/"
 categories = "/blog/category/:title/"
 tags = "/blog/tag/:title/"
-
-[[menu.main]]
-name = "About"
-weight = -10
-identifier = "about"
-url = "/about.md"
 
 [[menu.main]]
 name = "Blog"
