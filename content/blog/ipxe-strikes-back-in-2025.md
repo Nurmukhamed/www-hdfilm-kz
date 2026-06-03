@@ -17,6 +17,7 @@ categories:
 
 # update 
 **2026-01-21**: Добавил ansible-playbook.
+**2026-06-03**: На хабре выложили отличную статью [iPXE без лишних слов, но с большим количеством пояснений](https://habr.com/ru/articles/1037416/), рекомендую ознакомится. Также добавлена опция 175 для ipxe.
 
 # Intro
 
@@ -90,11 +91,13 @@ add code=67 name=Bootfile value="'undionly.kpxe'"
 
 add code=67 name=UEFI value="'ipxe.efi'"
 
+add code=175 name=iPXE value="'http://192.168.1.18/default.ipxe'"
+
 /ip dhcp-server option sets
 
-add name=TFTPD options=Bootfile,TFTP
+add name=TFTPD options=Bootfile,TFTP,iPXE
 
-add name=UEFI options=TFTP,UEFI
+add name=UEFI options=TFTP,UEFI,iPXE
 
 /ip dhcp-server network
 
