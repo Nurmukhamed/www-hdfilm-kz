@@ -16,6 +16,7 @@ categories:
 <!--more-->
 
 # update 
+**2026-07-18**: Добавил ansible-playbook для обновления Linux distros.
 **2026-01-21**: Добавил ansible-playbook.
 **2026-06-03**: На хабре выложили отличную статью [iPXE без лишних слов, но с большим количеством пояснений](https://habr.com/ru/articles/1037416/), рекомендую ознакомится. Также добавлена опция 175 для ipxe.
 
@@ -591,5 +592,148 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 
 ~~~bash
 ansible-playbook main.yaml -K
+~~~
+
+# Ansible - Linux distro update.
+
+~~~yaml
+---
+- name: Update Linux Distro netboot files.
+  hosts: localhost
+  connection: local
+  become: true
+  gather: true
+
+  vars:
+    _distros:
+      - name: Debian
+        versions:
+          - name: bookworm
+            major: '12'
+            minor: '15'
+            url: 'https://mirror.ps.kz/debian/dists/bookworm/main/installer-amd64/current/images/netboot/netboot.tar.gz'
+          - name: trixie
+            major: '13'
+            minor: '6'
+            url: 'https://mirror.ps.kz/debian/dists/trixie/main/installer-amd64/current/images/netboot/netboot.tar.gz'
+      - name: RockyLinux
+        versions:
+          - major: '10'
+            minor: '2'
+            # urls:
+            #  - 'https://mirror.ps.kz/rocky/10.2/BaseOS/x86_64/os/images/pxeboot/initrd.img'
+            #  - 'https://mirror.ps.kz/rocky/10.2/BaseOS/x86_64/os/images/pxeboot/vmlinuz'
+          - major: '9'
+            minor: '8'
+            # urls:
+            #  - https://mirror.ps.kz/rocky/9.8/BaseOS/x86_64/os/images/pxeboot/initrd.img
+            #  - https://mirror.ps.kz/rocky/9.8/BaseOS/x86_64/os/images/pxeboot/vmlinuz
+          - major: '8'
+            minor: '10'
+            # urls:
+            #  - https://mirror.ps.kz/rocky/8.10/BaseOS/x86_64/os/images/pxeboot/initrd.img
+            #  - https://mirror.ps.kz/rocky/8.10/BaseOS/x86_64/os/images/pxeboot/vmlinuz
+
+  pre_tasks:
+    - name: Run apt update
+      when: ansible_os_family == "Debian"
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+  tasks:
+    - name: Check if rsync is installed.
+      ansible.builtin.apt:
+        name: rsync
+        state: present
+
+    # - name: Debug Create temporary folders.
+    #   ansible.builtin.debug:
+    #     msg: "/tmp/{{ item.0.name }}/{{ item.1.major}}.{{ item.1.minor }}"
+    #   loop: "{{ _distros | subelements('versions') }}"
+
+    # - name: Debug - Download Debian files.
+    #   when: item.0.name == 'Debian'
+    #   ansible.builtin.debug:
+    #     msg: "{{ item.1.url }}, /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
+    #   loop: "{{ _distros | subelements('versions') }}"
+
+    # - name: Debug Download RockyLinux files - initrd.
+    #   when: item.0.name == 'RockyLinux'
+    #   ansible.builtin.debug:
+    #     msg: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/initrd.img"
+    #  loop: "{{ _distros | subelements('versions') }}" 
+
+    # - name: Debug Download RockyLinux files - vmlinuz.
+    #   when: item.0.name == 'RockyLinux'
+    #   ansible.builtin.debug:
+    #     msg: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/vmlinuz"
+    #   loop: "{{ _distros | subelements('versions') }}" 
+
+    # - name: Debug - Rsync files.
+    #   ansible.builtin.debug:
+    #     msg: >
+    #       rsync -avz 
+    #       /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}/
+    #       /var/www/html/{{ item.0.name }}/{{ item.1.major}}/
+    #  loop: "{{ _distros | subelements('versions') }}"
+
+    - name: Create temporary folders.
+      ansible.builtin.file:
+        path: "/tmp/{{ item.0.name }}/{{ item.1.major}}.{{ item.1.minor }}"
+        owner: root
+        group: root
+        mode: '0755'
+        state: directory
+      loop: "{{ _distros | subelements('versions') }}"
+
+    - name: Download Debian files.
+      when: item.0.name == 'Debian'
+      ansible.builtin.unarchive:
+        src: "{{ item.1.url}}"
+        dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
+        owner: root
+        group: root
+        remote_src: true
+      loop: "{{ _distros | subelements('versions') }}"
+      
+    - name: Download RockyLinux files 1/2.
+      when: item.0.name == 'RockyLinux'
+      ansible.builtin.get_url:
+        url: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/initrd.img"
+        dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
+        owner: root
+        group: root
+      loop: "{{ _distros | subelements('versions') }}"
+
+    - name: Download RockyLinux files 2/2.
+      when: item.0.name == 'RockyLinux'
+      ansible.builtin.get_url:
+        url: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/vmlinuz"
+        dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
+        owner: root
+        group: root
+      loop: "{{ _distros | subelements('versions') }}"
+
+    - name: Rsync files - Debian.
+      when: item.0.name == 'Debian'
+      ansible.builtin.command:
+        cmd: >
+          rsync -avz 
+          /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}/
+          /var/www/html/{{ item.0.name }}/{{ item.1.name}}/
+      changed_when: false
+      loop: "{{ _distros | subelements('versions') }}"
+
+    - name: Rsync files - RockyLinux.
+      when: item.0.name == 'RockyLinux'
+      ansible.builtin.command:
+        cmd: >
+          rsync -avz 
+          /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}/
+          /var/www/html/{{ item.0.name }}/{{ item.1.major}}/
+      changed_when: false
+      loop: "{{ _distros | subelements('versions') }}"
+
 ~~~
 
