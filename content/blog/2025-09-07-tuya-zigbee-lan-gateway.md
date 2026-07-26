@@ -18,6 +18,10 @@ categories:
 Как прошить Tuya Zigbee Lan Gateway и подключить к HomeAssistant через zigbee2mqtt.
 <!--more-->
 
+# Update
+
+**2026-07-26**: Добавил информацию о новых шлюзах, построенных на базе [WBRG1][15] + [ZS3L][16]. 
+
 # Предыстория
 
 Меня интересует "Умный дом", в частности, реализации на базе Open Source решений, одним из таких является HomeAssistant.
@@ -127,6 +131,77 @@ serial:
 
 После этого Zigbee2MQTT должен поднятся и работать.
 
+# Tuya Smart Gateway Hub Multi-Model.
+
+Купил я себе такие модули на [aliexpress][17]. Эти модули собраны на новой элементной базе. Но в целом идея сохранилась.
+Есть [модуль вычислительный WBRG1][15] и есть [модуль zigbee ZS3L][16]. Ранее был чип на базе Realtek с Linux на борту, 
+теперь просто чип с прошивкой. Добрые люди открыли проект OpenBeken, который поддерживает данный чип.
+
+Сразу скажу стало даже лучше. Коробка легко вскрывается, нужно 4 шурупа открутить, затем ножиком (или плоской отверткой) снять крышку, 
+затем также снять плату.  
+
+На плате P4 пины необходимые нам для прошивки WBRG1.
+
+* Отключите плату;
+* Соедините вместе GND + LOG_TX;
+* Подключите питание;
+* Отсоедините GND + LOG_TX;
+* Подсоедините USB-TTL GND -> GND, USB-TTL TX -> LOG_TX, USB-TTL RX -> LOG_RX;
+* Скачайте и распакуйте [архив][20];
+* В терминале (или cmd, powershell для Windows) перейдите в распакованную папку;
+* Установим отдельное окружение для Python
+~~~
+python3 -m venv venv; source ./venv/bin/activate;
+~~~
+* Установим нужные пакеты
+~~~
+pip install serial; pip install pyserial;
+~~~
+* Определим порт USB-TTL
+~~~
+python -m serial.tools.list_ports -v;
+~~~
+* Попробуем сделать бакап прошивки перед началом работ
+~~~
+python rtltool.py -p /dev/cu.usbserial-0001 -b1500000 rf 0 0x800000 ff.bin;
+~~~
+* Бакап прошивки должен сохранится в файл ff.bin, должен весит около 8 мегабайт;
+* Скачайте прошивку OpenRTL8720D_1.18.298.bin c [github][22];
+* Загрузите прошивку в WBRG1
+~~~
+python rtltool.py -p /dev/cu.usbserial-0001 -b1500000 wf 0x0 OpenRTL8720D_1.18.298.bin
+~~~
+* После успешной загрузки прошивки, отключите питание, выдерните шнуры с GND, LOG_TX, LOG_RX;
+* Включите питание и с помощью телефона найдите новую точку доступа. Вот [видео с youtube][21] чтобы стало понятнее.
+* После настройки WIFI, найдите адрес устройства и откройте страницу с адресом устройства;
+* В Config -> Change Startup Command Text заполните [следующий текст][18] 
+~~~
+startdriver uarttcp 115200 512 1 1
+SetChannelLabel 1 "Bridge Connection"
+SetChannelVisible 1 0
+SetChannelType 1 OpenClosed_Inv
+~~~
+* Пройдите регистрацию на [сайте elektroda][23];
+* Загрузите прошивку для ZS3L c [данной страницы][19];
+* В терминале установите новый python пакет
+~~~
+pip install universal-silabs-flasher;
+~~~
+* Распакуйте файл прошивки; 
+* В терминале загрузите новую прошивку
+~~~
+universal-silabs-flasher --device socket://192.168.1.11:8888 flash --firmware zs3l_zigbee_ncp_8.0.2.0_115200.gbl
+~~~
+* Настройте zigbee2mqtt - добавьте новое устроство с адресом
+~~~
+serial:
+  adapter: ember
+  port: tcp://192.168.1.11:8888
+  baudrate: 115200
+  rtscts: false
+~~~
+
+
 [1]: https://github.com/Nurmukhamed/homeserverfrigate/
 [2]: https://aliexpress.ru/item/1005004547056435.html?sku_id=12000029564341740&spm=a2g2w.productlist.search_results.0.400374cc3sM8kD
 [3]: https://www.realtek.com/Product/Index?id=408&cate_id=194
@@ -141,3 +216,13 @@ serial:
 [12]: https://github.com/make-all/tuya-local
 [13]: https://github.com/zigpy/zigpy/discussions/650
 [14]: https://docs.python.org/3/library/venv.html
+[15]: https://developer.tuya.com/en/docs/iot/wbrg1-module-datasheet?id=Ka015vo8tfztz
+[16]: https://developer.tuya.com/en/docs/iot/zs3l?id=K97r37j19f496
+[17]: https://aliexpress.ru/item/1005003473319533.html?spm=a2g2w.orderdetail.0.0.72874aa6NbLa9J&sku_id=12000028068044616
+[18]: https://www.elektroda.com/news/news4130211.html
+[19]: https://www.elektroda.com/rtvforum/topic4127578.html
+[20]: https://pvvx.github.io/RSH-GW018_DM/
+[21]: https://www.youtube.com/watch?v=BnmSWZchK-E
+[22]: https://github.com/openshwprojects/OpenBK7231T_App/releases/tag/1.18.298
+[23]: https://www.elektroda.com
+
