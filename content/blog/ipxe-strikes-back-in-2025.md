@@ -16,6 +16,7 @@ categories:
 <!--more-->
 
 # update 
+**2026-07-27**: Сделал форматирование текста для лучшего восприятия информации и уменьшил длину строк.
 **2026-07-18**: Добавил ansible-playbook для обновления Linux distros.
 **2026-01-21**: Добавил ansible-playbook.
 **2026-06-03**: На хабре выложили отличную статью [iPXE без лишних слов, но с большим количеством пояснений](https://habr.com/ru/articles/1037416/), рекомендую ознакомится. Также добавлена опция 175 для ipxe.
@@ -186,91 +187,171 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 
 :rocky8_install
   set osroot RockyLinux/8
-  set webpath /rocky/8.10/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+  # Path on your web server where Rocky Linux 8 ISO content is extracted
+  set webpath /rocky/8.10/BaseOS/x86_64/os 
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :rocky8_install_ks
   set osroot RockyLinux/8
-  set webpath /rocky/8.10/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
+  # Path on your web server where Rocky Linux 8 ISO content is extracted
+  set webpath /rocky/8.10/BaseOS/x86_64/os
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp \
+         inst.ks=http://${serverip}/${osroot}/${ksfile}
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :rocky9_install
   set osroot RockyLinux/9
-  set webpath /rocky/9.7/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+  # Path on your web server where Rocky Linux 9 ISO content is extracted
+  set webpath /rocky/9.8/BaseOS/x86_64/os
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :rocky9_install_ks
   set osroot RockyLinux/9
-  set webpath /rocky/9.7/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
+  # Path on your web server where Rocky Linux 9 ISO content is extracted
+  set webpath /rocky/9.8/BaseOS/x86_64/os
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp \
+         inst.ks=http://${serverip}/${osroot}/${ksfile}
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :rocky10_install
   set osroot RockyLinux/10
-  set webpath /rocky/10.1/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+  # Path on your web server where Rocky Linux 10 ISO content is extracted
+  set webpath /rocky/10.2/BaseOS/x86_64/os
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :rocky10_install_ks
   set osroot RockyLinux/10
-  set webpath /rocky/10.1/BaseOS/x86_64/os        # Path on your web server where Rocky Linux 8 ISO content is extracted
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
+  # Path on your web server where Rocky Linux 10 ISO content is extracted
+  set webpath /rocky/10.2/BaseOS/x86_64/os
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 
 :debian12_install
   set osroot Debian/bookworm/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :debian12_install_preseed
   set osroot Debian/bookworm/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/$
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us \
+         preseed/url=http://${serverip}/$
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :debian13_install
   set osroot Debian/trixie/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :debian13_install_preseed
   set osroot Debian/trixie/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/$
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us \
+         preseed/url=http://${serverip}/$
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :devuan5_install
   set osroot Devuan/daedalus/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :devuan5_install_preseed
   set osroot Devuan/daedalus/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/$
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us \
+         preseed/url=http://${serverip}/$
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :devuan6_install
   set osroot Devuan/excalibur/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
 :devuan6_install_preseed
   set osroot Devuan/excalibur/debian-installer/amd64
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us \
+         preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
@@ -542,13 +623,29 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
   set webpath {{ os['webpath'] }}
 {%   endif %}
 {%   if os['distroShortName'] == 'rocky' %}
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp
   initrd http://${serverip}/${osroot}/initrd.img
 {%   elif os['distroShortName'] == 'debian' %}
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
 {%   elif os['distroShortName'] == 'devuan' %}
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us
   initrd http://${serverip}/${osroot}/initrd.gz
 {%   endif %}
   boot
@@ -558,7 +655,10 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 {%     if os['webpath'] is defined %}
   set webpath {{ os['webpath'] }}
 {%     endif %}
-  kernel http://${serverip}/${osroot}/vmlinuz inst.repo=http://${repo}${webpath} ip=dhcp inst.ks=http://${serverip}/${osroot}/${ksfile}
+  kernel http://${serverip}/${osroot}/vmlinuz \
+         inst.repo=http://${repo}${webpath} \
+         ip=dhcp \
+         inst.ks=http://${serverip}/${osroot}/${ksfile}
   initrd http://${serverip}/${osroot}/initrd.img
   boot
 {%   endif %}
@@ -569,7 +669,15 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 {%     if os['webpath'] is defined %}
   set webpath {{ os['webpath'] }}
 {%     endif %}
-  kernel http://${serverip}/${osroot}/linux priority=critical interface=auto netcfg/dhcp_timeout=200 language=en country=KZ locale=en_US.UTF-8 keymap=us preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
+  kernel http://${serverip}/${osroot}/linux \
+         priority=critical \
+         interface=auto \
+         netcfg/dhcp_timeout=200 \
+         language=en \
+         country=KZ \
+         locale=en_US.UTF-8 \
+         keymap=us \
+         preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
   boot
@@ -646,37 +754,6 @@ ansible-playbook main.yaml -K
       ansible.builtin.apt:
         name: rsync
         state: present
-
-    # - name: Debug Create temporary folders.
-    #   ansible.builtin.debug:
-    #     msg: "/tmp/{{ item.0.name }}/{{ item.1.major}}.{{ item.1.minor }}"
-    #   loop: "{{ _distros | subelements('versions') }}"
-
-    # - name: Debug - Download Debian files.
-    #   when: item.0.name == 'Debian'
-    #   ansible.builtin.debug:
-    #     msg: "{{ item.1.url }}, /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
-    #   loop: "{{ _distros | subelements('versions') }}"
-
-    # - name: Debug Download RockyLinux files - initrd.
-    #   when: item.0.name == 'RockyLinux'
-    #   ansible.builtin.debug:
-    #     msg: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/initrd.img"
-    #  loop: "{{ _distros | subelements('versions') }}" 
-
-    # - name: Debug Download RockyLinux files - vmlinuz.
-    #   when: item.0.name == 'RockyLinux'
-    #   ansible.builtin.debug:
-    #     msg: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/vmlinuz"
-    #   loop: "{{ _distros | subelements('versions') }}" 
-
-    # - name: Debug - Rsync files.
-    #   ansible.builtin.debug:
-    #     msg: >
-    #       rsync -avz 
-    #       /tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}/
-    #       /var/www/html/{{ item.0.name }}/{{ item.1.major}}/
-    #  loop: "{{ _distros | subelements('versions') }}"
 
     - name: Create temporary folders.
       ansible.builtin.file:

@@ -188,7 +188,7 @@ SetChannelType 1 OpenClosed_Inv
 pip install universal-silabs-flasher;
 ~~~
 * Распакуйте файл прошивки; 
-* В терминале загрузите новую прошивку
+* В терминале загрузите новую прошивку c помощью утилиты [universal silicon labs flasher][24];
 ~~~
 universal-silabs-flasher --device socket://192.168.1.11:8888 flash --firmware zs3l_zigbee_ncp_8.0.2.0_115200.gbl
 ~~~
@@ -225,4 +225,4 @@ serial:
 [21]: https://www.youtube.com/watch?v=BnmSWZchK-E
 [22]: https://github.com/openshwprojects/OpenBK7231T_App/releases/tag/1.18.298
 [23]: https://www.elektroda.com
-
+[24]: https://github.com/NabuCasa/universal-silabs-flasher
