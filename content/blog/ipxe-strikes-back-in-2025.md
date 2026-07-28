@@ -273,7 +273,7 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
          country=KZ \
          locale=en_US.UTF-8 \
          keymap=us \
-         preseed/url=http://${serverip}/$
+         preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
@@ -300,7 +300,7 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
          country=KZ \
          locale=en_US.UTF-8 \
          keymap=us \
-         preseed/url=http://${serverip}/$
+         preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
@@ -327,7 +327,7 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
          country=KZ \
          locale=en_US.UTF-8 \
          keymap=us \
-         preseed/url=http://${serverip}/$
+         preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
 
@@ -423,6 +423,11 @@ ansible_port=22
     server_ip: "192.168.1.18"
 
     repo: "mirror.ps.kz"
+
+    _country: "KZ"
+    _language: "en"
+    _locale: "en_US.UTF-8"
+    _keymap: "us"
 
     oses:
       - distroName: "RockyLinux"
@@ -635,20 +640,20 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
          priority=critical \
          interface=auto \
          netcfg/dhcp_timeout=200 \
-         language=en \
-         country=KZ \
-         locale=en_US.UTF-8 \
-         keymap=us
+         language={{ _language }} \
+         country={{ _country }} \
+         locale={{ _locale }} \
+         keymap={{ _keymap }}
   initrd http://${serverip}/${osroot}/initrd.gz
 {%   elif os['distroShortName'] == 'devuan' %}
   kernel http://${serverip}/${osroot}/linux \
          priority=critical \
          interface=auto \
          netcfg/dhcp_timeout=200 \
-         language=en \
-         country=KZ \
-         locale=en_US.UTF-8 \
-         keymap=us
+         language={{ _language }} \
+         country={{ _country }} \
+         locale={{ _locale }} \
+         keymap={{ _keymap }}
   initrd http://${serverip}/${osroot}/initrd.gz
 {%   endif %}
   boot
@@ -676,10 +681,10 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
          priority=critical \
          interface=auto \
          netcfg/dhcp_timeout=200 \
-         language=en \
-         country=KZ \
-         locale=en_US.UTF-8 \
-         keymap=us \
+         language={{ _language }} \
+         country={{ _country }} \
+         locale={{ _locale }} \
+         keymap={{ _keymap }} \
          preseed/url=http://${serverip}/${osroot}/preseeds/preseed.cfg
   initrd http://${serverip}/${osroot}/initrd.gz
   boot
@@ -716,17 +721,18 @@ ansible-playbook main.yaml -K
   gather: true
 
   vars:
+    _mirror_repo: "mirror.ps.kz"
     _distros:
       - name: Debian
         versions:
           - name: bookworm
             major: '12'
             minor: '15'
-            url: 'https://mirror.ps.kz/debian/dists/bookworm/main/installer-amd64/current/images/netboot/netboot.tar.gz'
+            url: 'https://%s/debian/dists/%s/main/installer-amd64/current/images/netboot/netboot.tar.gz'
           - name: trixie
             major: '13'
             minor: '6'
-            url: 'https://mirror.ps.kz/debian/dists/trixie/main/installer-amd64/current/images/netboot/netboot.tar.gz'
+            url: 'https://%s/debian/dists/%s/main/installer-amd64/current/images/netboot/netboot.tar.gz'
       - name: RockyLinux
         versions:
           - major: '10'
@@ -770,7 +776,7 @@ ansible-playbook main.yaml -K
     - name: Download Debian files.
       when: item.0.name == 'Debian'
       ansible.builtin.unarchive:
-        src: "{{ item.1.url}}"
+        src: "{{ item.1.url | format (_mirror_repo, item.1.name) }}"
         dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
         owner: root
         group: root
@@ -780,7 +786,7 @@ ansible-playbook main.yaml -K
     - name: Download RockyLinux files 1/2.
       when: item.0.name == 'RockyLinux'
       ansible.builtin.get_url:
-        url: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/initrd.img"
+        url: "https://{{ _mirror_repo }}/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/initrd.img"
         dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
         owner: root
         group: root
@@ -789,7 +795,7 @@ ansible-playbook main.yaml -K
     - name: Download RockyLinux files 2/2.
       when: item.0.name == 'RockyLinux'
       ansible.builtin.get_url:
-        url: "https://mirror.ps.kz/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/vmlinuz"
+        url: "https://{{ _mirror_repo }}/rocky/{{ item.1.major }}.{{ item.1.minor }}/BaseOS/x86_64/os/images/pxeboot/vmlinuz"
         dest: "/tmp/{{ item.0.name }}/{{ item.1.major }}.{{ item.1.minor }}"
         owner: root
         group: root
@@ -814,6 +820,5 @@ ansible-playbook main.yaml -K
           /var/www/html/{{ item.0.name }}/{{ item.1.major}}/
       changed_when: false
       loop: "{{ _distros | subelements('versions') }}"
-
 ~~~
 
