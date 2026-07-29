@@ -133,6 +133,8 @@ serial:
 
 # Tuya Smart Gateway Hub Multi-Model.
 
+{{< imgcap src="/images/tuya-multi-station.png" caption="tuya-multi-station.png" >}}
+
 Купил я себе такие модули на [aliexpress][17]. Эти модули собраны на новой элементной базе. Но в целом идея сохранилась.
 Есть [модуль вычислительный WBRG1][15] и есть [модуль zigbee ZS3L][16]. Ранее был чип на базе Realtek с Linux на борту, 
 теперь просто чип с прошивкой. Добрые люди открыли проект OpenBeken, который поддерживает данный чип.
