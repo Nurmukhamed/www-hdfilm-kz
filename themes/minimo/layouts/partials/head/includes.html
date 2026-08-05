@@ -1,5 +1,6 @@
 <link rel='icon' href='{{ ( or .Site.Params.assets.favicon "favicon.ico" ) | relURL }}'>
 <link rel='stylesheet' href='{{ print "/assets/css/" .Site.Data.assets.main.css | relURL  }}'>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 {{- if .Site.Params.settings.rtl -}}
   <link rel='stylesheet' href='{{ print "/assets/css/" .Site.Data.assets.rtl.css | relURL  }}'>
