@@ -9,13 +9,24 @@ categories:
 - uefi
 - pxe
 - ipxe
-
+- tftp
+- dnsmasq
 ---
 
 Настраиваем сетевую загрузку с помощью mikrotik, ipxe для bios, uefi.
 <!--more-->
 
 # update 
+**2026-08-12**: 
+
+Убрал раздел Podman, будем использовать готовые файлы, исправил uefi network boot.
+
+Я решил проверить как работает UEFI network boot и у меня не получилось. Начал разбираться, выяснил, что лучше не использовать ipxe.efi, а нужно использовать snponly.efi. Более подробнее [здесь](https://github.com/warewulf/warewulf3/issues/84).
+
+Добавил настройки для dnsmasq.
+
+Имя http server изменено на boot.nurm.lan.
+
 **2026-07-27**: Сделал форматирование текста для лучшего восприятия информации и уменьшил длину строк.
 
 **2026-07-18**: Добавил ansible-playbook для обновления Linux distros.
@@ -40,42 +51,6 @@ categories:
 * mikrotik router - как dhcp-server и откуда указываем где tftp-сервер и какие файлы нужно загрузить;
 * h96max tv box - используется как tftp-сервер и http сервер. Отсюда загружаются нужные нам файлы;
 * ipxe - создаем два образа для сетевой загрузки - для BIOS и для UEFI;
-* podman - в контейнере собираем ipxe.
-
-# Podman
-
-Где нибудь на сервере и (или) рабочей машине под платформой AMD64 будем запускать podman необходимой нам для сборки ipxe.
-
-Для начала создадим [ipxe embedded script](https://ipxe.org/embed) файл.
-~~~bash
-mkdir -p ipxe
-cd ipxe
-
-cat<<EOF | tee ipxe myscript.ipxe
-#!ipxe
-
-dhcp
-chain http://192.168.1.18/default.ipxe
-EOF
-
-~~~ 
-
-~~~bash
-podman run -it --rm -v $(pwd):/app debian:12 bash
-
-apt update -y
-apt install build-essential git liblzma-dev -y
-git clone https://github.com/ipxe/ipxe.git
-
-cd ipxe/src
-make bin/undionly.kpxe EMBED=/app/myscript.ipxe
-cp bin/undionly.kpxe /app
-make bin-x86_64-efi/ipxe.efi EMBED=/app/myscript.ipxe
-cp bin-x86_64-efi/ipxe.efi /app
-exit
-~~~ 
-
-Полученные файлы undionly.kpxe, ipxe.efi нам нужно скопировать на h96max.
 
 # Mikrotik
 
@@ -94,9 +69,9 @@ add code=66 name=TFTP value="'192.168.1.18'"
 
 add code=67 name=Bootfile value="'undionly.kpxe'"
 
-add code=67 name=UEFI value="'ipxe.efi'"
+add code=67 name=UEFI value="'snponly64.efi'"
 
-add code=175 name=iPXE value="'http://192.168.1.18/default.ipxe'"
+add code=175 name=iPXE value="'http://boot.nurm.lan/ipxe/boot.ipxe'"
 
 /ip dhcp-server option sets
 
@@ -111,7 +86,7 @@ add address=192.168.1.0/24 comment=defconf dhcp-option-set=TFTPD dns-server=192.
 
 По умолчанию сетевая загрузка проходит в BIOS Legacy режиме, если нам нужно загрузить систему через UEFI, то нужно в Mikrotik UI выбрать lease и изменить options sets - выставить UEFI.
 
-После этого данный lease host будет загружать ipxe.efi.
+После этого данный lease host будет загружать snponly64.efi.
 
 # H96Max
 
@@ -138,19 +113,27 @@ TFTP_ADDRESS=":69"
 TFTP_OPTIONS="--secure --create"
 EOF
 
-cp /tmp/undionly.kpxe /srv/tftp
-cp /tmp/ipxe.efi /srv/tftp
-
 sudo systemctl enable --now tftpd-hpa.service
 sudo systemctl enable --now nginx.service
 
-cat<<EOF | sudo tee /var/www/html/default.ipxe
+mkdir -p /var/www/html/ipxe
+
+cat<<EOF | sudo tee /var/www/html/ipxe/boot.ipxe
 #!ipxe
 
-# Define variables for server details
-set serverip 192.168.1.18
+set serverip boot.nurm.lan
 set repo mirror.ps.kz
-set ksfile ks.cfg          # Kickstart file name
+set ksfile ks.cfg
+
+set ${next-server} boot.nurm.lan:80
+
+
+:next
+chain --replace --autofree menu.ipxe
+EOF
+
+cat<<EOF | sudo tee /var/www/html/ipxe/menu.ipxe
+#!ipxe
 
 menu
   item --gap -- -------------------------- Rocky Linux 8 Installation --------------------------
@@ -385,6 +368,39 @@ choose --default boot_from_hdd0 --timeout 15000 target && goto ${target}
 
 Ну вроде все настроено и теперь можем использовать сетевую загрузку для различных задач.
 
+# IPXE 
+
+Необходимые нам файлы - undionly.kpxe, snponly.efi можно скопировать с [репозитория ipxe](https://github.com/ipxe/ipxe/releases/latest/download/ipxeboot.tar.gz).
+
+~~~bash
+
+cat<<EOF | sudo tee /srv/tftp/autoexec.ipxe
+#!ipxe
+
+dhcp
+
+chain --autofree http://boot.nurm.lan/ipxe/boot.ipxe
+EOF
+
+
+cd /tmp
+wget https://github.com/ipxe/ipxe/releases/latest/download/ipxeboot.tar.gz
+tar zxvf ipxeboot.tar.gz
+
+sudo cp ipxeboot/x86_64/undionly.kpxe /srv/tftp/undionly.kpxe
+sudo cp ipxeboot/x86_64/snponly.efi /srv/tftp/snponly64.efi
+sudo cp ipxeboot/i386/snponly.efi /srv/tftp/snponly32.efi
+sudo chown 0644 \ 
+     /srv/tftp/undionly.kpxe \
+     /srv/tftp/snponly64.efi \
+     /srv/tftp/snponly32.efi
+
+sudo chown tftp:tftp -R /srv/tftp
+
+rm -rf /tmp/ipxeboot*
+~~~
+
+
 # Ansible
 
 Нужно было повторить установку еще два раза, ну вот появился повод настроить Ansible-playbook.
@@ -420,7 +436,7 @@ ansible_port=22
   become: true
 
   vars:
-    server_ip: "192.168.1.18"
+    server_ip: "boot.nurm.lan"
 
     repo: "mirror.ps.kz"
 
@@ -435,19 +451,19 @@ ansible_port=22
         distroVersion: "8"
         osRoot: 'RockyLinux/8'
         ks: "ks.cfg"
-        webpath: "/rocky/8.10/BaseOS/x86_64/os"
+        webpath: "/rocky/8/BaseOS/x86_64/os"
       - distroName: "RockyLinux"
         distroShortName: "rocky"
         distroVersion: "9"
         osRoot: 'RockyLinux/9'
         ks: "ks.cfg"
-        webpath: "/rocky/9.7/BaseOS/x86_64/os"
+        webpath: "/rocky/9/BaseOS/x86_64/os"
       - distroName: "RockyLinux"
         distroShortName: "rocky"
         distroVersion: "10"
         osRoot: 'RockyLinux/10'
         ks: "ks.cfg"
-        webpath: "/rocky/10.1/BaseOS/x86_64/os"
+        webpath: "/rocky/10/BaseOS/x86_64/os"
       - distroName: "Debian"
         distroShortName: "debian"
         distroVersion: "12"
@@ -541,10 +557,34 @@ ansible_port=22
         - Service-tftpd-hpa-started
         - Service-tftpd-hpa-started
 
-    - name: Create or update default.ipxe.
+    - name: Ensure that /var/www/html/ipxe is exist.
+      ansible.builtin.file:
+        path: /var/www/html/ipxe
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Create or update autoexec.ipxe.
       ansible.builtin.template:
-        src: default.ipxe.j2
-        dest: /var/www/html/default.ipxe
+        src: autoexec.ipxe.j2
+        dest: /srv/tftp/autoexec.ipxe
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create or update boot.ipxe.
+      ansible.builtin.template:
+        src: boot.ipxe.j2
+        dest: /var/www/html/ipxe/boot.ipxe
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create or update menu.ipxe.
+      ansible.builtin.template:
+        src: menu.ipxe.j2
+        dest: /var/www/html/ipxe/menu.ipxe
         owner: root
         group: root
         mode: '0644'
@@ -592,7 +632,18 @@ ansible_port=22
     group: root
 ~~~
 
-# default.ipxe.j2
+# autoexec.ipxe.j2
+
+~~~
+#!ipxe
+
+dhcp
+
+chain --autofree http://{{ server_ip }}/ipxe/boot.ipxe
+EOF
+~~~
+
+# boot.ipxe.j2
 
 ~~~bash
 #!ipxe
@@ -601,6 +652,17 @@ ansible_port=22
 set serverip {{ server_ip }}
 set repo {{ repo }}
 set ksfile ks.cfg          # Kickstart file name
+
+set ${next-server} {{ server_ip }}:80
+
+:next
+chain --replace --autofree menu.ipxe
+~~~
+
+# menu.ipxe.j2
+
+~~~bash
+#!ipxe
 
 menu
 {% for os in oses %}
@@ -711,6 +773,8 @@ ansible-playbook main.yaml -K
 ~~~
 
 # Ansible - Linux distro update.
+
+Небольшой плейбук для обновления RockyLinux, Debian установочных файлов.
 
 ~~~yaml
 ---
