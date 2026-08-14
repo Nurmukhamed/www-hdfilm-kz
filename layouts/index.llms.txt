@@ -1,0 +1,27 @@
+# {{ .Site.Title }}
+
+Base URL: {{ .Site.BaseURL }}
+
+> {{ with .Site.Params.description }}{{ . }}{{ else }}Here goest description of this website.{{ end }}
+
+# SECTION: CONTENT_INDEX
+
+{{- $pages := .Site.RegularPages -}}
+{{- range $pages }}
+
+## {{ .Title }}
+
+[URL]({{ .Permalink }})
+
+{{- if .Date }}
+Date: {{ .Date.Format "2006-01-02" }}
+{{- end }}
+
+Summary:
+{{- with .Summary }}
+{{ . | plainify }}
+{{- else }}
+(No summary available)
+{{- end }}
+
+{{- end }}

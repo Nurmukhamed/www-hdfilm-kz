@@ -161,3 +161,12 @@ weight = 2
 lang = "kk"
 languageName = "Қазақ"
 weight = 3
+
+[outputs]
+home = ["HTML", "RSS", "llms"]
+
+[outputFormats.llms]
+baseName = "llms"
+isPlainText = true
+mediaType = "text/plain"
+root = true
