@@ -53,7 +53,7 @@ categories:
 * [Настраиваем сетевую загрузку с помощью dnsmasq, ipxe, bios, uefi](https://hdfilm.kz/blog/2026/08/12/ipxe-dnsmasq-dhcp-tftp-setup/index.html)
 * [Устанавливаем Windows 7 в 2023 году.](https://hdfilm.kz/blog/2023/03/20/installing-windows7-in-2023/index.html*)
 * [Как заменить образ сетевой карты в виртуальной машине на образ ipxe](https://hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/index.html)
-
+* [Настраиваем сетевую загрузку talos](https://hdfilm.kz/blog/2026/08/18/ipxe-talos-setup/index.html)
 # Что используем?
 
 * mikrotik router - как dhcp-server и откуда указываем где tftp-сервер и какие файлы нужно загрузить;
