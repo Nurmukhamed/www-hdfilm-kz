@@ -46,6 +46,14 @@ categories:
 
 Помучался несколько дней, для себя нашел верный вариант, загружаемся по сети, загружаем ipxe, затем уже в ipxe загружаемся с 0 диска. Ну еще для себя написал небольшое меню с возможностью установить Rocky Linux 8 версии. Другие версии и дистрибутивы в принципе тоже можно добавить. Просто нет такого желания.
 
+# Обновление
+
+* [Как настроить статический адрес в скрипте ipxe. Правильный путь](https://hdfilm.kz/blog/2015/07/24/ipxe-set-static-address-right-way/index.html)
+* [Примеры kickstart, preseed.cfg файлов](https://hdfilm.kz/blog/2026/08/05/kickstarts-and-preseeds-files/index.html)
+* [Настраиваем сетевую загрузку с помощью dnsmasq, ipxe, bios, uefi](https://hdfilm.kz/blog/2026/08/12/ipxe-dnsmasq-dhcp-tftp-setup/index.html)
+* [Устанавливаем Windows 7 в 2023 году.](https://hdfilm.kz/blog/2023/03/20/installing-windows7-in-2023/index.html*)
+* [Как заменить образ сетевой карты в виртуальной машине на образ ipxe](https://hdfilm.kz/blog/2015/07/24/vmwareaddipxemromtovmsnicbios/index.html)
+
 # Что используем?
 
 * mikrotik router - как dhcp-server и откуда указываем где tftp-сервер и какие файлы нужно загрузить;
